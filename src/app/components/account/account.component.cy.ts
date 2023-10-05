@@ -1,3 +1,4 @@
+import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { CardComponent } from '../card/card.component';
 import { AccountComponent } from './account.component';
 
@@ -11,10 +12,10 @@ describe('Account', () => {
         name: accountName,
         balance: accountBalance,
       },
-      declarations: [CardComponent],
+      declarations: [CardComponent, MoneyFormatPipe],
     });
     cy.contains(accountName);
     cy.contains(':');
-    cy.contains(accountBalance);
+    cy.contains(new MoneyFormatPipe().transform(accountBalance));
   });
 });

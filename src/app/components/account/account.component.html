@@ -1,6 +1,8 @@
 <app-card>
   <div style="display: grid; place-content: space-between">
     {{ name }}:
-    <span style="text-align: right; grid-column: 2">{{ balance }}</span>
+    <span style="text-align: right; grid-column: 2">{{
+      balance | moneyFormat
+    }}</span>
   </div>
 </app-card>
