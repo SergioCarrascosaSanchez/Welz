@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'moneyFormat',
 })
 export class MoneyFormatPipe implements PipeTransform {
-  transform(value: number, ...args: unknown[]): unknown {
+  transform(value: number): string {
     if (value === 0) return value + '€';
 
     const integerPart = value.toString().split('.')[0];
