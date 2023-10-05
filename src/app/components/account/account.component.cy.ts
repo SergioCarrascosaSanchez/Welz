@@ -4,13 +4,15 @@ import { AccountComponent } from './account.component';
 
 describe('Account', () => {
   it('should render accountName and balance', () => {
-    const accountName = 'Test account';
-    const accountBalance = 10000;
-
+    const accountName: string = 'Test account';
+    const accountBalance: number = 10000;
     cy.mount(AccountComponent, {
       componentProperties: {
-        name: accountName,
-        balance: accountBalance,
+        account: {
+          name: accountName,
+          balance: accountBalance,
+          transactions: [],
+        },
       },
       declarations: [CardComponent, MoneyFormatPipe],
     });

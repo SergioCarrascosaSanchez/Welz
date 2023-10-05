@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Account } from 'src/app/interfaces/account.model';
 
 @Component({
   selector: 'app-account',
@@ -6,6 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-  @Input() name: string;
-  @Input() balance: number;
+  @Input() account: Account;
 }
