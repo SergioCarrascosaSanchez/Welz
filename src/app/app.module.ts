@@ -6,19 +6,18 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CardComponent } from './components/card/card.component';
 import { AccountComponent } from './components/account/account.component';
+import { MoneyFormatPipe } from './pipes/money-format.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CardComponent,
-    AccountComponent
+    AccountComponent,
+    MoneyFormatPipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
