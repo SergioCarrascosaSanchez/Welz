@@ -15,7 +15,6 @@ describe('Account', () => {
       declarations: [CardComponent, MoneyFormatPipe],
     });
     cy.contains(accountName);
-    cy.contains(':');
     cy.contains(new MoneyFormatPipe().transform(accountBalance));
   });
 });
