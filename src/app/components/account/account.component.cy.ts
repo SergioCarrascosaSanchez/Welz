@@ -3,14 +3,18 @@ import { AccountComponent } from './account.component';
 
 describe('Account', () => {
   it('should render accountName and balance', () => {
-    cy.mount(
-      `<app-account [name]="'accoutName'" [balance]="10000"></app-account>`,
-      {
-        declarations: [AccountComponent, CardComponent],
-      }
-    );
-    cy.contains('accoutName');
+    const accountName = 'Test account';
+    const accountBalance = 10000;
+
+    cy.mount(AccountComponent, {
+      componentProperties: {
+        name: accountName,
+        balance: accountBalance,
+      },
+      declarations: [CardComponent],
+    });
+    cy.contains(accountName);
     cy.contains(':');
-    cy.contains(10000);
+    cy.contains(accountBalance);
   });
 });
