@@ -7,6 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CardComponent } from './components/card/card.component';
 import { AccountComponent } from './components/account/account.component';
 import { MoneyFormatPipe } from './pipes/money-format.pipe';
+import { TransactionComponent } from './components/transaction/transaction.component';
+import { BadgeComponent } from './components/badge/badge.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { MoneyFormatPipe } from './pipes/money-format.pipe';
     CardComponent,
     AccountComponent,
     MoneyFormatPipe,
+    TransactionComponent,
+    BadgeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
