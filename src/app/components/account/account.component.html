@@ -1,8 +1,18 @@
 <app-card>
-  <div style="display: grid; place-content: space-between">
+  <div style="display: grid; place-content: space-between" (click)="onClick()">
     {{ account.name }}
     <span style="text-align: right; grid-column: 2"
       >{{ account.balance | moneyFormat }}
     </span>
+  </div>
+  <div *ngIf="open && account.transactions.length > 0">
+    <app-transaction
+      *ngFor="let transaction of account.transactions"
+      [transaction]="transaction"
+    >
+    </app-transaction>
+  </div>
+  <div *ngIf="open && !(account.transactions.length > 0)">
+    {{ emptyTransactionsMessage }}
   </div>
 </app-card>

@@ -8,4 +8,12 @@ import { Account } from 'src/app/interfaces/account.model';
 })
 export class AccountComponent {
   @Input() account: Account;
+  emptyTransactionsMessage = emptyTransactions;
+  open = false;
+
+  onClick() {
+    this.open = !this.open;
+  }
 }
+
+export const emptyTransactions = 'No hay ninguna transacción.';
