@@ -12,7 +12,10 @@
     >
     </app-transaction>
   </div>
-  <div *ngIf="open && !(account.transactions.length > 0)">
+  <div
+    *ngIf="open && !(account.transactions.length > 0)"
+    style="color: rgba(150, 150, 150, 1); margin-top: 0.3vw"
+  >
     {{ emptyTransactionsMessage }}
   </div>
 </app-card>

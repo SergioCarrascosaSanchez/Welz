@@ -1,5 +1,5 @@
 <app-card>
-  <div *ngIf="!(transactions.length > 0)">
+  <div *ngIf="!(transactions.length > 0)" style="color: rgba(150, 150, 150, 1)">
     {{ emptyTransactionsMessage }}
   </div>
   <app-transaction
