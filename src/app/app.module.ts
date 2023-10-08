@@ -10,6 +10,7 @@ import { MoneyFormatPipe } from './pipes/money-format.pipe';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { TransactionPageComponent } from './pages/transactions/transactions-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TransactionPageComponent } from './pages/transactions/transactions-page
     TransactionComponent,
     BadgeComponent,
     TransactionPageComponent,
+    NavbarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

@@ -1,0 +1,11 @@
+.activated-route {
+  color: black;
+  border-bottom: solid 2px rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.not-activated-route {
+  color: #c0c0c0;
+  border-bottom: solid 2px #d1d1d1;
+  text-decoration: none;
+}
