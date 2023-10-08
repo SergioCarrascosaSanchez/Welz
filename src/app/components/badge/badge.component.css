@@ -1,9 +1,9 @@
 .badge {
-  display: inline;
+  display: inline-block;
   padding-left: 0.45vw;
-  padding-right: 0.15vw;
-  padding-top: 0.3vw;
-  padding-bottom: 0.3vw;
+  padding-right: 0.45vw;
+  padding-top: 0.2vw;
+  padding-bottom: 0.2vw;
   border-radius: 5px;
   color: white;
   margin-right: 0.5vw;
