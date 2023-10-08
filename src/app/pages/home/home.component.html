@@ -1,1 +1,16 @@
-<p>home works!</p>
+<app-card>
+  Posicion total:
+  <h2
+    style="
+      font-size: xx-large;
+      margin-block-end: 0px;
+      margin-block-start: 0.3vw;
+    "
+  >
+    {{ this.balance | moneyFormat }}
+  </h2>
+</app-card>
+
+<app-card> Presupuesto: 1.300€/1463€ </app-card>
+
+<app-account *ngFor="let account of accounts" [account]="account"></app-account>
