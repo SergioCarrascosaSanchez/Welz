@@ -1,0 +1,17 @@
+<app-card>
+  <h2 style="margin-block-start: 0px">{{ title }}</h2>
+  <app-card *ngFor="let category of categories" type="subcard">
+    <div style="display: grid; place-content: space-between">
+      <app-badge [text]="category.name" [color]="category.color"></app-badge>
+      <span
+        style="
+          text-align: right;
+          grid-column: 2;
+          display: grid;
+          place-content: center;
+        "
+        >{{ category.max | moneyFormat }}
+      </span>
+    </div>
+  </app-card>
+</app-card>
