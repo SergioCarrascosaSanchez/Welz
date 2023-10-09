@@ -5,7 +5,10 @@
       >{{ account.balance | moneyFormat }}
     </span>
   </div>
-  <div *ngIf="open && account.transactions.length > 0">
+  <div
+    *ngIf="open && account.transactions.length > 0"
+    style="margin-top: 0.5vw"
+  >
     <app-transaction
       *ngFor="let transaction of account.transactions"
       [transaction]="transaction"
@@ -14,7 +17,7 @@
   </div>
   <div
     *ngIf="open && !(account.transactions.length > 0)"
-    style="color: rgba(150, 150, 150, 1); margin-top: 0.3vw"
+    style="color: rgba(150, 150, 150, 1); margin-top: 0.5vw"
   >
     {{ emptyTransactionsMessage }}
   </div>
