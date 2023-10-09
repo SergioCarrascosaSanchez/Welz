@@ -1,11 +1,11 @@
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
-import { BudgetItemComponent } from './budget-item.component';
+import { BudgetCategoryComponent } from './budget-category.component';
 import { BadgeComponent } from '../badge/badge.component';
 
 describe('BudgetItemComponent', () => {
   it('should render title', () => {
     const title = 'Test title';
-    cy.mount(BudgetItemComponent, {
+    cy.mount(BudgetCategoryComponent, {
       componentProperties: {
         title: title,
       },
@@ -22,7 +22,7 @@ describe('BudgetItemComponent', () => {
 
     const budgetCategory = { name: name, max: value, color: color };
 
-    cy.mount(BudgetItemComponent, {
+    cy.mount(BudgetCategoryComponent, {
       componentProperties: {
         title: title,
         categories: [budgetCategory],
@@ -51,7 +51,7 @@ describe('BudgetItemComponent', () => {
     const budgetCategory1 = { name: name1, max: value1, color: color1 };
     const budgetCategory2 = { name: name2, max: value2, color: color2 };
 
-    cy.mount(BudgetItemComponent, {
+    cy.mount(BudgetCategoryComponent, {
       componentProperties: {
         title: title,
         categories: [budgetCategory1, budgetCategory2],

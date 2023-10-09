@@ -12,7 +12,7 @@ import { BadgeComponent } from './components/badge/badge.component';
 import { TransactionPageComponent } from './pages/transactions/transactions-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BudgetComponent } from './pages/budget/budget.component';
-import { BudgetItemComponent } from './components/budget-item/budget-item.component';
+import { BudgetCategoryComponent } from './components/budget-category/budget-category.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { BudgetItemComponent } from './components/budget-item/budget-item.compon
     TransactionPageComponent,
     NavbarComponent,
     BudgetComponent,
-    BudgetItemComponent,
+    BudgetCategoryComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
