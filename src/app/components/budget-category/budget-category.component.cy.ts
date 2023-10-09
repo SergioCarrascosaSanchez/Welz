@@ -1,6 +1,7 @@
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { BudgetCategoryComponent } from './budget-category.component';
 import { BadgeComponent } from '../badge/badge.component';
+import { BudgetCategoryItemComponent } from '../budget-category-item/budget-category-item.component';
 
 describe('BudgetItemComponent', () => {
   it('should render title', () => {
@@ -27,7 +28,11 @@ describe('BudgetItemComponent', () => {
         title: title,
         categories: [budgetCategory],
       },
-      declarations: [MoneyFormatPipe, BadgeComponent],
+      declarations: [
+        MoneyFormatPipe,
+        BadgeComponent,
+        BudgetCategoryItemComponent,
+      ],
     });
 
     cy.contains(title);
@@ -56,7 +61,11 @@ describe('BudgetItemComponent', () => {
         title: title,
         categories: [budgetCategory1, budgetCategory2],
       },
-      declarations: [MoneyFormatPipe, BadgeComponent],
+      declarations: [
+        MoneyFormatPipe,
+        BadgeComponent,
+        BudgetCategoryItemComponent,
+      ],
     });
 
     cy.contains(title);

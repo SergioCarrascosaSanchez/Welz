@@ -1,0 +1,54 @@
+<div (click)="onClick()">
+  <app-card type="subcard">
+    <div style="display: grid; place-content: space-between">
+      <app-badge [text]="category.name" [color]="category.color"></app-badge>
+      <span
+        style="
+          text-align: right;
+          grid-column: 2;
+          display: grid;
+          place-content: center;
+        "
+        >{{ category.max | moneyFormat }}
+      </span>
+    </div>
+    <div
+      *ngIf="open && transactions.length > 1"
+      style="border-top: solid 2px rgb(218, 218, 218); margin-top: 1.2vh"
+    >
+      <div *ngFor="let transaction of transactions">
+        <div
+          style="
+            display: grid;
+            place-content: space-between;
+            margin-top: 1.2vh;
+            margin-bottom: 1.2vh;
+          "
+        >
+          <div>
+            {{ transaction.description }}
+            <span style="color: rgba(150, 150, 150, 1); margin-left: 0.5vw"
+              >{{ transaction.date | date : "dd/MM/yyyy" }}
+            </span>
+          </div>
+
+          <span
+            style="
+              text-align: right;
+              grid-column: 3;
+              display: grid;
+              place-content: center;
+            "
+            >{{ transaction.value | moneyFormat }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="open && transactions.length <= 0"
+      style="color: rgba(150, 150, 150, 1); margin-top: 0.7vw"
+    >
+      {{ emptyTransactionsMessage }}
+    </div>
+  </app-card>
+</div>

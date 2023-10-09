@@ -13,6 +13,7 @@ import { TransactionPageComponent } from './pages/transactions/transactions-page
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BudgetComponent } from './pages/budget/budget.component';
 import { BudgetCategoryComponent } from './components/budget-category/budget-category.component';
+import { BudgetCategoryItemComponent } from './components/budget-category-item/budget-category-item.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BudgetCategoryComponent } from './components/budget-category/budget-cat
     NavbarComponent,
     BudgetComponent,
     BudgetCategoryComponent,
+    BudgetCategoryItemComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
