@@ -11,6 +11,8 @@ import { TransactionComponent } from './components/transaction/transaction.compo
 import { BadgeComponent } from './components/badge/badge.component';
 import { TransactionPageComponent } from './pages/transactions/transactions-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BudgetComponent } from './pages/budget/budget.component';
+import { BudgetItemComponent } from './components/budget-item/budget-item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BadgeComponent,
     TransactionPageComponent,
     NavbarComponent,
+    BudgetComponent,
+    BudgetItemComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
