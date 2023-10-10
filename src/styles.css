@@ -2,7 +2,6 @@
 
 html,
 body {
-  font-size: normal;
   scrollbar-width: thin; /* "thin" or "none" to hide the scrollbar */
   background-color: #eff0f3;
   margin: 0;
@@ -18,9 +17,30 @@ body {
   background-color: transparent; /* This is the color of the thumb */
 }
 
+h2 {
+  font-size: xx-large;
+}
+
 @media screen and (max-width: 767px) {
   html,
   body {
     font-size: small;
+  }
+  h2 {
+    font-size: x-large;
+  }
+
+  h1 {
+    font-size: x-large;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  html,
+  body {
+    font-size: normal;
+  }
+  h2 {
+    font-size: xx-large;
   }
 }
