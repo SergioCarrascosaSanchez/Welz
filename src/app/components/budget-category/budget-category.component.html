@@ -1,5 +1,5 @@
 <app-card>
-  <h2 style="margin-block-start: 0px">{{ title }}</h2>
+  <h2 class="title">{{ title }}</h2>
   <div *ngFor="let category of categories" type="subcard">
     <app-budget-category-item [category]="category"></app-budget-category-item>
   </div>
