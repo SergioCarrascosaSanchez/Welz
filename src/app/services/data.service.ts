@@ -110,7 +110,7 @@ export class DataService {
   }
 
   getAccounts() {
-    return this.data.budget;
+    return this.data.accounts;
   }
 
   getBudget() {
