@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Account } from 'src/app/interfaces/account.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,15 @@ import { Account } from 'src/app/interfaces/account.model';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  username = 'Sergio';
-  balance = 15300.23;
-  accounts: Account[] = [
-    {
-      name: 'Cuenta santander ahorro',
-      balance: 19999.12,
-    },
-    { name: 'Cuenta BBVA gastos', balance: 9040.23 },
-    { name: 'Inversión', balance: 132000 },
-  ];
+  username: string;
+  balance: number;
+  accounts: Account[];
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.username = this.dataService.getUsername();
+    this.balance = this.dataService.getBalance();
+    this.accounts = this.dataService.getAccounts();
+  }
 }
