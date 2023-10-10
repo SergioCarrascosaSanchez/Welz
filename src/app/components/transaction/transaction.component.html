@@ -1,20 +1,20 @@
 <app-card type="subcard">
   <div style="display: grid; place-content: space-between">
-    <div>
+    <div style="display: grid">
       <app-badge
         [text]="transaction.budgetCategory.name"
         [color]="transaction.budgetCategory.color"
       ></app-badge>
-      {{ transaction.description }}
-      <span style="color: rgba(150, 150, 150, 1); margin-left: 0.5vw"
-        >{{ transaction.date | date : "dd/MM/yyyy" }}
-      </span>
+      <span class="date">{{ transaction.date | date : "dd/MM/yyyy" }} </span>
+      <div class="description">
+        {{ transaction.description }}
+      </div>
     </div>
 
     <span
       style="
         text-align: right;
-        grid-column: 3;
+        grid-column: 2;
         display: grid;
         place-content: center;
       "
