@@ -2,6 +2,7 @@
 
 html,
 body {
+  font-size: normal;
   scrollbar-width: thin; /* "thin" or "none" to hide the scrollbar */
   background-color: #eff0f3;
   margin: 0;
@@ -15,4 +16,11 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: transparent; /* This is the color of the thumb */
+}
+
+@media screen and (max-width: 767px) {
+  html,
+  body {
+    font-size: small;
+  }
 }
