@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavbarComponent } from './navbar.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NavbarComponent, navbarItems } from './navbar.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -8,7 +8,8 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent]
+      imports: [RouterTestingModule.withRoutes([])],
+      declarations: [NavbarComponent],
     });
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
@@ -17,5 +18,13 @@ describe('NavbarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display navItems', () => {
+    Object.values(navbarItems).forEach((item) => {
+      expect(fixture.debugElement.nativeElement.textContent).toContain(
+        item.text
+      );
+    });
   });
 });
