@@ -6,18 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  navbarItems = [
-    {
-      text: 'Home',
-      route: '/',
-    },
-    {
-      text: 'Presupuesto',
-      route: '/budget',
-    },
-    {
-      text: 'Movimientos',
-      route: '/transactions',
-    },
-  ];
+  navbarItems = navbarItems;
 }
+
+export const navbarItems = [
+  {
+    text: 'Home',
+    route: '/',
+  },
+  {
+    text: 'Presupuesto',
+    route: '/budget',
+  },
+  {
+    text: 'Movimientos',
+    route: '/transactions',
+  },
+];
