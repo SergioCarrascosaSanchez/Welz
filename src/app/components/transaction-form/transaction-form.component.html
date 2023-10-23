@@ -1,0 +1,52 @@
+<h1 style="font-size: x-large">Nueva transacción</h1>
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="description" placeholder="Descripcion" />
+  <input type="number" formControlName="quantity" placeholder="Cantidad" />
+
+  <select
+    formControlName="category"
+    [ngStyle]="{
+      color: defaultValueCategory.selected ? 'rgb(113, 113, 122)' : ''
+    }"
+  >
+    <option
+      [value]="null"
+      disabled="true"
+      [selected]="true"
+      #defaultValueCategory
+    >
+      Categoria del presupuesto
+    </option>
+    <option
+      *ngFor="let category of categories"
+      [ngValue]="category"
+      style="color: black"
+    >
+      {{ category.name }}
+    </option>
+  </select>
+
+  <select
+    formControlName="account"
+    [ngStyle]="{
+      color: defaultValueAccount.selected ? 'rgb(113, 113, 122)' : ''
+    }"
+  >
+    <option
+      [value]="null"
+      disabled="true"
+      [selected]="true"
+      #defaultValueAccount
+    >
+      Cuenta bancaria
+    </option>
+    <option
+      *ngFor="let account of accounts"
+      [ngValue]="account"
+      style="color: black"
+    >
+      {{ account.name }}
+    </option>
+  </select>
+  <button type="submit">Submit</button>
+</form>

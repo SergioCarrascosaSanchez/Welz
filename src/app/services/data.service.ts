@@ -131,4 +131,12 @@ export class DataService {
     );
     return transactions;
   }
+
+  getBudgetCategories() {
+    return [
+      ...this.data.budget.expensesCategories,
+      ...this.data.budget.incomeCategories,
+      ...this.data.budget.savingCategories,
+    ];
+  }
 }
