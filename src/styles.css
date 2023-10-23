@@ -52,7 +52,6 @@ option {
   border: 1px solid #e4e4e7;
   border-radius: 5px;
   padding: 0.5vw;
-  margin-top: 1%;
   width: 100%;
 }
 
@@ -68,5 +67,4 @@ button {
   border-radius: 5px;
   font-weight: 500;
   border: none;
-  margin-top: 1%;
 }
