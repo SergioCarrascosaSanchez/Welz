@@ -44,3 +44,29 @@ h2 {
     font-size: xx-large;
   }
 }
+
+input,
+select,
+option {
+  display: block;
+  border: 1px solid #e4e4e7;
+  border-radius: 5px;
+  padding: 0.5vw;
+  margin-top: 1%;
+  width: 100%;
+}
+
+::placeholder {
+  color: rgb(113, 113, 122);
+}
+
+button {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  border: none;
+  margin-top: 1%;
+}
