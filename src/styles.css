@@ -53,6 +53,7 @@ option {
   border-radius: 5px;
   padding: 0.5vw;
   width: 100%;
+  box-sizing: border-box;
 }
 
 ::placeholder {
