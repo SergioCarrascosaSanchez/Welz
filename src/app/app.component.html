@@ -8,7 +8,7 @@
         <app-navbar></app-navbar>
       </div>
 
-      <button class="add-icon">
+      <button class="add-icon" (click)="onAdd()">
         <svg
           width="24"
           height="24"
@@ -23,6 +23,9 @@
         </svg>
       </button>
     </div>
+    <app-modal [open]="addModalOpen" (closeEmmitter)="onClose()">
+      <app-transaction-form (closeEmitter)="onClose()"></app-transaction-form>
+    </app-modal>
 
     <router-outlet></router-outlet>
   </div>

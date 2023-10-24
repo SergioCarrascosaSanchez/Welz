@@ -9,9 +9,19 @@ import { DataService } from './services/data.service';
 export class AppComponent {
   title = 'budget-app';
   username: string;
+  addModalOpen = false;
+
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.username = this.dataService.getUsername();
+  }
+
+  onAdd() {
+    this.addModalOpen = true;
+  }
+
+  onClose() {
+    this.addModalOpen = false;
   }
 }
