@@ -1,8 +1,8 @@
 input,
 select {
-  margin-bottom: 0.5vw;
+  margin-bottom: 8px;
 }
 
 button {
-  margin-top: 0.5vw;
+  margin-top: 10px;
 }
