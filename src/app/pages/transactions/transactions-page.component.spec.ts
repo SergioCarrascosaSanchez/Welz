@@ -131,14 +131,14 @@ class EmptyDataServiceMock {
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
   budgetCategory: { name: 'Mock1', max: 1000, color: 'red' },
-  account: 'Cuenta principal',
+  account: { name: 'Cuenta principal', balance: 0 },
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
   budgetCategory: { name: 'Mock2', max: 2000, color: 'blue' },
-  account: 'Cuenta principal',
+  account: { name: 'Cuenta principal', balance: 0 },
   value: 120.0,
   date: new Date('2023-10-05'),
 };

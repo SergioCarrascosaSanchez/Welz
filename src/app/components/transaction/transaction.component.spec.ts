@@ -16,7 +16,7 @@ describe('TransactionComponent', () => {
       max: 1000,
       color: 'red',
     },
-    account: 'Cuenta principal',
+    account: { name: 'Cuenta principal', balance: 0 },
     value: 50.25,
     date: new Date('2017-10-06'),
   };
