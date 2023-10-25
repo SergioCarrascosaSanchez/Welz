@@ -39,6 +39,13 @@ export class TransactionFormComponent {
 
   onSubmit() {
     if (!this.transactionForm.invalid && !this.transactionForm.pristine) {
+      this.dataService.addNewTransaction({
+        description: this.transactionForm.controls.description.value,
+        value: this.transactionForm.controls.quantity.value,
+        budgetCategory: this.transactionForm.controls.category.value,
+        account: this.transactionForm.controls.account.value,
+        date: new Date(),
+      });
       this.resetForm();
       this.invalid = false;
     } else {

@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { UserData } from '../interfaces/userData.model';
+import { Transaction } from '../interfaces/transaction.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  dataChange = new EventEmitter<void>();
+
   private data: UserData = {
     username: 'Sergio',
     balance: 15149.2,
@@ -138,5 +141,10 @@ export class DataService {
       ...this.data.budget.incomeCategories,
       ...this.data.budget.savingCategories,
     ];
+  }
+
+  addNewTransaction(transaction: Transaction) {
+    this.data.transactions.push(transaction);
+    this.dataChange.emit();
   }
 }
