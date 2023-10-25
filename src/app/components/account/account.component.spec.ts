@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountComponent, emptyTransactions } from './account.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
@@ -153,19 +153,15 @@ describe('AccountComponent', () => {
 
 /* DataServiceMocks */
 
-@Injectable({
-  providedIn: 'root',
-})
 class DataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactionsOfAccount(s: string) {
     return [transaction1, transaction2];
   }
 }
 
-@Injectable({
-  providedIn: 'root',
-})
 class EmptyDataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactionsOfAccount(s: string) {
     return [];
   }

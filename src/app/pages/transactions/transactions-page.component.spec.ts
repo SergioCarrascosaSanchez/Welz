@@ -3,7 +3,7 @@ import {
   TransactionPageComponent,
   emptyTransactions,
 } from './transactions-page.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { BadgeComponent } from 'src/app/components/badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
@@ -114,6 +114,7 @@ describe('Transactionns Page Component', () => {
   providedIn: 'root',
 })
 class DataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactions() {
     return [transaction1, transaction2];
   }
@@ -123,6 +124,7 @@ class DataServiceMock {
   providedIn: 'root',
 })
 class EmptyDataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactions() {
     return [];
   }

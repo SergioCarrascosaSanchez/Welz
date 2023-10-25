@@ -15,6 +15,9 @@ export class TransactionPageComponent {
 
   ngOnInit() {
     this.transactions = this.dataService.getTransactions();
+    this.dataService.dataChange.subscribe(() => {
+      this.transactions = this.dataService.getTransactions();
+    });
   }
 }
 

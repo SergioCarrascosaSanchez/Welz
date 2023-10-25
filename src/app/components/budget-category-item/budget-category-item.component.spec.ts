@@ -3,7 +3,7 @@ import {
   BudgetCategoryItemComponent,
   emptyTransactions,
 } from './budget-category-item.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
@@ -171,19 +171,15 @@ describe('BudgetCategoryItemComponent', () => {
 
 /* DataServiceMocks */
 
-@Injectable({
-  providedIn: 'root',
-})
 class DataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactionsOfBudgetCategory(s: string) {
     return [transaction1, transaction2];
   }
 }
 
-@Injectable({
-  providedIn: 'root',
-})
 class EmptyDataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactionsOfBudgetCategory(s: string) {
     return [];
   }

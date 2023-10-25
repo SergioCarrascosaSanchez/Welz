@@ -24,6 +24,11 @@ export class AccountComponent {
     this.transactions = this.dataService.getTransactionsOfAccount(
       this.account.name
     );
+    this.dataService.dataChange.subscribe(() => {
+      this.transactions = this.dataService.getTransactionsOfAccount(
+        this.account.name
+      );
+    });
   }
 }
 
