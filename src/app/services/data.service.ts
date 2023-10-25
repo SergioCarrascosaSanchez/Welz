@@ -32,20 +32,20 @@ export class DataService {
       {
         description: 'Compra de comestibles',
         budgetCategory: { name: 'Alimentacion', max: 1000, color: 'red' },
-        account: 'Cuenta santander ahorro',
+        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
         value: 50.25,
         date: new Date('2023-10-06'),
       },
       {
         description: 'Pago de factura de electricidad',
         budgetCategory: { name: 'Fijos', max: 1000, color: 'grey' },
-        account: 'Cuenta santander ahorro',
+        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
         value: 120.0,
         date: new Date('2023-10-05'),
       },
       {
         description: 'Cine',
-        account: 'Cuenta BBVA gastos',
+        account: { name: 'Cuenta BBVA gastos', balance: 9040.23 },
         budgetCategory: {
           name: 'Ocio',
           max: 1000,
@@ -57,28 +57,28 @@ export class DataService {
       {
         description: 'Compra de gasolina',
         budgetCategory: { name: 'Fijos', max: 500, color: 'grey' },
-        account: 'Cuenta santander ahorro',
+        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
         value: 40.0,
         date: new Date('2023-10-04'),
       },
       {
         description: 'Pago de factura de teléfono',
         budgetCategory: { name: 'Fijos', max: 500, color: 'grey' },
-        account: 'Cuenta santander ahorro',
+        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
         value: 60.0,
         date: new Date('2023-10-03'),
       },
       {
         description: 'Cena en un restaurante',
         budgetCategory: { name: 'Ocio', max: 1000, color: 'purple' },
-        account: 'Cuenta BBVA gastos',
+        account: { name: 'Cuenta BBVA gastos', balance: 9040.23 },
         value: 75.5,
         date: new Date('2023-10-02'),
       },
       {
         description: 'Bolera',
         budgetCategory: { name: 'Ocio', max: 200, color: 'purple' },
-        account: 'Cuenta santander ahorro',
+        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
         value: 30.0,
         date: new Date('2023-10-01'),
       },
@@ -120,7 +120,7 @@ export class DataService {
 
   getTransactionsOfAccount(account: string) {
     const transactions = this.data.transactions.filter(
-      (transaction) => transaction.account === account
+      (transaction) => transaction.account.name === account
     );
     return transactions;
   }
