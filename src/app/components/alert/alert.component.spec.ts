@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AlertComponent } from './alert.component';
+import { ALERT_TYPES, AlertComponent } from './alert.component';
 
 describe('AlertComponent', () => {
   let component: AlertComponent;
@@ -19,12 +19,34 @@ describe('AlertComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render message with alert class', () => {
+  it('should render message', () => {
     const message = 'Test alert message';
     component.message = message;
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(message);
-    expect(fixture.debugElement.query(By.css('.alert'))).toBeTruthy();
+  });
+
+  it('should have danger class', () => {
+    component.type = ALERT_TYPES.danger;
+    fixture.detectChanges();
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
+  });
+
+  it('should have success class', () => {
+    component.type = ALERT_TYPES.success;
+    fixture.detectChanges();
+
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeFalsy();
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeTruthy();
   });
 });
