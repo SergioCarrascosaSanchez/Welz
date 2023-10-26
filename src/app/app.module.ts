@@ -14,6 +14,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BudgetComponent } from './pages/budget/budget.component';
 import { BudgetCategoryComponent } from './components/budget-category/budget-category.component';
 import { BudgetCategoryItemComponent } from './components/budget-category-item/budget-category-item.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { TransactionFormComponent } from './components/transaction-form/transaction-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +33,11 @@ import { BudgetCategoryItemComponent } from './components/budget-category-item/b
     BudgetComponent,
     BudgetCategoryComponent,
     BudgetCategoryItemComponent,
+    ModalComponent,
+    TransactionFormComponent,
+    AlertComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

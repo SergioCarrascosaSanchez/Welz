@@ -14,5 +14,8 @@ export class BudgetComponent {
 
   ngOnInit() {
     this.budget = this.dataService.getBudget();
+    this.dataService.dataChange.subscribe(() => {
+      this.budget = this.dataService.getBudget();
+    });
   }
 }

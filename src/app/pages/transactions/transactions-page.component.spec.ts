@@ -3,7 +3,7 @@ import {
   TransactionPageComponent,
   emptyTransactions,
 } from './transactions-page.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { BadgeComponent } from 'src/app/components/badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
@@ -114,6 +114,7 @@ describe('Transactionns Page Component', () => {
   providedIn: 'root',
 })
 class DataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactions() {
     return [transaction1, transaction2];
   }
@@ -123,6 +124,7 @@ class DataServiceMock {
   providedIn: 'root',
 })
 class EmptyDataServiceMock {
+  dataChange = new EventEmitter<void>();
   getTransactions() {
     return [];
   }
@@ -131,14 +133,14 @@ class EmptyDataServiceMock {
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
   budgetCategory: { name: 'Mock1', max: 1000, color: 'red' },
-  account: 'Cuenta principal',
+  account: { name: 'Cuenta principal', balance: 0 },
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
   budgetCategory: { name: 'Mock2', max: 2000, color: 'blue' },
-  account: 'Cuenta principal',
+  account: { name: 'Cuenta principal', balance: 0 },
   value: 120.0,
   date: new Date('2023-10-05'),
 };

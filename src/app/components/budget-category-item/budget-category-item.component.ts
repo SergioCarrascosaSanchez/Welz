@@ -18,6 +18,9 @@ export class BudgetCategoryItemComponent {
 
   ngOnInit() {
     this.transactions = this.getTransactions();
+    this.dataService.dataChange.subscribe(() => {
+      this.transactions = this.getTransactions();
+    });
   }
   onClick() {
     this.open = !this.open;

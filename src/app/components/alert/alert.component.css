@@ -1,0 +1,21 @@
+.danger {
+  border: 1px solid rgb(239, 68, 68);
+  color: rgb(239, 68, 68);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+  display: inline-block;
+  margin-block-start: 0px;
+  margin-block-end: 10px;
+}
+
+.success {
+  border: 1px solid rgb(22, 163, 74);
+  color: rgb(22, 163, 74);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+  display: inline-block;
+  margin-block-start: 0px;
+  margin-block-end: 10px;
+}
