@@ -5,6 +5,11 @@
     [message]="errors"
     [type]="errorAlertType"
   ></app-alert>
+  <app-alert
+    *ngIf="correctAddition"
+    [message]="correctAdditionMessage"
+    [type]="successAlertType"
+  ></app-alert>
 
   <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
     <input

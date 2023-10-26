@@ -6,6 +6,7 @@ import {
   EmptyError,
   MinAndEmptyError,
   MinError,
+  CorrectAdditionMessage,
 } from './transaction-form.component';
 import { AlertComponent } from '../alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Account } from 'src/app/interfaces/account.model';
 import { DataService } from 'src/app/services/data.service';
 import { ALERT_TYPES } from '../alert/alert.component';
+import { Transaction } from 'src/app/interfaces/transaction.model';
 
 describe('TransactionFormComponent', () => {
   let component: TransactionFormComponent;
@@ -73,12 +75,23 @@ describe('TransactionFormComponent', () => {
     expect(button).toBeTruthy();
     button.click();
     fixture.detectChanges();
+
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
   it('should render error message if description is empty', () => {
@@ -94,12 +107,22 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
   it('should render error message if quantity is empty', () => {
@@ -115,12 +138,22 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
   it('should render error message if account is empty', () => {
@@ -136,12 +169,22 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
   it('should render error message if category is empty', () => {
@@ -157,15 +200,25 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
-  it('should not render error message if no category is empty', () => {
+  it('should not render error message if no category is empty and render success message', () => {
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       EmptyError
     );
@@ -179,13 +232,22 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
-      EmptyError
+    expect(component.correctAddition).toBeTrue();
+    expect(component.errors).toBeFalsy();
+
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      CorrectAdditionMessage
     );
-    expect(fixture.debugElement.query(By.css(ALERT_TYPES.danger))).toBeFalsy();
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeFalsy();
   });
 
-  it('should not render error message if quantity is 0', () => {
+  it('should render error message if quantity is 0', () => {
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       EmptyError
     );
@@ -199,13 +261,23 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(MinError);
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
-  it('should not render error message if quantity is less than 0', () => {
+  it('should render error message if quantity is less than 0', () => {
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       EmptyError
     );
@@ -219,13 +291,23 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(MinError);
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 
-  it('should not render error message if quantity is 0 or less and there is a empty field', () => {
+  it('should render error message if quantity is 0 or less and there is a empty field', () => {
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       EmptyError
     );
@@ -238,12 +320,21 @@ describe('TransactionFormComponent', () => {
     button.click();
     fixture.detectChanges();
 
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       MinAndEmptyError
     );
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
     ).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
   });
 });
 
@@ -256,6 +347,8 @@ class DataServiceMock {
   getAccounts() {
     return [account1, account2];
   }
+
+  addNewTransaction(t: Transaction) {}
 }
 
 const budgetCategory1: BudgetCategory = {

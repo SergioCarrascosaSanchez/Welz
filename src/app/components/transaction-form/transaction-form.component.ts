@@ -14,6 +14,8 @@ import { ALERT_TYPES } from '../alert/alert.component';
 export class TransactionFormComponent {
   constructor(private dataService: DataService) {}
 
+  title = Title;
+
   transactionForm = new FormGroup({
     description: new FormControl<string>(null, [EmptyValidator]),
     quantity: new FormControl<number>(null, [
@@ -24,15 +26,17 @@ export class TransactionFormComponent {
     account: new FormControl<Account>(null, [EmptyValidator]),
   });
 
-  invalid = false;
-
   categories: BudgetCategory[];
   accounts: Account[];
 
+  invalid = false;
+
+  correctAddition = false;
+  correctAdditionMessage = CorrectAdditionMessage;
+
   errors = '';
   errorAlertType = ALERT_TYPES.danger;
-
-  title = Title;
+  successAlertType = ALERT_TYPES.success;
 
   ngOnInit() {
     this.categories = this.dataService.getBudgetCategories();
@@ -40,7 +44,8 @@ export class TransactionFormComponent {
   }
 
   onSubmit() {
-    if (!this.transactionForm.invalid && !this.transactionForm.pristine) {
+    this.errors = '';
+    if (!this.transactionForm.invalid) {
       this.dataService.addNewTransaction({
         description: this.transactionForm.controls.description.value,
         value: this.transactionForm.controls.quantity.value,
@@ -50,8 +55,10 @@ export class TransactionFormComponent {
       });
       this.resetForm();
       this.invalid = false;
+      this.correctAddition = true;
     } else {
       this.manageErrors();
+      this.correctAddition = false;
       this.invalid = true;
     }
   }
@@ -100,3 +107,4 @@ export const MinAndEmptyError: string =
 export const MinError: string = 'Debes incluir una cantidad mayor que cero.';
 export const EmptyError: string = 'Debes rellenar todos los campos.';
 export const Title: string = 'Nueva transacción';
+export const CorrectAdditionMessage = 'Transacción registrada con éxito';
