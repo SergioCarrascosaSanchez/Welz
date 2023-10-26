@@ -1,6 +1,10 @@
 <div class="container">
   <h1 style="font-size: x-large">{{ title }}</h1>
-  <app-alert *ngIf="invalid" [message]="errors"></app-alert>
+  <app-alert
+    *ngIf="invalid"
+    [message]="errors"
+    [type]="errorAlertType"
+  ></app-alert>
 
   <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
     <input

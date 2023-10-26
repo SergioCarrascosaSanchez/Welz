@@ -4,6 +4,7 @@ import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { DataService } from 'src/app/services/data.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
+import { ALERT_TYPES } from '../alert/alert.component';
 
 @Component({
   selector: 'app-transaction-form',
@@ -29,6 +30,7 @@ export class TransactionFormComponent {
   accounts: Account[];
 
   errors = '';
+  errorAlertType = ALERT_TYPES.danger;
 
   title = Title;
 

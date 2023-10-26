@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Account } from 'src/app/interfaces/account.model';
 import { DataService } from 'src/app/services/data.service';
+import { ALERT_TYPES } from '../alert/alert.component';
 
 describe('TransactionFormComponent', () => {
   let component: TransactionFormComponent;
@@ -75,6 +76,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should render error message if description is empty', () => {
@@ -93,6 +97,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should render error message if quantity is empty', () => {
@@ -111,6 +118,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should render error message if account is empty', () => {
@@ -129,6 +139,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should render error message if category is empty', () => {
@@ -147,6 +160,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       EmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should not render error message if no category is empty', () => {
@@ -166,25 +182,7 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       EmptyError
     );
-  });
-
-  it('should not render error message if no category is empty', () => {
-    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
-      EmptyError
-    );
-
-    component.transactionForm.controls.description.setValue('Test');
-    component.transactionForm.controls.quantity.setValue(3);
-    component.transactionForm.controls.category.setValue(budgetCategory1);
-    component.transactionForm.controls.account.setValue(account1);
-
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
-
-    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
-      EmptyError
-    );
+    expect(fixture.debugElement.query(By.css(ALERT_TYPES.danger))).toBeFalsy();
   });
 
   it('should not render error message if quantity is 0', () => {
@@ -202,6 +200,9 @@ describe('TransactionFormComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(MinError);
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should not render error message if quantity is less than 0', () => {
@@ -219,6 +220,9 @@ describe('TransactionFormComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(MinError);
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 
   it('should not render error message if quantity is 0 or less and there is a empty field', () => {
@@ -237,6 +241,9 @@ describe('TransactionFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       MinAndEmptyError
     );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
   });
 });
 
