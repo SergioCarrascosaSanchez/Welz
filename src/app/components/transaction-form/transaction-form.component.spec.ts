@@ -15,6 +15,7 @@ import { Account } from 'src/app/interfaces/account.model';
 import { DataService } from 'src/app/services/data.service';
 import { ALERT_TYPES } from '../alert/alert.component';
 import { Transaction } from 'src/app/interfaces/transaction.model';
+import { EventEmitter } from '@angular/core';
 
 describe('TransactionFormComponent', () => {
   let component: TransactionFormComponent;
@@ -341,6 +342,7 @@ describe('TransactionFormComponent', () => {
 /* DataServiceMocks */
 
 class DataServiceMock {
+  dataChange = new EventEmitter<void>();
   getBudgetCategories() {
     return [budgetCategory1, budgetCategory2];
   }
