@@ -145,7 +145,7 @@ export class DataService {
   }
 
   addNewTransaction(transaction: Transaction) {
-    this.data.transactions.push(transaction);
+    this.data.transactions.unshift(transaction);
     this.dataChange.emit();
   }
 
