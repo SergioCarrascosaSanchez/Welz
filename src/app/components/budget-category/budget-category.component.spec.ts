@@ -8,6 +8,10 @@ import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { TransactionComponent } from '../transaction/transaction.component';
 import { DataService } from 'src/app/services/data.service';
 import { Injectable } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component';
+import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
+import { ColorPickerComponent } from '../color-picker/color-picker.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('BudgetCategoryComponent', () => {
   let component: BudgetCategoryComponent;
@@ -81,8 +85,12 @@ describe('BudgetCategoryComponent', () => {
         BadgeComponent,
         MoneyFormatPipe,
         TransactionComponent,
+        ModalComponent,
+        BudgetCategoryFormComponent,
+        ColorPickerComponent,
       ],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
+      imports: [ReactiveFormsModule],
     });
 
     fixture = TestBed.createComponent(BudgetCategoryComponent);

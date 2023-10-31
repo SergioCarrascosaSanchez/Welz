@@ -9,4 +9,15 @@ import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 export class BudgetCategoryComponent {
   @Input() title: string;
   @Input() categories: BudgetCategory[];
+  @Input() categoryName: string;
+
+  addModalOpen = false;
+
+  onAdd() {
+    this.addModalOpen = true;
+  }
+
+  onClose() {
+    this.addModalOpen = false;
+  }
 }
