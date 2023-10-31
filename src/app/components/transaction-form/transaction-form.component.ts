@@ -41,6 +41,10 @@ export class TransactionFormComponent {
   ngOnInit() {
     this.categories = this.dataService.getBudgetCategories();
     this.accounts = this.dataService.getAccounts();
+    this.dataService.dataChange.subscribe(() => {
+      this.categories = this.dataService.getBudgetCategories();
+      this.accounts = this.dataService.getAccounts();
+    });
   }
 
   onSubmit() {
