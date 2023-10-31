@@ -9,4 +9,5 @@ import { Input } from '@angular/core';
 })
 export class TransactionComponent {
   @Input() transaction: Transaction;
+  @Input() type: string = 'regular';
 }

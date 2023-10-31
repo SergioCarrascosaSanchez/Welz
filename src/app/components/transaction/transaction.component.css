@@ -14,6 +14,16 @@
     margin-top: 0.2vw;
     grid-column: span 3;
   }
+
+  .description-date-container {
+    padding-right: 3vw;
+  }
+
+  .description-date-container {
+    display: grid;
+    padding-right: 3vw;
+    text-wrap: balance;
+  }
 }
 
 @media screen and (min-width: 767px) {
@@ -31,5 +41,9 @@
     grid-column: 2;
     display: grid;
     place-content: center;
+  }
+
+  .description-date-container {
+    padding-right: 3vw;
   }
 }

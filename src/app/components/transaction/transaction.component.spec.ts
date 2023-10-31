@@ -42,11 +42,33 @@ describe('TransactionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render description, date,  category and value', () => {
+  it('should render description, date,  category and value if type regular', () => {
+    expect(component.type).toEqual('regular');
+
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       transaction.description
     );
     expect(fixture.debugElement.nativeElement.textContent).toContain(
+      transaction.budgetCategory.name
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      new MoneyFormatPipe().transform(transaction.value)
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      `${transaction.date.getDate()}/${
+        transaction.date.getMonth() + 1
+      }/${transaction.date.getFullYear()}`
+    );
+  });
+
+  it('should render description, date, and value if type budget', () => {
+    component.type = 'budget';
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      transaction.description
+    );
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
       transaction.budgetCategory.name
     );
     expect(fixture.debugElement.nativeElement.textContent).toContain(
