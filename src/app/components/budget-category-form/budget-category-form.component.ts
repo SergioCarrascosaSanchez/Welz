@@ -35,17 +35,27 @@ export class BudgetCategoryFormComponent {
   onSubmit() {
     this.errors = '';
     if (!this.categoryForm.invalid) {
-      this.dataService.addNewCategory(
-        {
-          name: this.categoryForm.controls.description.value,
-          max: this.categoryForm.controls.max.value,
-          color: this.categoryForm.controls.color.value,
-        },
-        this.categoryName
-      );
-      this.resetForm();
-      this.invalid = false;
-      this.correctAddition = true;
+      if (
+        this.dataService.checkCategoryName(
+          this.categoryForm.controls.description.value
+        )
+      ) {
+        this.dataService.addNewCategory(
+          {
+            name: this.categoryForm.controls.description.value,
+            max: this.categoryForm.controls.max.value,
+            color: this.categoryForm.controls.color.value,
+          },
+          this.categoryName
+        );
+        this.resetForm();
+        this.invalid = false;
+        this.correctAddition = true;
+      } else {
+        this.errors = DuplicatedCategoryName;
+        this.correctAddition = false;
+        this.invalid = true;
+      }
     } else {
       this.manageErrors();
       this.correctAddition = false;
@@ -89,3 +99,5 @@ export const CorrectAdditionMessage = 'Categoría registrada con éxito';
 export const MinAndEmptyError: string =
   'Debes rellenar todos los campos e incluir una cantidad mayor que cero.';
 export const MinError: string = 'Debes incluir una cantidad mayor que cero.';
+export const DuplicatedCategoryName: string =
+  'El nombre elegido ya está en uso';

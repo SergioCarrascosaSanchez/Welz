@@ -153,4 +153,19 @@ export class DataService {
     this.data.budget[type].push(budgetCategory);
     this.dataChange.emit();
   }
+
+  checkCategoryName(name: string) {
+    const categoryNames = [];
+    this.data.budget.expensesCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+    this.data.budget.incomeCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+    this.data.budget.savingCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+
+    return !categoryNames.includes(name);
+  }
 }

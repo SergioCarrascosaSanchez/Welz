@@ -7,6 +7,7 @@ import {
   CorrectAdditionMessage,
   MinAndEmptyError,
   MinError,
+  DuplicatedCategoryName,
 } from './budget-category-form.component';
 import { By } from '@angular/platform-browser';
 import { DataService } from 'src/app/services/data.service';
@@ -279,10 +280,46 @@ describe('BudgetCategoryFormComponent', () => {
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
     ).toBeFalsy();
   });
+
+  it('should render error message if name is duplicated', () => {
+    component.categoryForm.controls.description.setValue(budgetCategory.name);
+    component.categoryForm.controls.max.setValue(1);
+    component.categoryForm.controls.color.setValue('#FFFFF');
+
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+    fixture.detectChanges();
+
+    expect(component.correctAddition).toBeFalse();
+    expect(component.errors).toBeTruthy();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      DuplicatedCategoryName
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.danger}`))
+    ).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      CorrectAdditionMessage
+    );
+    expect(
+      fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
+    ).toBeFalsy();
+  });
 });
 
 /* DataServiceMocks */
 
 class DataServiceMock {
   addNewCategory(budgetCategory: BudgetCategory) {}
+
+  checkCategoryName(name: string) {
+    return name !== budgetCategory.name;
+  }
 }
+
+const budgetCategory: BudgetCategory = {
+  name: 'Mock1',
+  max: 1000,
+  color: 'red',
+};
