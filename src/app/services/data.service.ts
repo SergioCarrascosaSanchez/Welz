@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { UserData } from '../interfaces/userData.model';
 import { Transaction } from '../interfaces/transaction.model';
+import { BudgetCategory } from '../interfaces/budgetCategory.model';
 
 @Injectable({
   providedIn: 'root',
@@ -145,6 +146,11 @@ export class DataService {
 
   addNewTransaction(transaction: Transaction) {
     this.data.transactions.push(transaction);
+    this.dataChange.emit();
+  }
+
+  addNewCategory(budgetCategory: BudgetCategory, type: string) {
+    this.data.budget[type].push(budgetCategory);
     this.dataChange.emit();
   }
 }
