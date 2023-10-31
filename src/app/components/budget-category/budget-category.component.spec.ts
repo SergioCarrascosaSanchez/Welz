@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BudgetCategoryComponent } from './budget-category.component';
-import { BudgetCategoryItemComponent } from '../budget-category-item/budget-category-item.component';
 import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { TransactionComponent } from '../transaction/transaction.component';
 import { DataService } from 'src/app/services/data.service';
-import { Injectable } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TransactionsCollapsableComponent } from '../transactions-collapsable/transactions-collapsable.component';
 
 describe('BudgetCategoryComponent', () => {
   let component: BudgetCategoryComponent;
@@ -80,7 +79,7 @@ describe('BudgetCategoryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         BudgetCategoryComponent,
-        BudgetCategoryItemComponent,
+        TransactionsCollapsableComponent,
         CardComponent,
         BadgeComponent,
         MoneyFormatPipe,

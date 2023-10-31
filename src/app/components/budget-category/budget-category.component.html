@@ -28,8 +28,8 @@
       [categoryName]="categoryName"
     ></app-budget-category-form>
   </app-modal>
-  <app-budget-category-item
+  <app-transactions-collapsable
     *ngFor="let category of categories"
-    [category]="category"
-  ></app-budget-category-item>
+    [data]="category"
+  ></app-transactions-collapsable>
 </app-card>
