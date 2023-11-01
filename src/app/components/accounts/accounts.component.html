@@ -1,0 +1,14 @@
+<app-card>
+  <p style="margin-block-start: 0px">{{ title }}</p>
+  <div
+    *ngIf="accounts.length <= 0"
+    style="color: rgba(150, 150, 150, 1); margin-top: 2.5%"
+  >
+    {{ emptyMessage }}
+  </div>
+  <app-transactions-collapsable
+    *ngFor="let account of accounts"
+    [data]="account"
+  >
+  </app-transactions-collapsable>
+</app-card>
