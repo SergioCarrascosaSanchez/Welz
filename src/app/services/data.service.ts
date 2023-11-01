@@ -88,6 +88,18 @@ export class DataService {
       },
     ],
   };
+
+  /*  private data: UserData = {
+    username: 'Sergio',
+    balance: 15149.2,
+    budget: {
+      incomeCategories: [],
+      savingCategories: [],
+      expensesCategories: [],
+    },
+    accounts: [],
+    transactions: [],
+  };*/
   loading = false;
 
   constructor() {}
