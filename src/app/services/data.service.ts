@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { UserData } from '../interfaces/userData.model';
 import { Transaction } from '../interfaces/transaction.model';
 import { BudgetCategory } from '../interfaces/budgetCategory.model';
+import { Account } from '../interfaces/account.model';
 
 @Injectable({
   providedIn: 'root',
@@ -179,5 +180,18 @@ export class DataService {
     });
 
     return !categoryNames.includes(name);
+  }
+
+  addNewAccount(account: Account) {
+    this.data.accounts.push(account);
+    this.dataChange.emit();
+  }
+
+  checkAccountName(name: string) {
+    const accountNames = [];
+    this.data.accounts.forEach((el) => {
+      accountNames.push(el.name);
+    });
+    return !accountNames.includes(name);
   }
 }
