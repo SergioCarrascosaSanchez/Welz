@@ -1,24 +1,52 @@
-<app-card type="subcard">
-  <div style="display: grid; place-content: space-between">
-    <div style="display: grid">
-      <app-badge
-        [text]="transaction.budgetCategory.name"
-        [color]="transaction.budgetCategory.color"
-      ></app-badge>
-      <span class="date">{{ transaction.date | date : "dd/MM/yyyy" }} </span>
-      <div class="description">
-        {{ transaction.description }}
-      </div>
+<div
+  *ngIf="type === 'regular'"
+  style="display: grid; place-content: space-between"
+>
+  <div style="display: grid">
+    <app-badge
+      [text]="transaction.budgetCategory.name"
+      [color]="transaction.budgetCategory.color"
+    ></app-badge>
+    <span class="date">{{ transaction.date | date : "dd/MM/yyyy" }} </span>
+    <div class="description">
+      {{ transaction.description }}
     </div>
+  </div>
 
-    <span
-      style="
-        text-align: right;
-        grid-column: 2;
-        display: grid;
-        place-content: center;
-      "
-      >{{ transaction.value | moneyFormat }}
+  <span
+    style="
+      text-align: right;
+      grid-column: 2;
+      display: grid;
+      place-content: center;
+    "
+    >{{ transaction.value | moneyFormat }}
+  </span>
+</div>
+
+<div
+  *ngIf="type === 'budget'"
+  style="
+    display: grid;
+    place-content: space-between;
+    margin-top: 1.2vh;
+    margin-bottom: 1.2vh;
+  "
+>
+  <div class="description-date-container">
+    {{ transaction.description }}
+    <span style="color: rgba(150, 150, 150, 1); margin-left: 0.5vw"
+      >{{ transaction.date | date : "dd/MM/yyyy" }}
     </span>
   </div>
-</app-card>
+
+  <span
+    style="
+      text-align: right;
+      grid-column: 3;
+      display: grid;
+      place-content: center;
+    "
+    >{{ transaction.value | moneyFormat }}
+  </span>
+</div>
