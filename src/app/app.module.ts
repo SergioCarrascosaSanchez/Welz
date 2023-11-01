@@ -20,6 +20,7 @@ import { BudgetCategoryFormComponent } from './components/budget-category-form/b
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { TransactionsCollapsableComponent } from './components/transactions-collapsable/transactions-collapsable.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
+import { AccountFormComponent } from './components/account-form/account-form.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AccountsComponent } from './components/accounts/accounts.component';
     ColorPickerComponent,
     TransactionsCollapsableComponent,
     AccountsComponent,
+    AccountFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [],
