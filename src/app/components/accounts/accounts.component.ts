@@ -10,6 +10,16 @@ export class AccountsComponent {
   @Input() accounts: Account[] = [];
   title: string = Title;
   emptyMessage = EmptyMessage;
+
+  addModalOpen = false;
+
+  onAdd() {
+    this.addModalOpen = true;
+  }
+
+  onClose() {
+    this.addModalOpen = false;
+  }
 }
 
 export const Title = 'Cuentas bancarias:';
