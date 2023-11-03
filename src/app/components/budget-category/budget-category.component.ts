@@ -10,7 +10,6 @@ export class BudgetCategoryComponent {
   @Input() title: string;
   @Input() categories: BudgetCategory[];
   @Input() categoryName: string;
-  @Input() sinceDate: Date;
 
   addModalOpen = false;
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { BudgetDateService } from 'src/app/services/budget-date.service';
 
 @Component({
   selector: 'app-date-controller',
@@ -6,15 +7,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./date-controller.component.css'],
 })
 export class DateControllerComponent {
-  date = new Date();
-  @Output() dateChange = new EventEmitter<Date>();
+  date: Date;
+
+  constructor(private budgetDateService: BudgetDateService) {}
+
+  ngOnInit() {
+    this.date = this.budgetDateService.getDate();
+    this.budgetDateService.dateChange.subscribe((newDate) => {
+      this.date = newDate;
+    });
+  }
 
   onChangeMonth(changeValue: number) {
-    this.date = new Date(
-      this.date.getFullYear(),
-      this.date.getMonth() + changeValue,
-      this.date.getDate()
-    );
-    this.dateChange.emit(this.date);
+    this.budgetDateService.onChangeMonth(changeValue);
   }
 }

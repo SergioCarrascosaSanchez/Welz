@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Transaction } from 'src/app/interfaces/transaction.model';
+import { BudgetDateService } from 'src/app/services/budget-date.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -11,15 +12,28 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class TransactionsCollapsableComponent {
   @Input() data: Account | BudgetCategory;
-  @Input() sinceDate: Date;
+  sinceDate: Date;
 
   open = false;
   listOfTransactions: Transaction[];
   emptyTransactionsMessage = emptyTransactions;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private budgetDateService: BudgetDateService
+  ) {}
 
   ngOnInit() {
+    this.sinceDate = this.budgetDateService.getDate();
+    this.budgetDateService.dateChange.subscribe(() => {
+      this.sinceDate = this.budgetDateService.getDate();
+      this.listOfTransactions =
+        this.dataService.getTransactionsOfBudgetCategoryByDate(
+          this.data.name,
+          this.sinceDate
+        );
+    });
+
     if (this.isAccount(this.data)) {
       this.listOfTransactions = this.dataService.getTransactionsOfAccount(
         this.data.name
@@ -31,24 +45,6 @@ export class TransactionsCollapsableComponent {
       });
     }
     if (this.isBudgetCategory(this.data)) {
-      this.listOfTransactions =
-        this.dataService.getTransactionsOfBudgetCategoryByDate(
-          this.data.name,
-          this.sinceDate
-        );
-      this.dataService.dataChange.subscribe(() => {
-        this.listOfTransactions =
-          this.dataService.getTransactionsOfBudgetCategoryByDate(
-            this.data.name,
-            this.sinceDate
-          );
-      });
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['sinceDate']) {
-      // La propiedad inputValue ha cambiado, aquí puedes ejecutar tu función
       this.listOfTransactions =
         this.dataService.getTransactionsOfBudgetCategoryByDate(
           this.data.name,

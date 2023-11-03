@@ -1,5 +1,5 @@
 <app-card type="thin-card"
-  ><app-date-controller (dateChange)="dateChange($event)"></app-date-controller
+  ><app-date-controller></app-date-controller
 ></app-card>
 
 <app-card>
@@ -13,19 +13,16 @@
   title="Ingresos"
   [categories]="budget.incomeCategories"
   categoryName="incomeCategories"
-  [sinceDate]="sinceDate"
 ></app-budget-category>
 
 <app-budget-category
   title="Ahorro"
   [categories]="budget.savingCategories"
   categoryName="savingCategories"
-  [sinceDate]="sinceDate"
 ></app-budget-category>
 
 <app-budget-category
   title="Gasto"
   [categories]="budget.expensesCategories"
   categoryName="expensesCategories"
-  [sinceDate]="sinceDate"
 ></app-budget-category>
