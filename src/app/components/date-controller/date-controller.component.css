@@ -1,0 +1,23 @@
+@media screen and (min-width: 767px) {
+  .add-icon {
+    display: grid;
+    place-content: center;
+    padding: 7px;
+    background-color: #f1f2f5;
+    border-radius: 5px;
+    border: 0px;
+    color: black;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .add-icon {
+    display: grid;
+    place-content: end;
+    padding: 3px;
+    background-color: #f1f2f5;
+    border-radius: 5px;
+    border: 0px;
+    color: black;
+  }
+}
