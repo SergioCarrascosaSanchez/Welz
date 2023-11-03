@@ -1,6 +1,6 @@
 <div style="display: grid; place-content: center">
   <div style="display: flex; gap: 15px">
-    <button class="add-icon" id="left-arrow-button">
+    <button class="add-icon" id="left-arrow-button" (click)="onChangeMonth(-1)">
       <svg
         width="24"
         height="24"
@@ -18,7 +18,7 @@
       {{ date | date : "MMMM yyyy" | titlecase }}
     </div>
 
-    <button class="add-icon" id="right-arrow-button">
+    <button class="add-icon" id="right-arrow-button" (click)="onChangeMonth(1)">
       <svg
         width="24"
         height="24"

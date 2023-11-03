@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Transaction } from 'src/app/interfaces/transaction.model';
@@ -11,6 +11,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class TransactionsCollapsableComponent {
   @Input() data: Account | BudgetCategory;
+  @Input() sinceDate: Date;
+
   open = false;
   listOfTransactions: Transaction[];
   emptyTransactionsMessage = emptyTransactions;
@@ -30,10 +32,34 @@ export class TransactionsCollapsableComponent {
     }
     if (this.isBudgetCategory(this.data)) {
       this.listOfTransactions =
-        this.dataService.getTransactionsOfBudgetCategory(this.data.name);
+        this.dataService.getTransactionsOfBudgetCategoryByDate(
+          this.data.name,
+          this.sinceDate
+        );
       this.dataService.dataChange.subscribe(() => {
         this.listOfTransactions =
-          this.dataService.getTransactionsOfBudgetCategory(this.data.name);
+          this.dataService.getTransactionsOfBudgetCategoryByDate(
+            this.data.name,
+            this.sinceDate
+          );
+      });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['sinceDate']) {
+      // La propiedad inputValue ha cambiado, aquí puedes ejecutar tu función
+      this.listOfTransactions =
+        this.dataService.getTransactionsOfBudgetCategoryByDate(
+          this.data.name,
+          this.sinceDate
+        );
+      this.dataService.dataChange.subscribe(() => {
+        this.listOfTransactions =
+          this.dataService.getTransactionsOfBudgetCategoryByDate(
+            this.data.name,
+            this.sinceDate
+          );
       });
     }
   }

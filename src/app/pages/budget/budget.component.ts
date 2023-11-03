@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class BudgetComponent {
   budget: Budget;
-
+  sinceDate = new Date();
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
@@ -17,5 +17,9 @@ export class BudgetComponent {
     this.dataService.dataChange.subscribe(() => {
       this.budget = this.dataService.getBudget();
     });
+  }
+
+  dateChange(newDate: Date) {
+    this.sinceDate = newDate;
   }
 }
