@@ -60,9 +60,10 @@ describe('CardComponent', () => {
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.subcard'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('.card'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('.thin-card'))).toBeFalsy();
   });
 
-  it('should have card class depending of card type -card ', () => {
+  it('should have card class depending of card type - card ', () => {
     let component: CardComponent;
     let fixture: ComponentFixture<CardComponent>;
     TestBed.configureTestingModule({
@@ -76,6 +77,24 @@ describe('CardComponent', () => {
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.card'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('.subcard'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('.thin'))).toBeFalsy();
+  });
+
+  it('should have card class depending of card type - thin-card', () => {
+    let component: CardComponent;
+    let fixture: ComponentFixture<CardComponent>;
+    TestBed.configureTestingModule({
+      declarations: [CardComponent],
+    });
+    fixture = TestBed.createComponent(CardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.type = 'subcard';
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.subcard'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('.card'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('.thin-card'))).toBeFalsy();
   });
 
   it('should have card class by default', () => {
