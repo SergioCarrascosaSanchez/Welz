@@ -25,6 +25,7 @@ import { DateControllerComponent } from './components/date-controller/date-contr
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { BudgetCategoryResumeComponent } from './components/budget-category-resume/budget-category-resume.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -48,6 +49,7 @@ registerLocaleData(localeEs, 'es');
     AccountsComponent,
     AccountFormComponent,
     DateControllerComponent,
+    BudgetCategoryResumeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [{ provide: LOCALE_ID, useValue: 'ES' }],
