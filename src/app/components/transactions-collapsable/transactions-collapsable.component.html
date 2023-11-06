@@ -30,15 +30,22 @@
       "
     >
       <app-badge [text]="data.name" [color]="data.color"></app-badge>
-      <span
+      <div
         style="
           text-align: right;
           grid-column: 2;
           display: grid;
           place-content: center;
         "
-        >{{ data.max | moneyFormat }}
-      </span>
+      >
+        <div style="margin-top: 5px">
+          <span>
+            {{ transactionQuantityTotal | moneyFormat }}
+          </span>
+
+          <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
+        </div>
+      </div>
     </div>
 
     <div

@@ -112,7 +112,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should render category badge and value - budget mode', () => {
-    configureTestBed('');
+    configureTestBed('empty');
     const name = 'TestingBudgetCategoryItem';
     const value = 112340;
     const color = 'red';
@@ -125,12 +125,15 @@ describe('TransactionsCollapsableComponent', () => {
     expect(debugElement.nativeElement.textContent).toContain(
       budgetCategory.name
     );
-    expect(debugElement.nativeElement.textContent).toContain(
-      new MoneyFormatPipe().transform(budgetCategory.max)
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      new MoneyFormatPipe().transform(0) +
+        '  / ' +
+        new MoneyFormatPipe().transform(
+          Math.floor(budgetCategory.max * 100) / 100
+        )
     );
-    expect(debugElement.nativeElement.textContent).toContain(
-      budgetCategory.name
-    );
+
     expect(fixture.debugElement.query(By.css('.badge'))).toBeTruthy();
   });
 

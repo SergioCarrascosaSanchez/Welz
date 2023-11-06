@@ -16,6 +16,8 @@ export class TransactionsCollapsableComponent {
 
   open = false;
   listOfTransactions: Transaction[];
+  transactionQuantityTotal: number = 0;
+
   emptyTransactionsMessage = emptyTransactions;
 
   constructor(
@@ -32,6 +34,7 @@ export class TransactionsCollapsableComponent {
           this.data.name,
           this.sinceDate
         );
+      this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
     });
 
     if (this.isAccount(this.data)) {
@@ -50,12 +53,15 @@ export class TransactionsCollapsableComponent {
           this.data.name,
           this.sinceDate
         );
+      this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
       this.dataService.dataChange.subscribe(() => {
         this.listOfTransactions =
           this.dataService.getTransactionsOfBudgetCategoryByDate(
             this.data.name,
             this.sinceDate
           );
+        this.transactionQuantityTotal =
+          this.calculateTransactionQuantityTotal();
       });
     }
   }
@@ -76,6 +82,14 @@ export class TransactionsCollapsableComponent {
 
   isBudgetCategory(data: Account | BudgetCategory): data is BudgetCategory {
     return (data as BudgetCategory).color !== undefined;
+  }
+
+  calculateTransactionQuantityTotal(): number {
+    let currentQuantity = 0;
+    this.listOfTransactions.forEach((transaction) => {
+      currentQuantity = currentQuantity + transaction.value;
+    });
+    return Math.floor(currentQuantity * 100) / 100;
   }
 }
 
