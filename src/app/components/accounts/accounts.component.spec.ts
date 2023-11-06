@@ -7,6 +7,9 @@ import { TransactionComponent } from '../transaction/transaction.component';
 import { TransactionsCollapsableComponent } from '../transactions-collapsable/transactions-collapsable.component';
 import { Account } from 'src/app/interfaces/account.model';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
+import { ModalComponent } from '../modal/modal.component';
+import { AccountFormComponent } from '../account-form/account-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -21,7 +24,10 @@ describe('AccountsComponent', () => {
         TransactionComponent,
         TransactionsCollapsableComponent,
         MoneyFormatPipe,
+        ModalComponent,
+        AccountFormComponent,
       ],
+      imports: [ReactiveFormsModule],
     });
     fixture = TestBed.createComponent(AccountsComponent);
     component = fixture.componentInstance;
