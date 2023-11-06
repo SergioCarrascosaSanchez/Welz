@@ -106,4 +106,8 @@ class EmptyDataServiceMock {
   getTransactionsOfBudgetCategory(s: string) {
     return [];
   }
+
+  getTransactionsOfBudgetCategoryByDate(s: string) {
+    return [];
+  }
 }
