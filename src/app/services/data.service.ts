@@ -177,7 +177,15 @@ export class DataService {
     const account: Account = this.data.accounts.find(
       (account) => account.name === transaction.account.name
     );
-    account.balance = account.balance - transaction.value;
+    if (
+      this.data.budget.expensesCategories.includes(transaction.budgetCategory)
+    ) {
+      account.balance = account.balance - transaction.value;
+    } else if (
+      this.data.budget.incomeCategories.includes(transaction.budgetCategory)
+    ) {
+      account.balance = account.balance + transaction.value;
+    }
     this.dataChange.emit();
   }
 
