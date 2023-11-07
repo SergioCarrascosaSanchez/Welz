@@ -170,6 +170,10 @@ export class DataService {
 
   addNewTransaction(transaction: Transaction) {
     this.data.transactions.unshift(transaction);
+    const account: Account = this.data.accounts.find(
+      (account) => account.name === transaction.account.name
+    );
+    account.balance = account.balance - transaction.value;
     this.dataChange.emit();
   }
 
