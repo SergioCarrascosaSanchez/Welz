@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BudgetCategoryComponent } from './budget-category.component';
+import {
+  BudgetCategoryComponent,
+  EmptyMessage,
+} from './budget-category.component';
 import { DebugElement, EventEmitter } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
@@ -53,6 +56,8 @@ describe('BudgetCategoryComponent', () => {
 
     fixture.detectChanges();
 
+    expect(debugElement.nativeElement.textContent).not.toContain(EmptyMessage);
+
     expect(debugElement.nativeElement.textContent).toContain(
       budgetCategory1.name
     );
@@ -75,6 +80,15 @@ describe('BudgetCategoryComponent', () => {
     );
   });
 
+  it('should render empty message if there is no transactions', () => {
+    configureTestBed();
+    const title = 'TitleTest';
+    component.title = title;
+    fixture.detectChanges();
+
+    expect(debugElement.nativeElement.textContent).toContain(EmptyMessage);
+  });
+
   const configureTestBed = () => {
     TestBed.configureTestingModule({
       declarations: [
@@ -95,6 +109,9 @@ describe('BudgetCategoryComponent', () => {
     fixture = TestBed.createComponent(BudgetCategoryComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
+
+    component.categories = [];
+
     fixture.detectChanges();
   };
 });

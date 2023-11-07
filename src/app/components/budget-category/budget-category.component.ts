@@ -10,6 +10,7 @@ export class BudgetCategoryComponent {
   @Input() title: string;
   @Input() categories: BudgetCategory[];
   @Input() categoryName: string;
+  emptyMessage = EmptyMessage;
 
   addModalOpen = false;
 
@@ -21,3 +22,5 @@ export class BudgetCategoryComponent {
     this.addModalOpen = false;
   }
 }
+
+export const EmptyMessage = 'No hay ninguna categoría.';
