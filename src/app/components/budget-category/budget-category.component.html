@@ -32,4 +32,10 @@
     *ngFor="let category of categories"
     [data]="category"
   ></app-transactions-collapsable>
+  <div
+    *ngIf="categories.length === 0"
+    style="color: rgba(150, 150, 150, 1); margin-top: 2.5%"
+  >
+    {{ emptyMessage }}
+  </div>
 </app-card>
