@@ -18,18 +18,13 @@ describe('TransactionsCollapsableComponent', () => {
   let fixture: ComponentFixture<TransactionsCollapsableComponent>;
   let debugElement: DebugElement;
 
-  const account: Account = {
-    name: 'TestAccount',
-    balance: 120,
-  };
-
-  it('should create', () => {
-    configureTestBed('');
+  it('should create - account mode', () => {
+    configureTestBed('empty-account-mode');
     expect(component).toBeTruthy();
   });
 
   it('should render account name and value - account mode', () => {
-    configureTestBed('');
+    configureTestBed('empty-account-mode');
 
     expect(debugElement.nativeElement.textContent).toContain(account.name);
     expect(debugElement.nativeElement.textContent).toContain(
@@ -38,7 +33,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should change chevron on open and close - account mode', () => {
-    configureTestBed('');
+    configureTestBed('empty-account-mode');
 
     expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
@@ -57,7 +52,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should open and close list of transactions - account mode', () => {
-    configureTestBed('data');
+    configureTestBed('data-account-mode');
 
     fixture.detectChanges();
 
@@ -111,7 +106,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should open and close message if there is no transactions - account mode', () => {
-    configureTestBed('empty');
+    configureTestBed('empty-account-mode');
 
     expect(debugElement.nativeElement.textContent).not.toContain(
       emptyTransactions
@@ -130,8 +125,13 @@ describe('TransactionsCollapsableComponent', () => {
     );
   });
 
+  it('should create - budget mode', () => {
+    configureTestBed('empty-budget-mode');
+    expect(component).toBeTruthy();
+  });
+
   it('should render category badge and value - budget mode', () => {
-    configureTestBed('empty');
+    configureTestBed('empty-budget-mode');
     const name = 'TestingBudgetCategoryItem';
     const value = 112340;
     const color = 'red';
@@ -157,7 +157,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should open and close list of transactions on click - budget mode', () => {
-    configureTestBed('data');
+    configureTestBed('data-budget-mode');
 
     component.data = budgetCategory;
 
@@ -213,7 +213,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should open and close message if there is no transactions - budget mode', () => {
-    configureTestBed('empty');
+    configureTestBed('empty-budget-mode');
 
     expect(debugElement.nativeElement.textContent).not.toContain(
       emptyTransactions
@@ -233,7 +233,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   it('should change chevron on open and close - budget mode', () => {
-    configureTestBed('');
+    configureTestBed('empty-budget-mode');
 
     expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
@@ -252,17 +252,7 @@ describe('TransactionsCollapsableComponent', () => {
   });
 
   const configureTestBed = (mockService: string) => {
-    if (mockService === '') {
-      TestBed.configureTestingModule({
-        declarations: [
-          TransactionsCollapsableComponent,
-          CardComponent,
-          BadgeComponent,
-          MoneyFormatPipe,
-          TransactionComponent,
-        ],
-      });
-    } else if (mockService === 'data') {
+    if (mockService === 'data-account-mode') {
       TestBed.configureTestingModule({
         declarations: [
           TransactionsCollapsableComponent,
@@ -273,7 +263,26 @@ describe('TransactionsCollapsableComponent', () => {
         ],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
-    } else if (mockService === 'empty') {
+      fixture = TestBed.createComponent(TransactionsCollapsableComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+      component.data = account;
+    } else if (mockService === 'data-budget-mode') {
+      TestBed.configureTestingModule({
+        declarations: [
+          TransactionsCollapsableComponent,
+          CardComponent,
+          BadgeComponent,
+          MoneyFormatPipe,
+          TransactionComponent,
+        ],
+        providers: [{ provide: DataService, useClass: DataServiceMock }],
+      });
+      fixture = TestBed.createComponent(TransactionsCollapsableComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+      component.data = budgetCategory;
+    } else if (mockService === 'empty-account-mode') {
       TestBed.configureTestingModule({
         declarations: [
           TransactionsCollapsableComponent,
@@ -284,12 +293,27 @@ describe('TransactionsCollapsableComponent', () => {
         ],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
+      fixture = TestBed.createComponent(TransactionsCollapsableComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+      component.data = account;
+    } else if (mockService === 'empty-budget-mode') {
+      TestBed.configureTestingModule({
+        declarations: [
+          TransactionsCollapsableComponent,
+          CardComponent,
+          BadgeComponent,
+          MoneyFormatPipe,
+          TransactionComponent,
+        ],
+        providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
+      });
+      fixture = TestBed.createComponent(TransactionsCollapsableComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+      component.data = budgetCategory;
     }
 
-    fixture = TestBed.createComponent(TransactionsCollapsableComponent);
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-    component.data = account;
     fixture.detectChanges();
   };
 });
@@ -301,7 +325,7 @@ class DataServiceMock {
   getTransactionsOfAccount(s: string) {
     return [transaction1, transaction2];
   }
-  getTransactionsOfBudgetCategory(s: string) {
+  getTransactionsOfBudgetCategoryByDate(s: string) {
     return [transaction1, transaction2];
   }
 }
@@ -311,7 +335,7 @@ class EmptyDataServiceMock {
   getTransactionsOfAccount(s: string) {
     return [];
   }
-  getTransactionsOfBudgetCategory(s: string) {
+  getTransactionsOfBudgetCategoryByDate(s: string) {
     return [];
   }
 }
@@ -336,3 +360,8 @@ const value = 128376;
 const color = 'red';
 
 const budgetCategory = { name: name, max: value, color: color };
+
+const account: Account = {
+  name: 'TestAccount',
+  balance: 120,
+};
