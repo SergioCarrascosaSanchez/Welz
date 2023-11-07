@@ -89,7 +89,7 @@ export class TransactionsCollapsableComponent {
     this.listOfTransactions.forEach((transaction) => {
       currentQuantity = currentQuantity + transaction.value;
     });
-    return Math.floor(currentQuantity * 100) / 100;
+    return currentQuantity;
   }
 }
 

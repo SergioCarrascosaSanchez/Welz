@@ -42,7 +42,7 @@ export class BudgetCategoryResumeComponent {
     this.categories.forEach((category) => {
       max = max + category.max;
     });
-    return Math.floor(max * 100) / 100;
+    return max;
   }
 
   calculateCurrentQuantity() {
@@ -54,6 +54,6 @@ export class BudgetCategoryResumeComponent {
           currentQuantity = currentQuantity + transaction.value;
         });
     });
-    return Math.floor(currentQuantity * 100) / 100;
+    return currentQuantity;
   }
 }

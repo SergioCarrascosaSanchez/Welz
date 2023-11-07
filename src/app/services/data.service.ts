@@ -120,7 +120,11 @@ export class DataService {
   }
 
   getBalance() {
-    return this.data.balance;
+    let balance = 0;
+    this.data.accounts.forEach((account) => {
+      balance = balance + account.balance;
+    });
+    return balance;
   }
 
   getTransactions() {
@@ -170,6 +174,10 @@ export class DataService {
 
   addNewTransaction(transaction: Transaction) {
     this.data.transactions.unshift(transaction);
+    const account: Account = this.data.accounts.find(
+      (account) => account.name === transaction.account.name
+    );
+    account.balance = account.balance - transaction.value;
     this.dataChange.emit();
   }
 

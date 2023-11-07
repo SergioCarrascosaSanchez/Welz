@@ -5,6 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MoneyFormatPipe implements PipeTransform {
   transform(value: number): string {
+    value = Math.floor(value * 100) / 100;
+
     if (value === 0) return value + '€';
 
     const integerPart = value.toString().split('.')[0];
