@@ -37,6 +37,25 @@ describe('TransactionsCollapsableComponent', () => {
     );
   });
 
+  it('should change chevron on open and close - account mode', () => {
+    configureTestBed('');
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
+
+    component.open = true;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeTruthy();
+
+    component.open = false;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
+  });
+
   it('should open and close list of transactions - account mode', () => {
     configureTestBed('data');
 
@@ -211,6 +230,25 @@ describe('TransactionsCollapsableComponent', () => {
     expect(debugElement.nativeElement.textContent).not.toContain(
       emptyTransactions
     );
+  });
+
+  it('should change chevron on open and close - budget mode', () => {
+    configureTestBed('');
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
+
+    component.open = true;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeTruthy();
+
+    component.open = false;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#chevron-down'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#chevron-up'))).toBeFalsy();
   });
 
   const configureTestBed = (mockService: string) => {
