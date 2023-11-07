@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Transaction } from 'src/app/interfaces/transaction.model';
+import { BudgetDateService } from 'src/app/services/budget-date.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -11,13 +12,31 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class TransactionsCollapsableComponent {
   @Input() data: Account | BudgetCategory;
+  sinceDate: Date;
+
   open = false;
   listOfTransactions: Transaction[];
+  transactionQuantityTotal: number = 0;
+
   emptyTransactionsMessage = emptyTransactions;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private budgetDateService: BudgetDateService
+  ) {}
 
   ngOnInit() {
+    this.sinceDate = this.budgetDateService.getDate();
+    this.budgetDateService.dateChange.subscribe(() => {
+      this.sinceDate = this.budgetDateService.getDate();
+      this.listOfTransactions =
+        this.dataService.getTransactionsOfBudgetCategoryByDate(
+          this.data.name,
+          this.sinceDate
+        );
+      this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
+    });
+
     if (this.isAccount(this.data)) {
       this.listOfTransactions = this.dataService.getTransactionsOfAccount(
         this.data.name
@@ -30,10 +49,19 @@ export class TransactionsCollapsableComponent {
     }
     if (this.isBudgetCategory(this.data)) {
       this.listOfTransactions =
-        this.dataService.getTransactionsOfBudgetCategory(this.data.name);
+        this.dataService.getTransactionsOfBudgetCategoryByDate(
+          this.data.name,
+          this.sinceDate
+        );
+      this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
       this.dataService.dataChange.subscribe(() => {
         this.listOfTransactions =
-          this.dataService.getTransactionsOfBudgetCategory(this.data.name);
+          this.dataService.getTransactionsOfBudgetCategoryByDate(
+            this.data.name,
+            this.sinceDate
+          );
+        this.transactionQuantityTotal =
+          this.calculateTransactionQuantityTotal();
       });
     }
   }
@@ -54,6 +82,14 @@ export class TransactionsCollapsableComponent {
 
   isBudgetCategory(data: Account | BudgetCategory): data is BudgetCategory {
     return (data as BudgetCategory).color !== undefined;
+  }
+
+  calculateTransactionQuantityTotal(): number {
+    let currentQuantity = 0;
+    this.listOfTransactions.forEach((transaction) => {
+      currentQuantity = currentQuantity + transaction.value;
+    });
+    return Math.floor(currentQuantity * 100) / 100;
   }
 }
 

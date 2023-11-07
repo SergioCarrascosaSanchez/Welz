@@ -9,7 +9,6 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class BudgetComponent {
   budget: Budget;
-
   constructor(private dataService: DataService) {}
 
   ngOnInit() {

@@ -149,6 +149,17 @@ export class DataService {
     return transactions;
   }
 
+  getTransactionsOfBudgetCategoryByDate(budgetCategory: string, date: Date) {
+    const transactions = this.data.transactions.filter((transaction) => {
+      return (
+        transaction.budgetCategory.name === budgetCategory &&
+        date.getFullYear() === transaction.date.getFullYear() &&
+        date.getMonth() === transaction.date.getMonth()
+      );
+    });
+    return transactions;
+  }
+
   getBudgetCategories() {
     return [
       ...this.data.budget.expensesCategories,

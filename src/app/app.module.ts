@@ -21,6 +21,12 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import { TransactionsCollapsableComponent } from './components/transactions-collapsable/transactions-collapsable.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { AccountFormComponent } from './components/account-form/account-form.component';
+import { DateControllerComponent } from './components/date-controller/date-controller.component';
+import { LOCALE_ID } from '@angular/core';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { BudgetCategoryResumeComponent } from './components/budget-category-resume/budget-category-resume.component';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -42,9 +48,11 @@ import { AccountFormComponent } from './components/account-form/account-form.com
     TransactionsCollapsableComponent,
     AccountsComponent,
     AccountFormComponent,
+    DateControllerComponent,
+    BudgetCategoryResumeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'ES' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
