@@ -31,4 +31,8 @@ describe('MoneySyntaxPipe', () => {
     expect(pipe.transform(1234567.23)).toEqual('1.234.567,23€');
     expect(pipe.transform(12345678.23)).toEqual('12.345.678,23€');
   });
+
+  it('should truncate decimal part for only two digits', () => {
+    expect(pipe.transform(12345678.23999)).toEqual('12.345.678,23€');
+  });
 });
