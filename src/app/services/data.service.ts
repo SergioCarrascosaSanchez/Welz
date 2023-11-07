@@ -120,7 +120,11 @@ export class DataService {
   }
 
   getBalance() {
-    return this.data.balance;
+    let balance = 0;
+    this.data.accounts.forEach((account) => {
+      balance = balance + account.balance;
+    });
+    return balance;
   }
 
   getTransactions() {
