@@ -25,6 +25,7 @@ h2 {
   html,
   body {
     font-size: small;
+    height: 100%;
   }
   h2 {
     font-size: x-large;
@@ -39,6 +40,7 @@ h2 {
   html,
   body {
     font-size: normal;
+    height: 100%;
   }
   h2 {
     font-size: xx-large;
