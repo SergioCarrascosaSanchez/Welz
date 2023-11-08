@@ -14,7 +14,7 @@ export class DataService {
   dataChange = new EventEmitter<void>();
   private url =
     'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
-  private username = 'Sergio';
+  private username = 'Jose';
   /*private data: UserData = {
     username: 'Sergio',
     balance: 15149.2,
@@ -135,6 +135,14 @@ export class DataService {
       });
   }
 
+  updateData() {
+    this.http
+      .put<UserData>(`${this.url}/${this.username}/userData.json`, this.data)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
   getData() {
     return this.data;
   }
@@ -210,11 +218,13 @@ export class DataService {
     ) {
       account.balance = account.balance + transaction.value;
     }
+    this.updateData();
     this.dataChange.emit();
   }
 
   addNewCategory(budgetCategory: BudgetCategory, type: string) {
     this.data.budget[type].push(budgetCategory);
+    this.updateData();
     this.dataChange.emit();
   }
 
@@ -235,6 +245,7 @@ export class DataService {
 
   addNewAccount(account: Account) {
     this.data.accounts.push(account);
+    this.updateData();
     this.dataChange.emit();
   }
 
