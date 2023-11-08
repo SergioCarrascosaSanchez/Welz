@@ -14,6 +14,7 @@ export class AppComponent {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
+    this.dataService.fetchData();
     this.username = this.dataService.getUsername();
   }
 
