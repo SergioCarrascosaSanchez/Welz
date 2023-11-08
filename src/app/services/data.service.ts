@@ -5,6 +5,7 @@ import { BudgetCategory } from '../interfaces/budgetCategory.model';
 import { Account } from '../interfaces/account.model';
 import { HttpClient } from '@angular/common/http';
 import { transition } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -94,7 +95,7 @@ export class DataService {
     ],
   };*/
 
-  private data: UserData = {
+  /*private data: UserData = {
     username: 'Sergio',
     balance: 15149.2,
     budget: {
@@ -104,8 +105,10 @@ export class DataService {
     },
     accounts: [],
     transactions: [],
-  };
-  loading = false;
+  };*/
+
+  loadedData = new BehaviorSubject<boolean>(false);
+  private data = undefined;
 
   constructor(private http: HttpClient) {}
 
@@ -115,7 +118,6 @@ export class DataService {
   }
 
   fetchData() {
-    this.loading = true;
     this.http
       .get<UserData>(`${this.url}/${this.username}/userData.json`)
       .subscribe((response) => {
@@ -127,9 +129,10 @@ export class DataService {
           };
         });
         this.data = response;
+        this.loadedData.next(true);
+
         this.dataChange.emit();
       });
-    this.loading = false;
   }
 
   getData() {
@@ -137,7 +140,7 @@ export class DataService {
   }
 
   getUsername() {
-    return this.data.username;
+    return this.username;
   }
 
   getBalance() {
