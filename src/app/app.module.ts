@@ -28,6 +28,8 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { BudgetCategoryResumeComponent } from './components/budget-category-resume/budget-category-resume.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { MainComponent } from './pages/main/main.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -53,6 +55,8 @@ registerLocaleData(localeEs, 'es');
     DateControllerComponent,
     BudgetCategoryResumeComponent,
     LoadingSpinnerComponent,
+    LandingComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
