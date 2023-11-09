@@ -108,7 +108,7 @@ export class DataService {
   };*/
 
   loadedData = new BehaviorSubject<boolean>(false);
-  private data = undefined;
+  private data: UserData = undefined;
 
   constructor(private http: HttpClient) {}
 
@@ -223,6 +223,32 @@ export class DataService {
     ) {
       account.balance = account.balance + transaction.value;
     }
+    this.updateData();
+    this.dataChange.emit();
+  }
+
+  deleteTransaction(transactionToDelete: Transaction) {
+    console.log('Deleted');
+    this.data.transactions = this.data.transactions.filter(
+      (transaction) => transaction.id !== transactionToDelete.id
+    );
+    const account: Account = this.data.accounts.find(
+      (account) => account.name === transactionToDelete.account.name
+    );
+    if (
+      this.data.budget.expensesCategories.includes(
+        transactionToDelete.budgetCategory
+      )
+    ) {
+      account.balance = account.balance + transactionToDelete.value;
+    } else if (
+      this.data.budget.incomeCategories.includes(
+        transactionToDelete.budgetCategory
+      )
+    ) {
+      account.balance = account.balance - transactionToDelete.value;
+    }
+    console.log('Deleted');
     this.updateData();
     this.dataChange.emit();
   }

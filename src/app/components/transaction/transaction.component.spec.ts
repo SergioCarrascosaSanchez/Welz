@@ -4,6 +4,8 @@ import { TransactionComponent } from './transaction.component';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
+import { DataService } from 'src/app/services/data.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TransactionComponent', () => {
   let component: TransactionComponent;
@@ -29,6 +31,7 @@ describe('TransactionComponent', () => {
         BadgeComponent,
         MoneyFormatPipe,
       ],
+      providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
     });
     fixture = TestBed.createComponent(TransactionComponent);
     component = fixture.componentInstance;
@@ -81,3 +84,5 @@ describe('TransactionComponent', () => {
     );
   });
 });
+
+class EmptyDataServiceMock {}
