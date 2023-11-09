@@ -10,4 +10,14 @@ import { Input } from '@angular/core';
 export class TransactionComponent {
   @Input() transaction: Transaction;
   @Input() type: string = 'regular';
+
+  displayMenu = false;
+
+  onHover() {
+    this.displayMenu = true;
+  }
+
+  onLeave() {
+    this.displayMenu = false;
+  }
 }
