@@ -10,6 +10,9 @@ import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { ModalComponent } from '../modal/modal.component';
 import { AccountFormComponent } from '../account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -27,7 +30,8 @@ describe('AccountsComponent', () => {
         ModalComponent,
         AccountFormComponent,
       ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
     });
     fixture = TestBed.createComponent(AccountsComponent);
     component = fixture.componentInstance;
@@ -104,3 +108,13 @@ const account3: Account = {
   name: 'TestAccount 3',
   balance: 0.34,
 };
+
+class EmptyDataServiceMock {
+  dataChange = new EventEmitter<void>();
+  getTransactionsOfAccount(s: string) {
+    return [];
+  }
+  getTransactionsOfBudgetCategoryByDate(s: string) {
+    return [];
+  }
+}
