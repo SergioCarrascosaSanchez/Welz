@@ -10,11 +10,13 @@ export class AppComponent {
   title = 'budget-app';
   username: string;
   addModalOpen = false;
-
+  dataLoaded = false;
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
+    this.dataService.fetchData();
     this.username = this.dataService.getUsername();
+    this.dataService.loadedData.subscribe((state) => (this.dataLoaded = state));
   }
 
   onAdd() {

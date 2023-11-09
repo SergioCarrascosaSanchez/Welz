@@ -3,14 +3,19 @@ import { UserData } from '../interfaces/userData.model';
 import { Transaction } from '../interfaces/transaction.model';
 import { BudgetCategory } from '../interfaces/budgetCategory.model';
 import { Account } from '../interfaces/account.model';
+import { HttpClient } from '@angular/common/http';
+import { transition } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   dataChange = new EventEmitter<void>();
-
-  private data: UserData = {
+  private url =
+    'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
+  private username = 'Jose';
+  /*private data: UserData = {
     username: 'Sergio',
     balance: 15149.2,
     budget: {
@@ -88,9 +93,9 @@ export class DataService {
         date: new Date('2023-10-01'),
       },
     ],
-  };
+  };*/
 
-  /*  private data: UserData = {
+  /*private data: UserData = {
     username: 'Sergio',
     balance: 15149.2,
     budget: {
@@ -101,22 +106,49 @@ export class DataService {
     accounts: [],
     transactions: [],
   };*/
-  loading = false;
 
-  constructor() {}
+  loadedData = new BehaviorSubject<boolean>(false);
+  private data = undefined;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    console.log('fecht data');
     this.fetchData();
   }
 
   fetchData() {
-    this.loading = true;
+    this.http
+      .get<UserData>(`${this.url}/${this.username}/userData.json`)
+      .subscribe((response) => {
+        //There was a problem with the dates from backend, so I had to re-format them
+        response.transactions = response.transactions.map((transaction) => {
+          return {
+            ...transaction,
+            date: new Date(transaction.date),
+          };
+        });
+        this.data = response;
+        this.loadedData.next(true);
 
-    this.loading = false;
+        this.dataChange.emit();
+      });
+  }
+
+  updateData() {
+    this.http
+      .put<UserData>(`${this.url}/${this.username}/userData.json`, this.data)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
+  getData() {
+    return this.data;
   }
 
   getUsername() {
-    return this.data.username;
+    return this.username;
   }
 
   getBalance() {
@@ -186,11 +218,13 @@ export class DataService {
     ) {
       account.balance = account.balance + transaction.value;
     }
+    this.updateData();
     this.dataChange.emit();
   }
 
   addNewCategory(budgetCategory: BudgetCategory, type: string) {
     this.data.budget[type].push(budgetCategory);
+    this.updateData();
     this.dataChange.emit();
   }
 
@@ -211,6 +245,7 @@ export class DataService {
 
   addNewAccount(account: Account) {
     this.data.accounts.push(account);
+    this.updateData();
     this.dataChange.emit();
   }
 

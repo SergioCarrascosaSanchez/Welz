@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { BudgetCategoryResumeComponent } from './components/budget-category-resume/budget-category-resume.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -50,8 +52,15 @@ registerLocaleData(localeEs, 'es');
     AccountFormComponent,
     DateControllerComponent,
     BudgetCategoryResumeComponent,
+    LoadingSpinnerComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'ES' }],
   bootstrap: [AppComponent],
 })
