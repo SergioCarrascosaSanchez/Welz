@@ -21,7 +21,7 @@
       <span style="display: grid; place-content: center; grid-column: 1"
         >{{ data.balance | moneyFormat }}
       </span>
-      <div style="grid-column: 2">
+      <div style="grid-column: 2; margin-left: 5px;">
         <app-icon-button
           (click)="onToggleOpen()"
           *ngIf="!open"
@@ -62,7 +62,7 @@
 
         <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
       </div>
-      <div style="grid-column: 2">
+      <div style="grid-column: 2; margin-left: 5px;">
         <app-icon-button
           (click)="onToggleOpen()"
           *ngIf="!open"
