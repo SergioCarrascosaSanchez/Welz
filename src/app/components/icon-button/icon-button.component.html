@@ -1,7 +1,19 @@
-<button class="icon" [ngStyle]="{'background-color': type === 'add-primary' ? 'white': '#f1f2f5'}">
+<button
+  class="icon"
+  [ngStyle]="{
+    'background-color': type === 'add-primary' ? 'white' : '#f1f2f5',
+    padding:
+      type === 'delete' || type === 'arrow-down' || type === 'arrow-up'
+        ? '0'
+        : '',
+    'margin-right': type === 'delete' ? '10px' : ''
+  }"
+>
   <svg
-    width="24"
-    height="24"
+    [ngStyle]="{
+    'width': type === 'delete' ? '19' : '24',
+    'height': type === 'delete' ? '19' : '24',
+  }"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +47,24 @@
       id="chevron-up"
       d="M17.6569 16.2427L19.0711 14.8285L12.0001 7.75739L4.92896 14.8285L6.34317 16.2427L12.0001 10.5858L17.6569 16.2427Z"
       fill="currentColor"
+    />
+
+    <path
+      *ngIf="type === 'delete'"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z"
+      fill="rgb(231, 76, 60)"
+    />
+    <path
+      *ngIf="type === 'delete'"
+      d="M9 9H11V17H9V9Z"
+      fill="rgb(231, 76, 60)"
+    />
+    <path
+      *ngIf="type === 'delete'"
+      d="M13 9H15V17H13V9Z"
+      fill="rgb(231, 76, 60)"
     />
   </svg>
 </button>
