@@ -66,7 +66,7 @@ export class TransactionsCollapsableComponent {
     }
   }
 
-  onClick() {
+  onToggleOpen() {
     this.open = !this.open;
   }
 
