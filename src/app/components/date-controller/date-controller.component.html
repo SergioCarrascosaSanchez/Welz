@@ -3,7 +3,7 @@
     <app-icon-button
       id="left-arrow-button"
       (click)="onChangeMonth(-1)"
-      type="left-arrow"
+      type="arrow-left"
     ></app-icon-button>
     <div style="display: grid; place-content: center">
       {{ date | date : "MMMM yyyy" | titlecase }}
@@ -11,7 +11,7 @@
     <app-icon-button
       id="right-arrow-button"
       (click)="onChangeMonth(1)"
-      type="right-arrow"
+      type="arrow-right"
     ></app-icon-button>
   </div>
 </div>
