@@ -30,6 +30,7 @@ import { BudgetCategoryResumeComponent } from './components/budget-category-resu
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { MainComponent } from './pages/main/main.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -57,6 +58,7 @@ registerLocaleData(localeEs, 'es');
     LoadingSpinnerComponent,
     LandingComponent,
     MainComponent,
+    IconButtonComponent,
   ],
   imports: [
     BrowserModule,
