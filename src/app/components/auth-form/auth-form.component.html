@@ -1,0 +1,27 @@
+<div style="margin-top: 20px"></div>
+
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <input
+    formControlName="email"
+    style="margin-bottom: 5px"
+    type="text"
+    placeholder="Email"
+  />
+  <input
+    formControlName="password"
+    style="margin-bottom: 5px"
+    type="password"
+    placeholder="Contraseña"
+  />
+  <input
+    *ngIf="isSignUp()"
+    formControlName="password2"
+    style="margin-bottom: 5px"
+    type="password"
+    placeholder="Repite la contraseña"
+  />
+  <div style="text-align: right; border: 0">
+    <button type="submit" *ngIf="isSignUp()">Crear una cuenta</button>
+    <button type="submit" *ngIf="!isSignUp()">Iniciar sesion</button>
+  </div>
+</form>

@@ -31,6 +31,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { LandingComponent } from './pages/landing/landing.component';
 import { MainComponent } from './pages/main/main.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { AuthFormComponent } from './components/auth-form/auth-form.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -59,6 +60,7 @@ registerLocaleData(localeEs, 'es');
     LandingComponent,
     MainComponent,
     IconButtonComponent,
+    AuthFormComponent,
   ],
   imports: [
     BrowserModule,
