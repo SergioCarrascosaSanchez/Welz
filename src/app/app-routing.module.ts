@@ -3,14 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { TransactionPageComponent } from './pages/transactions/transactions-page.component';
 import { BudgetComponent } from './pages/budget/budget.component';
+import { AuthFormComponent } from './components/auth-form/auth-form.component';
+import { MainComponent } from './pages/main/main.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'budget', component: BudgetComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/user' },
   {
-    path: 'transactions',
-    component: TransactionPageComponent,
+    path: 'user',
+    component: MainComponent,
+    children: [
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'budget', component: BudgetComponent },
+      {
+        path: 'transactions',
+        component: TransactionPageComponent,
+      },
+    ],
   },
+  { path: 'auth', component: AuthFormComponent },
 ];
 
 @NgModule({

@@ -12,14 +12,14 @@ export class NavbarComponent {
 export const navbarItems = [
   {
     text: 'Home',
-    route: '/',
+    route: '/user/',
   },
   {
     text: 'Presupuesto',
-    route: '/budget',
+    route: '/user/budget',
   },
   {
     text: 'Movimientos',
-    route: '/transactions',
+    route: '/user/transactions',
   },
 ];
