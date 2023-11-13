@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
 
 @Component({
@@ -8,6 +9,8 @@ import { EmptyValidator } from 'src/app/validators/empty-validator';
   styleUrls: ['./auth-form.component.css'],
 })
 export class AuthFormComponent {
+  constructor(private authService: AuthService) {}
+
   type: AUTH_FORM_TYPES = AUTH_FORM_TYPES.SIGNUP;
 
   authForm: FormGroup = new FormGroup({
@@ -37,11 +40,17 @@ export class AuthFormComponent {
   }
 
   onSignUp() {
-    console.log('SignUp');
+    this.authService.signUp({
+      email: this.authForm.controls['email'].value,
+      password: this.authForm.controls['password'].value,
+    });
   }
 
   onLogIn() {
-    console.log('LogIn');
+    this.authService.logIn({
+      email: this.authForm.controls['email'].value,
+      password: this.authForm.controls['password'].value,
+    });
   }
 
   isSignUp() {

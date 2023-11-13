@@ -119,25 +119,55 @@ export class DataService {
 
   fetchData() {
     this.http
-      .get<UserData>(`${this.url}/${this.username}/userData.json`)
+      .get<UserData>(`${this.url}/${localStorage.getItem('id')}/.json`)
       .subscribe((response) => {
-        //There was a problem with the dates from backend, so I had to re-format them
-        response.transactions = response.transactions.map((transaction) => {
-          return {
-            ...transaction,
-            date: new Date(transaction.date),
-          };
-        });
-        this.data = response;
+        this.prepareData(response);
+        this.data = this.prepareData(response);
+        this.username = this.data.username;
         this.loadedData.next(true);
-        console.log(this.data);
         this.dataChange.emit();
       });
   }
 
+  prepareData(newData: UserData) {
+    if (newData.budget === undefined) {
+      newData.budget = {
+        incomeCategories: [],
+        savingCategories: [],
+        expensesCategories: [],
+      };
+    }
+    if (newData.budget.incomeCategories === undefined) {
+      newData.budget.incomeCategories = [];
+    }
+    if (newData.budget.expensesCategories === undefined) {
+      newData.budget.expensesCategories = [];
+    }
+    if (newData.budget.savingCategories === undefined) {
+      newData.budget.savingCategories = [];
+    }
+    if (newData.accounts === undefined) {
+      newData.accounts = [];
+    }
+    if (newData.transactions === undefined) {
+      newData.transactions = [];
+    } else {
+      newData.transactions = newData.transactions.map((transaction) => {
+        return {
+          ...transaction,
+          date: new Date(transaction.date),
+        };
+      });
+    }
+    return newData;
+  }
+
   updateData() {
     this.http
-      .put<UserData>(`${this.url}/${this.username}/userData.json`, this.data)
+      .put<UserData>(
+        `${this.url}/${localStorage.getItem('id')}/.json`,
+        this.data
+      )
       .subscribe((response) => {
         console.log(response);
       });
