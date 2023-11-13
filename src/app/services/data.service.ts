@@ -14,99 +14,6 @@ export class DataService {
   dataChange = new EventEmitter<void>();
   private url =
     'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
-  private username = 'Sergio';
-  /*private data: UserData = {
-    username: 'Sergio',
-    balance: 15149.2,
-    budget: {
-      incomeCategories: [{ name: 'Nomina', max: 1500, color: 'green' }],
-      savingCategories: [
-        { name: 'Casa', max: 500, color: 'green' },
-        { name: 'Vacaciones', max: 100, color: 'green' },
-      ],
-      expensesCategories: [
-        { name: 'Alimentacion', max: 100, color: 'red' },
-        { name: 'Ocio', max: 100, color: 'purple' },
-        { name: 'Fijos', max: 400, color: 'grey' },
-      ],
-    },
-    accounts: [
-      {
-        name: 'Cuenta santander ahorro',
-        balance: 19999.12,
-      },
-      { name: 'Cuenta BBVA gastos', balance: 9040.23 },
-      { name: 'Inversión', balance: 132000 },
-    ],
-    transactions: [
-      {
-        description: 'Compra de comestibles',
-        budgetCategory: { name: 'Alimentacion', max: 1000, color: 'red' },
-        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
-        value: 50.25,
-        date: new Date('2023-10-06'),
-      },
-      {
-        description: 'Pago de factura de electricidad',
-        budgetCategory: { name: 'Fijos', max: 1000, color: 'grey' },
-        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
-        value: 120.0,
-        date: new Date('2023-10-05'),
-      },
-      {
-        description: 'Cine',
-        account: { name: 'Cuenta BBVA gastos', balance: 9040.23 },
-        budgetCategory: {
-          name: 'Ocio',
-          max: 1000,
-          color: 'purple',
-        },
-        value: 120.0,
-        date: new Date('2023-10-05'),
-      },
-      {
-        description: 'Compra de gasolina',
-        budgetCategory: { name: 'Fijos', max: 500, color: 'grey' },
-        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
-        value: 40.0,
-        date: new Date('2023-10-04'),
-      },
-      {
-        description: 'Pago de factura de teléfono',
-        budgetCategory: { name: 'Fijos', max: 500, color: 'grey' },
-        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
-        value: 60.0,
-        date: new Date('2023-10-03'),
-      },
-      {
-        description: 'Cena en un restaurante',
-        budgetCategory: { name: 'Ocio', max: 1000, color: 'purple' },
-        account: { name: 'Cuenta BBVA gastos', balance: 9040.23 },
-        value: 75.5,
-        date: new Date('2023-10-02'),
-      },
-      {
-        description: 'Bolera',
-        budgetCategory: { name: 'Ocio', max: 200, color: 'purple' },
-        account: { name: 'Cuenta santander ahorro', balance: 19999.12 },
-        value: 30.0,
-        date: new Date('2023-10-01'),
-      },
-    ],
-  };*/
-
-  /*private data: UserData = {
-    username: 'Sergio',
-    balance: 15149.2,
-    budget: {
-      incomeCategories: [],
-      savingCategories: [],
-      expensesCategories: [],
-    },
-    accounts: [],
-    transactions: [],
-  };*/
-
   loadedData = new BehaviorSubject<boolean>(false);
   private data: UserData = undefined;
 
@@ -123,7 +30,7 @@ export class DataService {
       .subscribe((response) => {
         this.prepareData(response);
         this.data = this.prepareData(response);
-        this.username = this.data.username;
+        console.log(this.data);
         this.loadedData.next(true);
         this.dataChange.emit();
       });
@@ -178,7 +85,7 @@ export class DataService {
   }
 
   getUsername() {
-    return this.username;
+    return this.data !== undefined ? this.data.username : '';
   }
 
   getBalance() {

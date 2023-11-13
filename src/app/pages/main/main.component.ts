@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class MainComponent {
   title = 'budget-app';
-  username: string;
+  username: string = '';
   addModalOpen = false;
   dataLoaded = false;
   constructor(private dataService: DataService) {}
@@ -16,7 +16,10 @@ export class MainComponent {
   ngOnInit() {
     this.dataService.fetchData();
     this.username = this.dataService.getUsername();
-    this.dataService.loadedData.subscribe((state) => (this.dataLoaded = state));
+    this.dataService.loadedData.subscribe((state) => {
+      this.dataLoaded = state;
+      this.username = this.dataService.getUsername();
+    });
   }
 
   onAdd() {

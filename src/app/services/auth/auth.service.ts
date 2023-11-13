@@ -28,7 +28,7 @@ export class AuthService {
         localStorage.setItem('id', response.localId);
         console.log(response);
         this.http
-          .post<UserData>(`${this.urlStorage}/${response.localId}.json`, {
+          .put<UserData>(`${this.urlStorage}/${response.localId}.json`, {
             username: response.localId,
             balance: 0,
             budget: {
