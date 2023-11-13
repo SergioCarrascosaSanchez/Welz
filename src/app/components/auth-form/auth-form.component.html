@@ -20,6 +20,22 @@
     type="password"
     placeholder="Repite la contraseña"
   />
+  <u
+    type="submit"
+    *ngIf="isSignUp()"
+    (click)="switchType()"
+    style="cursor: pointer"
+  >
+    Ya tengo una cuenta
+  </u>
+  <u
+    type="submit"
+    *ngIf="!isSignUp()"
+    (click)="switchType()"
+    style="cursor: pointer"
+  >
+    No tengo cuenta aún
+  </u>
   <div style="text-align: right; border: 0">
     <button type="submit" *ngIf="isSignUp()">Crear una cuenta</button>
     <button type="submit" *ngIf="!isSignUp()">Iniciar sesion</button>

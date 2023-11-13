@@ -11,7 +11,7 @@ import { EmptyValidator } from 'src/app/validators/empty-validator';
 export class AuthFormComponent {
   constructor(private authService: AuthService) {}
 
-  type: AUTH_FORM_TYPES = AUTH_FORM_TYPES.SIGNUP;
+  type: AUTH_FORM_TYPES = AUTH_FORM_TYPES.LOGIN;
 
   authForm: FormGroup = new FormGroup({
     email: new FormControl<string>('', [Validators.email, EmptyValidator]),
@@ -55,6 +55,14 @@ export class AuthFormComponent {
 
   isSignUp() {
     return this.type === AUTH_FORM_TYPES.SIGNUP;
+  }
+
+  switchType() {
+    if (this.isSignUp()) {
+      this.type = AUTH_FORM_TYPES.LOGIN;
+    } else {
+      this.type = AUTH_FORM_TYPES.SIGNUP;
+    }
   }
 }
 
