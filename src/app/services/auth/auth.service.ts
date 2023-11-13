@@ -51,6 +51,7 @@ export class AuthService {
       .post<AuthResponse>(`${this.urlLogIn}${this.apiKey}`, userPassword)
       .subscribe((response) => {
         localStorage.setItem('token', response.idToken);
+        localStorage.setItem('id', response.localId);
         this.router.navigate(['/user']);
       });
   }
