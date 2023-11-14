@@ -43,6 +43,7 @@ export class AuthFormComponent {
     this.authService.signUp({
       email: this.authForm.controls['email'].value,
       password: this.authForm.controls['password'].value,
+      returnSecureToken: true,
     });
   }
 
@@ -50,6 +51,7 @@ export class AuthFormComponent {
     this.authService.logIn({
       email: this.authForm.controls['email'].value,
       password: this.authForm.controls['password'].value,
+      returnSecureToken: true,
     });
   }
 

@@ -3,7 +3,7 @@ import { UserData } from '../interfaces/userData.model';
 import { Transaction } from '../interfaces/transaction.model';
 import { BudgetCategory } from '../interfaces/budgetCategory.model';
 import { Account } from '../interfaces/account.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { transition } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
 
@@ -26,7 +26,9 @@ export class DataService {
 
   fetchData() {
     this.http
-      .get<UserData>(`${this.url}/${localStorage.getItem('id')}/.json`)
+      .get<UserData>(`${this.url}/${localStorage.getItem('id')}.json`, {
+        params: new HttpParams().set('auth', localStorage.getItem('token')),
+      })
       .subscribe((response) => {
         this.prepareData(response);
         this.data = this.prepareData(response);
@@ -73,7 +75,10 @@ export class DataService {
     this.http
       .put<UserData>(
         `${this.url}/${localStorage.getItem('id')}/.json`,
-        this.data
+        this.data,
+        {
+          params: new HttpParams().set('auth', localStorage.getItem('token')),
+        }
       )
       .subscribe((response) => {
         console.log(response);
