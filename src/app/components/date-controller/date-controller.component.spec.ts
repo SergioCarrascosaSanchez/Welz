@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { DateControllerComponent } from './date-controller.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 describe('DateControllerComponent', () => {
   let component: DateControllerComponent;
@@ -10,7 +11,7 @@ describe('DateControllerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DateControllerComponent],
+      declarations: [DateControllerComponent, IconButtonComponent],
     });
     fixture = TestBed.createComponent(DateControllerComponent);
     component = fixture.componentInstance;

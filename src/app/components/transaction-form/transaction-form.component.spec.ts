@@ -16,6 +16,7 @@ import { DataService } from 'src/app/services/data.service';
 import { ALERT_TYPES } from '../alert/alert.component';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 
 describe('TransactionFormComponent', () => {
   let component: TransactionFormComponent;
@@ -343,6 +344,7 @@ describe('TransactionFormComponent', () => {
 
 class DataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getBudgetCategories() {
     return [budgetCategory1, budgetCategory2];
   }

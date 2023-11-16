@@ -12,6 +12,8 @@ import { BadgeComponent } from '../badge/badge.component';
 import { TransactionComponent } from '../transaction/transaction.component';
 import { DataService } from 'src/app/services/data.service';
 import { Transaction } from 'src/app/interfaces/transaction.model';
+import { Observable } from 'rxjs';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 describe('TransactionsCollapsableComponent', () => {
   let component: TransactionsCollapsableComponent;
@@ -260,6 +262,7 @@ describe('TransactionsCollapsableComponent', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
@@ -275,6 +278,7 @@ describe('TransactionsCollapsableComponent', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
@@ -290,6 +294,7 @@ describe('TransactionsCollapsableComponent', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
@@ -305,6 +310,7 @@ describe('TransactionsCollapsableComponent', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
@@ -322,6 +328,7 @@ describe('TransactionsCollapsableComponent', () => {
 
 class DataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getTransactionsOfAccount(s: string) {
     return [transaction1, transaction2];
   }
@@ -332,6 +339,7 @@ class DataServiceMock {
 
 class EmptyDataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getTransactionsOfAccount(s: string) {
     return [];
   }

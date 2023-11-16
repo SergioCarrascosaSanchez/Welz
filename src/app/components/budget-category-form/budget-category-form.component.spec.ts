@@ -14,6 +14,8 @@ import { DataService } from 'src/app/services/data.service';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
+import { Observable } from 'rxjs';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 describe('BudgetCategoryFormComponent', () => {
   let component: BudgetCategoryFormComponent;
@@ -311,6 +313,7 @@ describe('BudgetCategoryFormComponent', () => {
 /* DataServiceMocks */
 
 class DataServiceMock {
+  error = new Observable<string>();
   addNewCategory(budgetCategory: BudgetCategory) {}
 
   checkCategoryName(name: string) {

@@ -14,6 +14,8 @@ import { BudgetCategoryFormComponent } from '../budget-category-form/budget-cate
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsCollapsableComponent } from '../transactions-collapsable/transactions-collapsable.component';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { Observable } from 'rxjs';
 
 describe('BudgetCategoryComponent', () => {
   let component: BudgetCategoryComponent;
@@ -101,6 +103,7 @@ describe('BudgetCategoryComponent', () => {
         ModalComponent,
         BudgetCategoryFormComponent,
         ColorPickerComponent,
+        IconButtonComponent,
       ],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       imports: [ReactiveFormsModule],
@@ -120,6 +123,7 @@ describe('BudgetCategoryComponent', () => {
 
 class EmptyDataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getTransactionsOfBudgetCategory(s: string) {
     return [];
   }

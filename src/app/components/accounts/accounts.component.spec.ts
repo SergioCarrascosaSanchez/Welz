@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { Observable } from 'rxjs';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -29,6 +31,7 @@ describe('AccountsComponent', () => {
         MoneyFormatPipe,
         ModalComponent,
         AccountFormComponent,
+        IconButtonComponent,
       ],
       imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -110,6 +113,7 @@ const account3: Account = {
 };
 
 class EmptyDataServiceMock {
+  error = new Observable<string>();
   dataChange = new EventEmitter<void>();
   getTransactionsOfAccount(s: string) {
     return [];
