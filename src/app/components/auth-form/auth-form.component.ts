@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
+import { ALERT_TYPES } from '../alert/alert.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth-form',
@@ -13,6 +15,10 @@ export class AuthFormComponent {
 
   type: AUTH_FORM_TYPES = AUTH_FORM_TYPES.LOGIN;
 
+  error = null;
+  errorAlertType = ALERT_TYPES.danger;
+  private errorSubscription: Subscription;
+
   authForm: FormGroup = new FormGroup({
     email: new FormControl<string>('', [Validators.email, EmptyValidator]),
     password: new FormControl<string>('', [
@@ -22,20 +28,22 @@ export class AuthFormComponent {
     password2: new FormControl<string>(''),
   });
 
-  ngOnInit() {
-    if (this.isSignUp()) {
-      this.authForm.controls['password2'].setValidators([
-        Validators.minLength(8),
-        EmptyValidator,
-      ]);
-    }
-  }
-
   onSubmit() {
-    if (this.isSignUp()) {
-      this.onSignUp();
+    if (!this.authForm.invalid) {
+      if (this.isSignUp()) {
+        if (
+          this.authForm.controls['password'].value !==
+          this.authForm.controls['password2'].value
+        ) {
+          this.error = PasswordsError;
+        } else {
+          this.onSignUp();
+        }
+      } else {
+        this.onLogIn();
+      }
     } else {
-      this.onLogIn();
+      this.manageErrors();
     }
   }
 
@@ -66,9 +74,54 @@ export class AuthFormComponent {
       this.type = AUTH_FORM_TYPES.SIGNUP;
     }
   }
+
+  manageErrors() {
+    let errorArray = [];
+    this.error = '';
+    Object.values(this.authForm.controls).forEach(
+      (formControl: FormControl) => {
+        if (formControl.errors) {
+          errorArray = [...errorArray, ...Object.keys(formControl.errors)];
+        }
+      }
+    );
+    if (errorArray.includes('emptyValue')) {
+      this.error = EmptyError;
+      return;
+    }
+    if (errorArray.includes('email')) {
+      this.error = EmailError;
+      return;
+    }
+    if (errorArray.includes('minlength')) {
+      this.error = MinError;
+      return;
+    }
+  }
+
+  ngOnInit() {
+    if (this.isSignUp()) {
+      this.authForm.controls['password2'].setValidators([
+        Validators.minLength(8),
+        EmptyValidator,
+      ]);
+    }
+    this.errorSubscription = this.authService.error.subscribe((msg) => {
+      this.error = msg;
+    });
+  }
+
+  ngOnDestroy() {
+    this.errorSubscription.unsubscribe();
+  }
 }
 
 export enum AUTH_FORM_TYPES {
   LOGIN = 'login',
   SIGNUP = 'signup',
 }
+
+export const EmptyError: string = 'Debes rellenar todos los campos.';
+export const EmailError: string = 'El formato del email es incorrecto';
+export const MinError: string = 'La contraseña debe tener al menos 8 digitos.';
+export const PasswordsError: string = 'Las contraseñas deben coincidir.';

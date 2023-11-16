@@ -3,9 +3,13 @@ import { UserData } from '../interfaces/userData.model';
 import { Transaction } from '../interfaces/transaction.model';
 import { BudgetCategory } from '../interfaces/budgetCategory.model';
 import { Account } from '../interfaces/account.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { transition } from '@angular/animations';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +20,9 @@ export class DataService {
     'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
   loadedData = new BehaviorSubject<boolean>(false);
   private data: UserData = undefined;
+
+  private errorSubject = new BehaviorSubject<string | null>(null);
+  error = this.errorSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -29,10 +36,16 @@ export class DataService {
       .get<UserData>(`${this.url}/${localStorage.getItem('id')}.json`, {
         params: new HttpParams().set('auth', localStorage.getItem('token')),
       })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.errorSubject.next(ERROR);
+          return throwError(error.error.error.message);
+        })
+      )
       .subscribe((response) => {
+        this.errorSubject.next(null);
         this.prepareData(response);
         this.data = this.prepareData(response);
-        console.log(this.data);
         this.loadedData.next(true);
         this.dataChange.emit();
       });
@@ -80,8 +93,14 @@ export class DataService {
           params: new HttpParams().set('auth', localStorage.getItem('token')),
         }
       )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.errorSubject.next(ERROR);
+          return throwError(error.error.error.message);
+        })
+      )
       .subscribe((response) => {
-        console.log(response);
+        this.errorSubject.next(null);
       });
   }
 
@@ -230,3 +249,5 @@ export class DataService {
     return !accountNames.includes(name);
   }
 }
+
+export const ERROR = 'Ha ocurrido al enviar la información.';

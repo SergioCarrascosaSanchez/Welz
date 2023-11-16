@@ -5,6 +5,7 @@ import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { DataService } from 'src/app/services/data.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
 import { ALERT_TYPES } from '../alert/alert.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-transaction-form',
@@ -35,6 +36,7 @@ export class TransactionFormComponent {
   correctAdditionMessage = CorrectAdditionMessage;
 
   errors = '';
+  errorSubscription: Subscription;
   errorAlertType = ALERT_TYPES.danger;
   successAlertType = ALERT_TYPES.success;
 
@@ -45,6 +47,13 @@ export class TransactionFormComponent {
       this.categories = this.dataService.getBudgetCategories();
       this.accounts = this.dataService.getAccounts();
     });
+    this.errorSubscription = this.dataService.error.subscribe((msg) => {
+      this.errors = msg;
+    });
+  }
+
+  ngOnDestroy() {
+    this.errorSubscription.unsubscribe();
   }
 
   onSubmit() {

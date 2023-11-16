@@ -1,5 +1,5 @@
 <div style="margin-top: 20px"></div>
-
+<app-alert *ngIf="error" [message]="error" [type]="errorAlertType"></app-alert>
 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <input
     formControlName="email"

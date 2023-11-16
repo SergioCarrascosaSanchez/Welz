@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
 import { ALERT_TYPES } from '../alert/alert.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-account-form',
   templateUrl: './account-form.component.html',
@@ -24,6 +25,7 @@ export class AccountFormComponent {
   correctAdditionMessage = CorrectAdditionMessage;
 
   errors = '';
+  errorSubscription: Subscription;
   errorAlertType = ALERT_TYPES.danger;
   successAlertType = ALERT_TYPES.success;
 
@@ -82,6 +84,16 @@ export class AccountFormComponent {
       this.errors = EmptyError;
       return;
     }
+  }
+
+  ngOnInit() {
+    this.errorSubscription = this.dataService.error.subscribe((msg) => {
+      this.errors = msg;
+    });
+  }
+
+  ngOnDestroy() {
+    this.errorSubscription.unsubscribe();
   }
 }
 export const EmptyError: string = 'Debes rellenar todos los campos.';
