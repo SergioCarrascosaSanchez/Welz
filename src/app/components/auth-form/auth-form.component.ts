@@ -19,6 +19,9 @@ export class AuthFormComponent {
   errorAlertType = ALERT_TYPES.danger;
   private errorSubscription: Subscription;
 
+  notSignedUpText = NotSignedUpText;
+  signedUpText = SignedUpText;
+
   authForm: FormGroup = new FormGroup({
     email: new FormControl<string>('', [Validators.email, EmptyValidator]),
     password: new FormControl<string>('', [
@@ -125,3 +128,5 @@ export const EmptyError: string = 'Debes rellenar todos los campos.';
 export const EmailError: string = 'El formato del email es incorrecto';
 export const MinError: string = 'La contraseña debe tener al menos 8 digitos.';
 export const PasswordsError: string = 'Las contraseñas deben coincidir.';
+export const NotSignedUpText: string = 'No tengo cuenta aún';
+export const SignedUpText: string = 'Ya tengo una cuenta';
