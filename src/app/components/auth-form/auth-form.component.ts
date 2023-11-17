@@ -21,6 +21,8 @@ export class AuthFormComponent {
 
   notSignedUpText = NotSignedUpText;
   signedUpText = SignedUpText;
+  notSignedUpTitle = NotSignedUpTitle;
+  signedUpTitle = SignedUpTitle;
 
   authForm: FormGroup = new FormGroup({
     email: new FormControl<string>('', [Validators.email, EmptyValidator]),
@@ -130,3 +132,5 @@ export const MinError: string = 'La contraseña debe tener al menos 8 digitos.';
 export const PasswordsError: string = 'Las contraseñas deben coincidir.';
 export const NotSignedUpText: string = 'No tengo cuenta aún';
 export const SignedUpText: string = 'Ya tengo una cuenta';
+export const NotSignedUpTitle: string = 'Crear una cuenta';
+export const SignedUpTitle: string = 'Iniciar sesion';

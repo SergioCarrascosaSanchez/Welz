@@ -1,4 +1,6 @@
 <div style="margin-top: 20px"></div>
+<h1 *ngIf="isSignUp()" style="font-size: x-large">{{ notSignedUpTitle }}</h1>
+<h1 *ngIf="!isSignUp()" style="font-size: x-large">{{ signedUpTitle }}</h1>
 <app-alert *ngIf="error" [message]="error" [type]="errorAlertType"></app-alert>
 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <input
@@ -37,7 +39,7 @@
     {{ notSignedUpText }}
   </u>
   <div style="text-align: right; border: 0">
-    <button type="submit" *ngIf="isSignUp()">Crear una cuenta</button>
-    <button type="submit" *ngIf="!isSignUp()">Iniciar sesion</button>
+    <button type="submit" *ngIf="isSignUp()">{{ notSignedUpTitle }}</button>
+    <button type="submit" *ngIf="!isSignUp()">{{ signedUpTitle }}</button>
   </div>
 </form>

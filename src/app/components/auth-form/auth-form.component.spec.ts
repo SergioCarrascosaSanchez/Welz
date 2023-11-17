@@ -7,10 +7,11 @@ import {
   EmptyError,
   MinError,
   NotSignedUpText,
+  NotSignedUpTitle,
   PasswordsError,
   SignedUpText,
+  SignedUpTitle,
 } from './auth-form.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UserPassword } from 'src/app/interfaces/user-password';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable } from 'rxjs';
@@ -54,6 +55,9 @@ describe('AuthFormComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       NotSignedUpText
     );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      SignedUpTitle
+    );
   });
 
   it('should render inputs, and button - signup', () => {
@@ -73,6 +77,9 @@ describe('AuthFormComponent', () => {
     expect(fixture.debugElement.query(By.css('u'))).toBeTruthy();
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       SignedUpText
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      NotSignedUpTitle
     );
   });
 
