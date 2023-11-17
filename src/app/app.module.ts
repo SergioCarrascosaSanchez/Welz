@@ -32,6 +32,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { MainComponent } from './pages/main/main.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
+import { AuthComponent } from './pages/auth/auth.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -61,6 +62,7 @@ registerLocaleData(localeEs, 'es');
     MainComponent,
     IconButtonComponent,
     AuthFormComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,

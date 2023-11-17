@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { TransactionPageComponent } from './pages/transactions/transactions-page.component';
 import { BudgetComponent } from './pages/budget/budget.component';
-import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { MainComponent } from './pages/main/main.component';
 import { authGuard } from './guards/auth/auth.guard';
+import { AuthComponent } from './pages/auth/auth.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/user' },
@@ -23,7 +23,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'auth', component: AuthFormComponent },
+  { path: 'auth', component: AuthComponent },
 ];
 
 @NgModule({
