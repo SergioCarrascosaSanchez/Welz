@@ -14,7 +14,8 @@ const routes: Routes = [
     component: MainComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', pathMatch: 'full', redirectTo: '/user/accounts' },
+      { path: 'accounts', component: HomeComponent },
       { path: 'budget', component: BudgetComponent },
       {
         path: 'transactions',

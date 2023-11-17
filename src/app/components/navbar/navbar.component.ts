@@ -11,8 +11,8 @@ export class NavbarComponent {
 
 export const navbarItems = [
   {
-    text: 'Home',
-    route: '/user/',
+    text: 'Cuentas',
+    route: '/user/accounts',
   },
   {
     text: 'Presupuesto',
