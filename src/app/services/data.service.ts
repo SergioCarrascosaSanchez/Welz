@@ -10,6 +10,7 @@ import {
 } from '@angular/common/http';
 import { transition } from '@angular/animations';
 import { BehaviorSubject, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class DataService {
   private errorSubject = new BehaviorSubject<string | null>(null);
   error = this.errorSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     console.log('fecht data');
@@ -38,6 +39,9 @@ export class DataService {
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          if (error.status.toString() === '401') {
+            this.router.navigate(['/auth']);
+          }
           this.errorSubject.next(ERROR);
           return throwError(error.error.error.message);
         })
