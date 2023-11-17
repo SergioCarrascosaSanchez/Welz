@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, throwError } from 'rxjs';
@@ -39,21 +43,31 @@ export class AuthService {
         })
       )
       .subscribe((response) => {
+        console.log(response);
         localStorage.setItem('token', response.idToken);
         localStorage.setItem('id', response.localId);
         this.errorSubject.next(null);
         this.http
-          .put<UserData>(`${this.urlStorage}/${response.localId}.json`, {
-            username: response.localId,
-            balance: 0,
-            budget: {
-              incomeCategories: [],
-              savingCategories: [],
-              expensesCategories: [],
+          .put<UserData>(
+            `${this.urlStorage}/${response.localId}.json`,
+            {
+              username: response.localId,
+              balance: 0,
+              budget: {
+                incomeCategories: [],
+                savingCategories: [],
+                expensesCategories: [],
+              },
+              accounts: [],
+              transactions: [],
             },
-            accounts: [],
-            transactions: [],
-          })
+            {
+              params: new HttpParams().set(
+                'auth',
+                localStorage.getItem('token')
+              ),
+            }
+          )
           .pipe(
             catchError((error: HttpErrorResponse) => {
               this.errorSubject.next(UNKNOWN_ERROR);
@@ -61,6 +75,7 @@ export class AuthService {
             })
           )
           .subscribe((response) => {
+            console.log(response);
             this.errorSubject.next(null);
             this.router.navigate(['/user']);
           });
