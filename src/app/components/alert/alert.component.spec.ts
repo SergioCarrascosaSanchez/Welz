@@ -27,7 +27,7 @@ describe('AlertComponent', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(message);
   });
 
-  it('should have danger class', () => {
+  it('should have danger class and icon', () => {
     component.type = ALERT_TYPES.danger;
     fixture.detectChanges();
     expect(
@@ -36,6 +36,7 @@ describe('AlertComponent', () => {
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
     ).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('svg'))).toBeTruthy();
   });
 
   it('should have success class', () => {
@@ -48,5 +49,6 @@ describe('AlertComponent', () => {
     expect(
       fixture.debugElement.query(By.css(`.${ALERT_TYPES.success}`))
     ).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('svg'))).toBeFalsy();
   });
 });
