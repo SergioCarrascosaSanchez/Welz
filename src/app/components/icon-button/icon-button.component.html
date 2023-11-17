@@ -1,5 +1,6 @@
 <button
   class="icon"
+  style="display: flex; text-align: center"
   [ngStyle]="{
     'background-color': type === 'add-primary' ? 'white' : '#f1f2f5',
     padding:
@@ -67,4 +68,11 @@
       fill="rgb(231, 76, 60)"
     />
   </svg>
+
+  <div
+    *ngIf="type === 'add-primary'"
+    style="margin-top: auto; margin-bottom: auto; margin-left: 5px"
+  >
+    Añadir transacción
+  </div>
 </button>
