@@ -8,6 +8,7 @@ import {
   DuplicatedAccountName,
   CorrectAdditionMessage,
   MinError,
+  EditTitle,
 } from './account-form.component';
 import { AlertComponent, ALERT_TYPES } from '../alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +37,20 @@ describe('AccountFormComponent', () => {
 
   it('should render inputs, title and button', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(Title);
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="description"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="balance"]'))
+    ).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
+  });
+
+  it('should render inputs, title and button - editMode', () => {
+    component.edit = true;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(EditTitle);
     expect(
       fixture.debugElement.query(By.css('input[formControlName="description"]'))
     ).toBeTruthy();

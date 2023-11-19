@@ -146,14 +146,14 @@ const budgetCategory2 = { name: name2, max: max2, color: color2 };
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
   budgetCategory: budgetCategory1,
-  account: { name: 'Cuenta principal', balance: 0 },
+  account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
   budgetCategory: budgetCategory2,
-  account: { name: 'Cuenta principal', balance: 0 },
+  account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),
 };

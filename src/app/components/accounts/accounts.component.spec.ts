@@ -121,4 +121,7 @@ class EmptyDataServiceMock {
   getTransactionsOfBudgetCategoryByDate(s: string) {
     return [];
   }
+  getAccountById(id: number) {
+    return account1;
+  }
 }

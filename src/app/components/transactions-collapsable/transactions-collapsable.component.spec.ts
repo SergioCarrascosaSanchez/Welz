@@ -14,6 +14,9 @@ import { DataService } from 'src/app/services/data.service';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { Observable } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { ModalComponent } from '../modal/modal.component';
+import { AccountFormComponent } from '../account-form/account-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('TransactionsCollapsableComponent', () => {
   let component: TransactionsCollapsableComponent;
@@ -263,7 +266,10 @@ describe('TransactionsCollapsableComponent', () => {
           MoneyFormatPipe,
           TransactionComponent,
           IconButtonComponent,
+          ModalComponent,
+          AccountFormComponent,
         ],
+        imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
       fixture = TestBed.createComponent(TransactionsCollapsableComponent);
@@ -279,7 +285,10 @@ describe('TransactionsCollapsableComponent', () => {
           MoneyFormatPipe,
           TransactionComponent,
           IconButtonComponent,
+          ModalComponent,
+          AccountFormComponent,
         ],
+        imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
       fixture = TestBed.createComponent(TransactionsCollapsableComponent);
@@ -295,7 +304,10 @@ describe('TransactionsCollapsableComponent', () => {
           MoneyFormatPipe,
           TransactionComponent,
           IconButtonComponent,
+          ModalComponent,
+          AccountFormComponent,
         ],
+        imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
       fixture = TestBed.createComponent(TransactionsCollapsableComponent);
@@ -311,7 +323,10 @@ describe('TransactionsCollapsableComponent', () => {
           MoneyFormatPipe,
           TransactionComponent,
           IconButtonComponent,
+          ModalComponent,
+          AccountFormComponent,
         ],
+        imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
       fixture = TestBed.createComponent(TransactionsCollapsableComponent);
@@ -335,6 +350,10 @@ class DataServiceMock {
   getTransactionsOfBudgetCategoryByDate(s: string) {
     return [transaction1, transaction2];
   }
+
+  getAccountById(id: number) {
+    return account;
+  }
 }
 
 class EmptyDataServiceMock {
@@ -346,19 +365,23 @@ class EmptyDataServiceMock {
   getTransactionsOfBudgetCategoryByDate(s: string) {
     return [];
   }
+
+  getAccountById(id: number) {
+    return account;
+  }
 }
 
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
   budgetCategory: { name: 'Mock1', max: 1000, color: 'red' },
-  account: { name: 'Cuenta principal', balance: 0 },
+  account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
   budgetCategory: { name: 'Mock2', max: 2000, color: 'blue' },
-  account: { name: 'Cuenta principal', balance: 0 },
+  account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),
 };
