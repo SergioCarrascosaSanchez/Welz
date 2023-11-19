@@ -1,6 +1,5 @@
 <app-card type="subcard">
   <div
-    *ngIf="isAccount(data)"
     (mouseover)="onHover()"
     (mouseleave)="onLeave()"
     style="
@@ -10,7 +9,15 @@
       padding-bottom: 3px;
     "
   >
-    <div style="display: grid; place-content: center">{{ data.name }}</div>
+    <div *ngIf="isAccount(data)" style="display: grid; place-content: center">
+      {{ data.name }}
+    </div>
+
+    <app-badge
+      *ngIf="isBudgetCategory(data)"
+      [text]="data.name"
+      [color]="data.color"
+    ></app-badge>
 
     <div
       style="
@@ -27,51 +34,22 @@
           type="edit"
         ></app-icon-button>
       </div>
-      <span style="display: grid; place-content: center; grid-column: 2"
+
+      <span
+        *ngIf="isAccount(data)"
+        style="display: grid; place-content: center; grid-column: 2"
         >{{ data.balance | moneyFormat }}
       </span>
-      <div style="grid-column: 3; margin-left: 5px">
-        <app-icon-button
-          (click)="onToggleOpen()"
-          *ngIf="!open"
-          type="arrow-down"
-        ></app-icon-button>
-        <app-icon-button
-          (click)="onToggleOpen()"
-          *ngIf="open"
-          type="arrow-up"
-        ></app-icon-button>
-      </div>
-    </div>
-  </div>
-  <div
-    *ngIf="isBudgetCategory(data)"
-    style="
-      display: grid;
-      place-content: space-between;
-      padding-top: 3px;
-      padding-bottom: 3px;
-    "
-  >
-    <app-badge [text]="data.name" [color]="data.color"></app-badge>
 
-    <div
-      style="
-        margin-top: 5px;
-        text-align: right;
-        grid-column: 2;
-        display: grid;
-        place-content: center;
-      "
-    >
-      <div style="grid-column: 1">
+      <div *ngIf="isBudgetCategory(data)" style="grid-column: 3">
         <span>
           {{ transactionQuantityTotal | moneyFormat }}
         </span>
 
         <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
       </div>
-      <div style="grid-column: 2; margin-left: 5px">
+
+      <div style="grid-column: 4; margin-left: 5px">
         <app-icon-button
           (click)="onToggleOpen()"
           *ngIf="!open"
