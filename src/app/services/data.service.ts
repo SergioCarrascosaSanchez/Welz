@@ -143,9 +143,9 @@ export class DataService {
     return this.data.budget;
   }
 
-  getTransactionsOfAccount(account: string) {
+  getTransactionsOfAccount(accountId: number) {
     const transactions = this.data.transactions.filter(
-      (transaction) => transaction.account.name === account
+      (transaction) => transaction.account === accountId
     );
     return transactions;
   }
@@ -184,7 +184,7 @@ export class DataService {
     }
     this.data.transactions.unshift(transaction);
     const account: Account = this.data.accounts.find(
-      (account) => account.name === transaction.account.name
+      (account) => account.id === transaction.account
     );
     if (
       this.data.budget.expensesCategories.includes(transaction.budgetCategory)
@@ -204,7 +204,7 @@ export class DataService {
       (transaction) => transaction.id !== transactionToDelete.id
     );
     const account: Account = this.data.accounts.find(
-      (account) => account.name === transactionToDelete.account.name
+      (account) => account.id === transactionToDelete.account
     );
     if (
       this.data.budget.expensesCategories.includes(

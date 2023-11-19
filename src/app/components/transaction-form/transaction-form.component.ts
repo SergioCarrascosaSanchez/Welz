@@ -63,7 +63,7 @@ export class TransactionFormComponent {
         description: this.transactionForm.controls.description.value,
         value: this.transactionForm.controls.quantity.value,
         budgetCategory: this.transactionForm.controls.category.value,
-        account: this.transactionForm.controls.account.value,
+        account: this.transactionForm.controls.account.value.id,
         date: new Date(),
       });
       this.resetForm();

@@ -58,11 +58,11 @@ export class TransactionsCollapsableComponent {
 
     if (this.isAccount(this.data)) {
       this.listOfTransactions = this.dataService.getTransactionsOfAccount(
-        this.data.name
+        this.data.id
       );
       this.dataService.dataChange.subscribe(() => {
         this.listOfTransactions = this.dataService.getTransactionsOfAccount(
-          this.data.name
+          this.data.id
         );
       });
     }
