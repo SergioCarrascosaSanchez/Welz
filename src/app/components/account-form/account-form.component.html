@@ -1,5 +1,6 @@
 <div class="container">
   <h1 style="font-size: x-large">{{ title }}</h1>
+
   <app-alert
     *ngIf="invalid"
     [message]="errors"
@@ -23,7 +24,8 @@
       placeholder="Cantidad inicial"
     />
     <div style="text-align: right; border: 0">
-      <button type="submit">Añadir cuenta bancaria</button>
+      <button type="submit" *ngIf="!edit">Añadir cuenta bancaria</button>
+      <button type="submit" *ngIf="edit">Editar cuenta bancaria</button>
     </div>
   </form>
 </div>

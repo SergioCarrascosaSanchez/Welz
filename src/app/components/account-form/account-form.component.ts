@@ -10,9 +10,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./account-form.component.css'],
 })
 export class AccountFormComponent {
+  @Input() edit: boolean = false;
+  @Input() id: number;
+
   constructor(private dataService: DataService) {}
 
-  title = Title;
+  title: string;
 
   accountForm = new FormGroup({
     description: new FormControl<string>(null, [EmptyValidator]),
@@ -37,10 +40,19 @@ export class AccountFormComponent {
           this.accountForm.controls.description.value
         )
       ) {
-        this.dataService.addNewAccount({
-          name: this.accountForm.controls.description.value,
-          balance: this.accountForm.controls.balance.value,
-        });
+        if (this.edit) {
+          this.dataService.editAccount({
+            id: this.id,
+            name: this.accountForm.controls.description.value,
+            balance: this.accountForm.controls.balance.value,
+          });
+        } else {
+          this.dataService.addNewAccount({
+            name: this.accountForm.controls.description.value,
+            balance: this.accountForm.controls.balance.value,
+          });
+        }
+
         this.resetForm();
         this.invalid = false;
         this.correctAddition = true;
@@ -87,6 +99,14 @@ export class AccountFormComponent {
   }
 
   ngOnInit() {
+    this.title = this.edit ? EditTitle : Title;
+
+    if (this.edit) {
+      const account = this.dataService.getAccountById(this.id);
+      this.accountForm.controls.description.setValue(account.name);
+      this.accountForm.controls.balance.setValue(account.balance);
+    }
+
     this.errorSubscription = this.dataService.error.subscribe((msg) => {
       this.errors = msg;
     });
@@ -96,6 +116,7 @@ export class AccountFormComponent {
     this.errorSubscription.unsubscribe();
   }
 }
+export const EditTitle = 'Editar cuenta bancaria';
 export const EmptyError: string = 'Debes rellenar todos los campos.';
 export const Title: string = 'Nueva cuenta bancaria';
 export const CorrectAdditionMessage = 'Cuenta bancaria registrada con éxito';

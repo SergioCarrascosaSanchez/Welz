@@ -1,6 +1,5 @@
-import { Transaction } from './transaction.model';
-
 export interface Account {
+  id?: number;
   name: string;
   balance: number;
 }

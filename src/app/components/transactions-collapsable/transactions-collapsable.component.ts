@@ -20,6 +20,25 @@ export class TransactionsCollapsableComponent {
 
   emptyTransactionsMessage = emptyTransactions;
 
+  displayEditButton = false;
+  displayEditMenu = false;
+
+  onHover() {
+    this.displayEditButton = true;
+  }
+
+  onLeave() {
+    this.displayEditButton = false;
+  }
+
+  onClose() {
+    this.displayEditMenu = false;
+  }
+
+  onEdit() {
+    this.displayEditMenu = true;
+  }
+
   constructor(
     private dataService: DataService,
     private budgetDateService: BudgetDateService

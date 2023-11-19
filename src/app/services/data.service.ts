@@ -105,6 +105,7 @@ export class DataService {
       )
       .subscribe((response) => {
         this.errorSubject.next(null);
+        this.dataChange.emit();
       });
   }
 
@@ -130,6 +131,12 @@ export class DataService {
 
   getAccounts() {
     return this.data.accounts;
+  }
+  getAccountById(id: number) {
+    const index = this.data.accounts.findIndex((accountInArray) => {
+      return id === accountInArray.id;
+    });
+    return this.data.accounts[index];
   }
 
   getBudget() {
@@ -189,7 +196,6 @@ export class DataService {
       account.balance = account.balance + transaction.value;
     }
     this.updateData();
-    this.dataChange.emit();
   }
 
   deleteTransaction(transactionToDelete: Transaction) {
@@ -215,13 +221,17 @@ export class DataService {
     }
     console.log('Deleted');
     this.updateData();
-    this.dataChange.emit();
   }
 
   addNewCategory(budgetCategory: BudgetCategory, type: string) {
+    if (this.data.budget[type].length === 0) {
+      budgetCategory.id = 0;
+    } else {
+      budgetCategory.id =
+        this.data.budget[type][this.data.budget[type].length - 1].id + 1;
+    }
     this.data.budget[type].push(budgetCategory);
     this.updateData();
-    this.dataChange.emit();
   }
 
   checkCategoryName(name: string) {
@@ -240,9 +250,20 @@ export class DataService {
   }
 
   addNewAccount(account: Account) {
+    if (this.data.accounts.length === 0) {
+      account.id = 0;
+    } else {
+      account.id = this.data.accounts[this.data.accounts.length - 1].id + 1;
+    }
     this.data.accounts.push(account);
     this.updateData();
-    this.dataChange.emit();
+  }
+
+  editAccount(account: Account) {
+    const oldAccount = this.getAccountById(account.id);
+    oldAccount.name = account.name;
+    oldAccount.balance = account.balance;
+    this.updateData();
   }
 
   checkAccountName(name: string) {
