@@ -27,7 +27,7 @@
         place-content: center;
       "
     >
-      <div style="grid-column: 1; margin-right: 5px">
+      <div style="grid-column: 1; display: grid; place-content: center">
         <app-icon-button
           (click)="onEdit()"
           *ngIf="displayEditButton"
@@ -35,9 +35,17 @@
         ></app-icon-button>
       </div>
 
+      <div style="grid-column: 2; display: grid; place-content: center">
+        <app-icon-button
+          (click)="onDelete()"
+          *ngIf="displayEditButton"
+          type="delete"
+        ></app-icon-button>
+      </div>
+
       <span
         *ngIf="isAccount(data)"
-        style="display: grid; place-content: center; grid-column: 2"
+        style="display: grid; place-content: center; grid-column: 3"
         >{{ data.balance | moneyFormat }}
       </span>
 

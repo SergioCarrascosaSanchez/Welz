@@ -10,13 +10,13 @@
       type === 'edit'
         ? '0'
         : '',
-    'margin-right': type === 'delete' ? '10px' : ''
+    'margin-right': type === 'delete' || type === 'edit' ? '10px' : ''
   }"
 >
   <svg
     [ngStyle]="{
-    'width': type === 'delete' ? '19' : '24',
-    'height': type === 'delete' ? '19' : '24',
+    'width': type === 'delete' || type === 'edit' ? '19' : '24',
+    'height': type === 'delete' || type === 'edit' ? '19' : '24',
   }"
     viewBox="0 0 24 24"
     fill="none"

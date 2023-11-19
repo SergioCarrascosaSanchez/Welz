@@ -12,6 +12,12 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class TransactionsCollapsableComponent {
   @Input() data: Account | BudgetCategory;
+
+  constructor(
+    private dataService: DataService,
+    private budgetDateService: BudgetDateService
+  ) {}
+
   sinceDate: Date;
 
   open = false;
@@ -39,10 +45,37 @@ export class TransactionsCollapsableComponent {
     this.displayEditMenu = true;
   }
 
-  constructor(
-    private dataService: DataService,
-    private budgetDateService: BudgetDateService
-  ) {}
+  onDelete() {
+    if (this.isAccount(this.data)) {
+      this.dataService.deleteAccount(this.data.id);
+    }
+  }
+
+  onToggleOpen() {
+    this.open = !this.open;
+  }
+
+  getTrasanctionType(): string {
+    if (this.isAccount(this.data)) return 'regular';
+    if (this.isBudgetCategory(this.data)) return 'budget';
+    return null;
+  }
+
+  isAccount(data: Account | BudgetCategory): data is Account {
+    return (data as Account).balance !== undefined;
+  }
+
+  isBudgetCategory(data: Account | BudgetCategory): data is BudgetCategory {
+    return (data as BudgetCategory).color !== undefined;
+  }
+
+  calculateTransactionQuantityTotal(): number {
+    let currentQuantity = 0;
+    this.listOfTransactions.forEach((transaction) => {
+      currentQuantity = currentQuantity + transaction.value;
+    });
+    return currentQuantity;
+  }
 
   ngOnInit() {
     this.sinceDate = this.budgetDateService.getDate();
@@ -83,32 +116,6 @@ export class TransactionsCollapsableComponent {
           this.calculateTransactionQuantityTotal();
       });
     }
-  }
-
-  onToggleOpen() {
-    this.open = !this.open;
-  }
-
-  getTrasanctionType(): string {
-    if (this.isAccount(this.data)) return 'regular';
-    if (this.isBudgetCategory(this.data)) return 'budget';
-    return null;
-  }
-
-  isAccount(data: Account | BudgetCategory): data is Account {
-    return (data as Account).balance !== undefined;
-  }
-
-  isBudgetCategory(data: Account | BudgetCategory): data is BudgetCategory {
-    return (data as BudgetCategory).color !== undefined;
-  }
-
-  calculateTransactionQuantityTotal(): number {
-    let currentQuantity = 0;
-    this.listOfTransactions.forEach((transaction) => {
-      currentQuantity = currentQuantity + transaction.value;
-    });
-    return currentQuantity;
   }
 }
 

@@ -266,6 +266,16 @@ export class DataService {
     this.updateData();
   }
 
+  deleteAccount(id: number) {
+    this.data.accounts = this.data.accounts.filter((account) => {
+      return account.id !== id;
+    });
+    this.data.transactions = this.data.transactions.filter((transaction) => {
+      return transaction.account !== id;
+    });
+    this.updateData();
+  }
+
   checkAccountName(name: string) {
     const accountNames = [];
     this.data.accounts.forEach((el) => {
