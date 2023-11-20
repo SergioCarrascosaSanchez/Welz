@@ -13,10 +13,11 @@ import { Subscription } from 'rxjs';
 })
 export class BudgetCategoryFormComponent {
   constructor(private dataService: DataService) {}
-
+  @Input() edit: boolean = false;
+  @Input() category: BudgetCategory;
   @Input() categoryName: string;
 
-  title = Title;
+  title: string;
 
   categoryForm = new FormGroup({
     description: new FormControl<string>(null, [EmptyValidator]),
@@ -37,26 +38,53 @@ export class BudgetCategoryFormComponent {
   onSubmit() {
     this.errors = '';
     if (!this.categoryForm.invalid) {
-      if (
-        this.dataService.checkCategoryName(
-          this.categoryForm.controls.description.value
-        )
-      ) {
-        this.dataService.addNewCategory(
-          {
-            name: this.categoryForm.controls.description.value,
-            max: this.categoryForm.controls.max.value,
-            color: this.categoryForm.controls.color.value,
-          },
-          this.categoryName
-        );
-        this.resetForm();
-        this.invalid = false;
-        this.correctAddition = true;
+      if (this.edit) {
+        if (
+          this.dataService.checkCategoryNameEdit(
+            this.categoryForm.controls.description.value,
+            this.category.name
+          )
+        ) {
+          this.dataService.editCategory(
+            {
+              id: this.category.id,
+              name: this.categoryForm.controls.description.value,
+              max: this.categoryForm.controls.max.value,
+              color: this.categoryForm.controls.color.value,
+            },
+            this.categoryName
+          );
+          this.resetForm();
+          this.invalid = false;
+          this.correctAddition = true;
+        } else {
+          this.errors = DuplicatedCategoryName;
+          this.correctAddition = false;
+          this.invalid = true;
+        }
       } else {
-        this.errors = DuplicatedCategoryName;
-        this.correctAddition = false;
-        this.invalid = true;
+        if (
+          this.dataService.checkCategoryName(
+            this.categoryForm.controls.description.value
+          )
+        ) {
+          this.dataService.addNewCategory(
+            {
+              name: this.categoryForm.controls.description.value,
+              max: this.categoryForm.controls.max.value,
+              color: this.categoryForm.controls.color.value,
+            },
+            this.categoryName
+          );
+
+          this.resetForm();
+          this.invalid = false;
+          this.correctAddition = true;
+        } else {
+          this.errors = DuplicatedCategoryName;
+          this.correctAddition = false;
+          this.invalid = true;
+        }
       }
     } else {
       this.manageErrors();
@@ -99,6 +127,16 @@ export class BudgetCategoryFormComponent {
     this.errorSubscription = this.dataService.error.subscribe((msg) => {
       this.errors = msg;
     });
+    this.title = this.edit ? EditTitle : Title;
+
+    if (this.edit) {
+      this.categoryName = this.dataService.getCategoryTypeByName(
+        this.category.name
+      );
+      this.categoryForm.controls.description.setValue(this.category.name);
+      this.categoryForm.controls.max.setValue(this.category.max);
+      this.categoryForm.controls.color.setValue(this.category.color);
+    }
   }
 
   ngOnDestroy() {
@@ -107,6 +145,7 @@ export class BudgetCategoryFormComponent {
 }
 export const EmptyError: string = 'Debes rellenar todos los campos.';
 export const Title: string = 'Nueva categoría';
+export const EditTitle: string = 'Editar categoría';
 export const CorrectAdditionMessage = 'Categoría registrada con éxito';
 export const MinAndEmptyError: string =
   'Debes rellenar todos los campos e incluir una cantidad mayor que cero.';

@@ -143,6 +143,37 @@ export class DataService {
     return this.data.budget;
   }
 
+  getCategoryById(id: number, type: string) {
+    const index = this.data.budget[type].findIndex((categoryInArray) => {
+      return id === categoryInArray.id;
+    });
+    return this.data.budget[type][index];
+  }
+
+  getCategoryTypeByName(name: string) {
+    let index = this.data.budget.expensesCategories.findIndex(
+      (categoryInArray) => {
+        return name === categoryInArray.name;
+      }
+    );
+    if (index !== -1) {
+      return 'expensesCategories';
+    }
+    index = this.data.budget.incomeCategories.findIndex((categoryInArray) => {
+      return name === categoryInArray.name;
+    });
+    if (index !== -1) {
+      return 'incomeCategories';
+    }
+    index = this.data.budget.savingCategories.findIndex((categoryInArray) => {
+      return name === categoryInArray.name;
+    });
+    if (index !== -1) {
+      return 'savingCategories';
+    }
+    return null;
+  }
+
   getTransactionsOfAccount(accountId: number) {
     const transactions = this.data.transactions.filter(
       (transaction) => transaction.account === accountId
@@ -234,6 +265,17 @@ export class DataService {
     this.updateData();
   }
 
+  editCategory(budgetCategory: BudgetCategory, type: string) {
+    const oldCategory: BudgetCategory = this.getCategoryById(
+      budgetCategory.id,
+      type
+    );
+    oldCategory.name = budgetCategory.name;
+    oldCategory.max = budgetCategory.max;
+    oldCategory.color = budgetCategory.color;
+    this.updateData();
+  }
+
   checkCategoryName(name: string) {
     const categoryNames = [];
     this.data.budget.expensesCategories.forEach((el) => {
@@ -247,6 +289,32 @@ export class DataService {
     });
 
     return !categoryNames.includes(name);
+  }
+
+  checkCategoryNameEdit(oldName: string, newName: string) {
+    if (oldName === newName) return true;
+    const categoryNames = [];
+    this.data.budget.expensesCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+    this.data.budget.incomeCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+    this.data.budget.savingCategories.forEach((el) => {
+      categoryNames.push(el.name);
+    });
+
+    return !categoryNames.includes(name);
+  }
+
+  getCategoryType(budgetCategory: BudgetCategory) {
+    if (this.data.budget.expensesCategories.includes(budgetCategory))
+      return 'expensesCategories';
+    if (this.data.budget.incomeCategories.includes(budgetCategory))
+      return 'incomeCategories';
+    if (this.data.budget.savingCategories.includes(budgetCategory))
+      return 'savingCategories';
+    return null;
   }
 
   addNewAccount(account: Account) {

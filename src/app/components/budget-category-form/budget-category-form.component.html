@@ -20,7 +20,8 @@
     <input type="number" formControlName="max" placeholder="Maximun ammount" />
     <app-color-picker formControlName="color"></app-color-picker>
     <div style="text-align: right; border: 0">
-      <button type="submit">Añadir categoría</button>
+      <button type="submit" *ngIf="!edit">Añadir categoría</button>
+      <button type="submit" *ngIf="edit">Editar categoría</button>
     </div>
   </form>
 </div>

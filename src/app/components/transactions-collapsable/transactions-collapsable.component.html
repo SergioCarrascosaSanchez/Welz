@@ -102,4 +102,10 @@
     [edit]="true"
     [id]="data.id"
   ></app-account-form>
+  <app-budget-category-form
+    *ngIf="isBudgetCategory(data)"
+    (closeEmitter)="onClose()"
+    [edit]="true"
+    [category]="data"
+  ></app-budget-category-form>
 </app-modal>

@@ -17,6 +17,8 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AccountFormComponent } from '../account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
+import { ColorPickerComponent } from '../color-picker/color-picker.component';
 
 describe('TransactionsCollapsableComponent', () => {
   let component: TransactionsCollapsableComponent;
@@ -268,6 +270,8 @@ describe('TransactionsCollapsableComponent', () => {
           IconButtonComponent,
           ModalComponent,
           AccountFormComponent,
+          BudgetCategoryFormComponent,
+          ColorPickerComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -287,6 +291,8 @@ describe('TransactionsCollapsableComponent', () => {
           IconButtonComponent,
           ModalComponent,
           AccountFormComponent,
+          BudgetCategoryFormComponent,
+          ColorPickerComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -306,6 +312,8 @@ describe('TransactionsCollapsableComponent', () => {
           IconButtonComponent,
           ModalComponent,
           AccountFormComponent,
+          BudgetCategoryFormComponent,
+          ColorPickerComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -325,6 +333,8 @@ describe('TransactionsCollapsableComponent', () => {
           IconButtonComponent,
           ModalComponent,
           AccountFormComponent,
+          BudgetCategoryFormComponent,
+          ColorPickerComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -354,6 +364,10 @@ class DataServiceMock {
   getAccountById(id: number) {
     return account;
   }
+
+  getCategoryTypeByName(name: string) {
+    return 'expensesCategory';
+  }
 }
 
 class EmptyDataServiceMock {
@@ -368,6 +382,10 @@ class EmptyDataServiceMock {
 
   getAccountById(id: number) {
     return account;
+  }
+
+  getCategoryTypeByName(name: string) {
+    return 'expensesCategory';
   }
 }
 

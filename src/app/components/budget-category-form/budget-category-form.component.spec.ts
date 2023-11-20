@@ -8,6 +8,7 @@ import {
   MinAndEmptyError,
   MinError,
   DuplicatedCategoryName,
+  EditTitle,
 } from './budget-category-form.component';
 import { By } from '@angular/platform-browser';
 import { DataService } from 'src/app/services/data.service';
@@ -42,6 +43,21 @@ describe('BudgetCategoryFormComponent', () => {
 
   it('should render inputs, title and button', () => {
     expect(fixture.debugElement.nativeElement.textContent).toContain(Title);
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="description"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="max"]'))
+    ).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('.color-box'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
+  });
+
+  it('should render inputs, title and button - edit', () => {
+    component.edit = true;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(EditTitle);
     expect(
       fixture.debugElement.query(By.css('input[formControlName="description"]'))
     ).toBeTruthy();
