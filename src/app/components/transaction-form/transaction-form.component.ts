@@ -19,7 +19,7 @@ export class TransactionFormComponent {
 
   constructor(private dataService: DataService) {}
 
-  title = Title;
+  title: string;
 
   transactionForm = new FormGroup({
     description: new FormControl<string>(null, [EmptyValidator]),
@@ -44,11 +44,11 @@ export class TransactionFormComponent {
   errorAlertType = ALERT_TYPES.danger;
   successAlertType = ALERT_TYPES.success;
 
-  buttonText: string;
+  buttonText: string = ButtonText;
+  editButtonText: string = EditButtonText;
 
   ngOnInit() {
     this.title = this.edit ? EditTitle : Title;
-    this.buttonText = this.edit ? EditButtonText : ButtonText;
 
     this.categories = this.dataService.getBudgetCategories();
     this.accounts = this.dataService.getAccounts();

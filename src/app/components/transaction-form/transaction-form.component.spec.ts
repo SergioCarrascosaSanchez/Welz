@@ -7,6 +7,8 @@ import {
   MinAndEmptyError,
   MinError,
   CorrectAdditionMessage,
+  ButtonText,
+  EditButtonText,
 } from './transaction-form.component';
 import { AlertComponent } from '../alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +19,7 @@ import { ALERT_TYPES } from '../alert/alert.component';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+import { EditText } from '../options-menu/options-menu.component';
 
 describe('TransactionFormComponent', () => {
   let component: TransactionFormComponent;
@@ -52,6 +55,32 @@ describe('TransactionFormComponent', () => {
       fixture.debugElement.query(By.css('select[formControlName="account"]'))
     ).toBeTruthy();
     expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      ButtonText
+    );
+  });
+
+  it('should render inputs, title and button - edit', () => {
+    component.edit = true;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(EditText);
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="description"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="quantity"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('select[formControlName="category"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('select[formControlName="account"]'))
+    ).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      EditButtonText
+    );
   });
 
   it('should display correct value of select inputs', () => {

@@ -5,9 +5,13 @@ import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { DataService } from 'src/app/services/data.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OptionsMenuComponent } from '../options-menu/options-menu.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { ModalComponent } from '../modal/modal.component';
+import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { EventEmitter } from '@angular/core';
 
 describe('TransactionComponent', () => {
   let component: TransactionComponent;
@@ -34,7 +38,10 @@ describe('TransactionComponent', () => {
         MoneyFormatPipe,
         OptionsMenuComponent,
         IconButtonComponent,
+        ModalComponent,
+        TransactionFormComponent,
       ],
+      imports: [ReactiveFormsModule],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
     });
     fixture = TestBed.createComponent(TransactionComponent);
@@ -89,4 +96,13 @@ describe('TransactionComponent', () => {
   });
 });
 
-class EmptyDataServiceMock {}
+class EmptyDataServiceMock {
+  error = new Observable<string>();
+  dataChange = new EventEmitter<void>();
+  getBudgetCategories() {
+    return [];
+  }
+  getAccounts() {
+    return [];
+  }
+}

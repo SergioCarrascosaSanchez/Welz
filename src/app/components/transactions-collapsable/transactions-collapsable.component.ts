@@ -49,6 +49,9 @@ export class TransactionsCollapsableComponent {
     if (this.isAccount(this.data)) {
       this.dataService.deleteAccount(this.data.id);
     }
+    if (this.isBudgetCategory(this.data)) {
+      this.dataService.deleteCategory(this.data);
+    }
   }
 
   onToggleOpen() {

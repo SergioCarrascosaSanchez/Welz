@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { OptionsMenuComponent } from '../options-menu/options-menu.component';
+import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
 
 describe('TransactionsCollapsableComponent', () => {
   let component: TransactionsCollapsableComponent;
@@ -274,6 +275,7 @@ describe('TransactionsCollapsableComponent', () => {
           BudgetCategoryFormComponent,
           ColorPickerComponent,
           OptionsMenuComponent,
+          TransactionFormComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -296,6 +298,7 @@ describe('TransactionsCollapsableComponent', () => {
           BudgetCategoryFormComponent,
           ColorPickerComponent,
           OptionsMenuComponent,
+          TransactionFormComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -318,6 +321,7 @@ describe('TransactionsCollapsableComponent', () => {
           BudgetCategoryFormComponent,
           ColorPickerComponent,
           OptionsMenuComponent,
+          TransactionFormComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -340,6 +344,7 @@ describe('TransactionsCollapsableComponent', () => {
           BudgetCategoryFormComponent,
           ColorPickerComponent,
           OptionsMenuComponent,
+          TransactionFormComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -373,6 +378,14 @@ class DataServiceMock {
   getCategoryTypeByName(name: string) {
     return 'expensesCategory';
   }
+
+  getBudgetCategories() {
+    return [budgetCategory];
+  }
+
+  getAccounts() {
+    return [];
+  }
 }
 
 class EmptyDataServiceMock {
@@ -391,6 +404,14 @@ class EmptyDataServiceMock {
 
   getCategoryTypeByName(name: string) {
     return 'expensesCategory';
+  }
+
+  getBudgetCategories() {
+    return [];
+  }
+
+  getAccounts() {
+    return [account];
   }
 }
 

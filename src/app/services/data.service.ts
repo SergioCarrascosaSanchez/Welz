@@ -245,6 +245,11 @@ export class DataService {
   }
 
   deleteTransaction(transactionToDelete: Transaction) {
+    this.deleteTransactionWithOutUpdating(transactionToDelete);
+    this.updateData();
+  }
+
+  private deleteTransactionWithOutUpdating(transactionToDelete: Transaction) {
     this.data.transactions = this.data.transactions.filter(
       (transaction) => transaction.id !== transactionToDelete.id
     );
@@ -264,8 +269,6 @@ export class DataService {
     ) {
       account.balance = account.balance - transactionToDelete.value;
     }
-    console.log('Deleted');
-    this.updateData();
   }
 
   addNewCategory(budgetCategory: BudgetCategory, type: string) {
@@ -287,6 +290,18 @@ export class DataService {
     oldCategory.name = budgetCategory.name;
     oldCategory.max = budgetCategory.max;
     oldCategory.color = budgetCategory.color;
+    this.updateData();
+  }
+
+  deleteCategory(budgetCategory: BudgetCategory) {
+    this.getTransactionsOfBudgetCategory(budgetCategory.name).forEach(
+      (transaction) => this.deleteTransactionWithOutUpdating(transaction)
+    );
+
+    const type = this.getCategoryType(budgetCategory);
+    this.data.budget[type] = this.data.budget[type].filter(
+      (category) => category.id !== budgetCategory.id
+    );
     this.updateData();
   }
 

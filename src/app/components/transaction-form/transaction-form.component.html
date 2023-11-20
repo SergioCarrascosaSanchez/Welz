@@ -57,7 +57,8 @@
       </option>
     </select>
     <div style="text-align: right; border: 0">
-      <button type="submit">{{ buttonText }}</button>
+      <button type="submit" *ngIf="!edit">{{ buttonText }}</button>
+      <button type="submit" *ngIf="edit">{{ editButtonText }}</button>
     </div>
   </form>
 </div>

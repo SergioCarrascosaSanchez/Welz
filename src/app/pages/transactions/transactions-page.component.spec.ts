@@ -13,6 +13,11 @@ import { Injectable } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { OptionsMenuComponent } from 'src/app/components/options-menu/options-menu.component';
 import { IconButtonComponent } from 'src/app/components/icon-button/icon-button.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
+import { Account } from 'src/app/interfaces/account.model';
+import { Observable } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('Transactionns Page Component', () => {
   let component: TransactionPageComponent;
@@ -100,7 +105,10 @@ describe('Transactionns Page Component', () => {
           TransactionComponent,
           OptionsMenuComponent,
           IconButtonComponent,
+          ModalComponent,
+          TransactionFormComponent,
         ],
+        imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });
     }
@@ -119,8 +127,15 @@ describe('Transactionns Page Component', () => {
 })
 class DataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getTransactions() {
     return [transaction1, transaction2];
+  }
+  getBudgetCategories() {
+    return [category1, category2];
+  }
+  getAccounts() {
+    return [account];
   }
 }
 
@@ -129,22 +144,38 @@ class DataServiceMock {
 })
 class EmptyDataServiceMock {
   dataChange = new EventEmitter<void>();
+  error = new Observable<string>();
   getTransactions() {
+    return [];
+  }
+  getBudgetCategories() {
+    return [];
+  }
+  getAccounts() {
     return [];
   }
 }
 
+const category1 = { name: 'Mock1', max: 1000, color: 'red' };
+const category2 = { name: 'Mock2', max: 2000, color: 'blue' };
+
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
-  budgetCategory: { name: 'Mock1', max: 1000, color: 'red' },
+  budgetCategory: category1,
   account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
-  budgetCategory: { name: 'Mock2', max: 2000, color: 'blue' },
+  budgetCategory: category2,
   account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),
+};
+
+const account: Account = {
+  id: 0,
+  name: 'Test account',
+  balance: 500,
 };
