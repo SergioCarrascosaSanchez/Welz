@@ -33,6 +33,7 @@ import { MainComponent } from './pages/main/main.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { OptionsMenuComponent } from './components/options-menu/options-menu.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -63,6 +64,7 @@ registerLocaleData(localeEs, 'es');
     IconButtonComponent,
     AuthFormComponent,
     AuthComponent,
+    OptionsMenuComponent,
   ],
   imports: [
     BrowserModule,
