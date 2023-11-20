@@ -1,22 +1,7 @@
 <div class="container">
   <app-icon-button type="three-dots" (click)="onToggleMenu()"></app-icon-button>
 
-  <div
-    *ngIf="displayMenu"
-    style="
-      background-color: #ffffff;
-      z-index: 2;
-      position: absolute;
-      width: 100px;
-      padding: 2px;
-      border-radius: 5px;
-      border: solid 1px #ebebeb;
-      margin-left: -110px;
-      margin-top: -26px;
-      cursor: pointer;
-      text-align: left;
-    "
-  >
+  <div *ngIf="displayMenu" class="options-container">
     <div (click)="onEdit()" class="option">{{ editText }}</div>
     <div (click)="onDelete()" class="option">{{ deleteText }}</div>
   </div>
