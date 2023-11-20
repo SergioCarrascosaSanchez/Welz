@@ -16,14 +16,6 @@ export class TransactionComponent {
 
   constructor(private dataService: DataService) {}
 
-  onHover() {
-    this.displayMenu = true;
-  }
-
-  onLeave() {
-    this.displayMenu = false;
-  }
-
   onDelete() {
     this.dataService.deleteTransaction(this.transaction);
   }

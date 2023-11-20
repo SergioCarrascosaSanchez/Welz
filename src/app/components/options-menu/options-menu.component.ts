@@ -16,10 +16,12 @@ export class OptionsMenuComponent {
   }
 
   onEdit() {
+    this.onToggleMenu();
     this.edit.emit();
   }
 
   onDelete() {
+    this.onToggleMenu();
     this.delete.emit();
   }
 }

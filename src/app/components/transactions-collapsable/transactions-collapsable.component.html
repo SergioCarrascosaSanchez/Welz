@@ -27,37 +27,43 @@
         place-content: center;
       "
     >
-      <div style="grid-column: 1; display: grid; place-content: center">
-        <app-icon-button
-          (click)="onEdit()"
-          *ngIf="displayEditButton"
-          type="edit"
-        ></app-icon-button>
-      </div>
-
-      <div style="grid-column: 2; display: grid; place-content: center">
-        <app-icon-button
-          (click)="onDelete()"
-          *ngIf="displayEditButton"
-          type="delete"
-        ></app-icon-button>
+      <div style="display: grid; place-content: center">
+        <app-options-menu
+          (delete)="onDelete()"
+          (edit)="onEdit()"
+        ></app-options-menu>
       </div>
 
       <span
         *ngIf="isAccount(data)"
-        style="display: grid; place-content: center; grid-column: 3"
+        style="display: grid; place-content: center; grid-column: 2"
         >{{ data.balance | moneyFormat }}
       </span>
 
-      <div *ngIf="isBudgetCategory(data)" style="grid-column: 3">
+      <div
+        *ngIf="isBudgetCategory(data)"
+        style="
+          grid-column: 2;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          flex-direction: column;
+        "
+      >
         <span>
           {{ transactionQuantityTotal | moneyFormat }}
+          <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
         </span>
-
-        <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
       </div>
 
-      <div style="grid-column: 4; margin-left: 5px">
+      <div
+        style="
+          grid-column: 3;
+          margin-left: 5px;
+          display: grid;
+          place-content: center;
+        "
+      >
         <app-icon-button
           (click)="onToggleOpen()"
           *ngIf="!open"

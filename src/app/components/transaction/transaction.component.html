@@ -4,10 +4,8 @@
     'margin-top': type === 'budget' ? '1.2vh' : '0',
     'margin-bottom': type === 'budget' ? '1.2vh' : '0'
   }"
-  (mouseover)="onHover()"
-  (mouseleave)="onLeave()"
 >
-  <div *ngIf="type === 'regular'" style="display: grid">
+  <div *ngIf="type === 'regular'" style="display: grid; place-content: center">
     <app-badge
       [text]="transaction.budgetCategory.name"
       [color]="transaction.budgetCategory.color"
@@ -26,7 +24,10 @@
   </div>
 
   <div style="grid-column: 2; display: grid; place-content: center">
-    <app-icon-button (click)="onDelete()" *ngIf="displayMenu" type="delete"></app-icon-button>
+    <div style="display: grid; place-content: center">
+      <app-options-menu (delete)="onDelete()"></app-options-menu>
+    </div>
+
     <span
       style="
         text-align: right;
