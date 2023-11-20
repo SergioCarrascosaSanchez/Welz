@@ -11,6 +11,8 @@ import { TransactionComponent } from 'src/app/components/transaction/transaction
 import { DataService } from 'src/app/services/data.service';
 import { Injectable } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
+import { OptionsMenuComponent } from 'src/app/components/options-menu/options-menu.component';
+import { IconButtonComponent } from 'src/app/components/icon-button/icon-button.component';
 
 describe('Transactionns Page Component', () => {
   let component: TransactionPageComponent;
@@ -96,6 +98,8 @@ describe('Transactionns Page Component', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          OptionsMenuComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
       });

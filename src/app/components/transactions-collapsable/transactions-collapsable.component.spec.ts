@@ -19,6 +19,7 @@ import { AccountFormComponent } from '../account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
+import { OptionsMenuComponent } from '../options-menu/options-menu.component';
 
 describe('TransactionsCollapsableComponent', () => {
   let component: TransactionsCollapsableComponent;
@@ -272,6 +273,7 @@ describe('TransactionsCollapsableComponent', () => {
           AccountFormComponent,
           BudgetCategoryFormComponent,
           ColorPickerComponent,
+          OptionsMenuComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -293,6 +295,7 @@ describe('TransactionsCollapsableComponent', () => {
           AccountFormComponent,
           BudgetCategoryFormComponent,
           ColorPickerComponent,
+          OptionsMenuComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: DataServiceMock }],
@@ -314,6 +317,7 @@ describe('TransactionsCollapsableComponent', () => {
           AccountFormComponent,
           BudgetCategoryFormComponent,
           ColorPickerComponent,
+          OptionsMenuComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
@@ -335,6 +339,7 @@ describe('TransactionsCollapsableComponent', () => {
           AccountFormComponent,
           BudgetCategoryFormComponent,
           ColorPickerComponent,
+          OptionsMenuComponent,
         ],
         imports: [ReactiveFormsModule],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],

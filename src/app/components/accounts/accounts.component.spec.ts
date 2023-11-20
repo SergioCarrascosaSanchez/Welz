@@ -15,6 +15,7 @@ import { EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Observable } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { OptionsMenuComponent } from '../options-menu/options-menu.component';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -32,6 +33,7 @@ describe('AccountsComponent', () => {
         ModalComponent,
         AccountFormComponent,
         IconButtonComponent,
+        OptionsMenuComponent,
       ],
       imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],

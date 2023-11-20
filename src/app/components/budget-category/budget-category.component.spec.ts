@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsCollapsableComponent } from '../transactions-collapsable/transactions-collapsable.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { Observable } from 'rxjs';
+import { OptionsMenuComponent } from '../options-menu/options-menu.component';
 
 describe('BudgetCategoryComponent', () => {
   let component: BudgetCategoryComponent;
@@ -104,6 +105,7 @@ describe('BudgetCategoryComponent', () => {
         BudgetCategoryFormComponent,
         ColorPickerComponent,
         IconButtonComponent,
+        OptionsMenuComponent,
       ],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       imports: [ReactiveFormsModule],

@@ -6,6 +6,8 @@ import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { DataService } from 'src/app/services/data.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OptionsMenuComponent } from '../options-menu/options-menu.component';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 describe('TransactionComponent', () => {
   let component: TransactionComponent;
@@ -30,6 +32,8 @@ describe('TransactionComponent', () => {
         CardComponent,
         BadgeComponent,
         MoneyFormatPipe,
+        OptionsMenuComponent,
+        IconButtonComponent,
       ],
       providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
     });
