@@ -25,7 +25,10 @@
 
   <div style="grid-column: 2; display: grid; place-content: center">
     <div style="display: grid; place-content: center">
-      <app-options-menu (delete)="onDelete()"></app-options-menu>
+      <app-options-menu
+        (delete)="onDelete()"
+        (edit)="onEdit()"
+      ></app-options-menu>
     </div>
 
     <span
@@ -40,3 +43,11 @@
     </span>
   </div>
 </div>
+
+<app-modal [open]="editModalOpen" (closeEmmitter)="onClose()">
+  <app-transaction-form
+    (closeEmitter)="onClose()"
+    [edit]="true"
+    [transactionToEdit]="transaction"
+  ></app-transaction-form>
+</app-modal>

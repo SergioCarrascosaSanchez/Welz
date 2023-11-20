@@ -174,6 +174,12 @@ export class DataService {
     return null;
   }
 
+  getTransactionById(id: number): Transaction {
+    return this.data.transactions.filter(
+      (transaction) => transaction.id === id
+    )[0];
+  }
+
   getTransactionsOfAccount(accountId: number) {
     const transactions = this.data.transactions.filter(
       (transaction) => transaction.account === accountId
@@ -229,8 +235,16 @@ export class DataService {
     this.updateData();
   }
 
+  editTransaction(id: number, transactionToEdit: Transaction) {
+    const transaction = this.getTransactionById(id);
+    transaction.description = transactionToEdit.description;
+    transaction.value = transactionToEdit.value;
+    transaction.account = transactionToEdit.account;
+    transaction.budgetCategory = transaction.budgetCategory;
+    this.updateData();
+  }
+
   deleteTransaction(transactionToDelete: Transaction) {
-    console.log('Deleted');
     this.data.transactions = this.data.transactions.filter(
       (transaction) => transaction.id !== transactionToDelete.id
     );

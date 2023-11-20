@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
 import { ALERT_TYPES } from '../alert/alert.component';
 import { Subscription } from 'rxjs';
+import { Transaction } from 'src/app/interfaces/transaction.model';
 
 @Component({
   selector: 'app-transaction-form',
@@ -13,6 +14,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./transaction-form.component.css'],
 })
 export class TransactionFormComponent {
+  @Input() edit: boolean = false;
+  @Input() transactionToEdit: Transaction;
+
   constructor(private dataService: DataService) {}
 
   title = Title;
@@ -40,7 +44,12 @@ export class TransactionFormComponent {
   errorAlertType = ALERT_TYPES.danger;
   successAlertType = ALERT_TYPES.success;
 
+  buttonText: string;
+
   ngOnInit() {
+    this.title = this.edit ? EditTitle : Title;
+    this.buttonText = this.edit ? EditButtonText : ButtonText;
+
     this.categories = this.dataService.getBudgetCategories();
     this.accounts = this.dataService.getAccounts();
     this.dataService.dataChange.subscribe(() => {
@@ -50,6 +59,25 @@ export class TransactionFormComponent {
     this.errorSubscription = this.dataService.error.subscribe((msg) => {
       this.errors = msg;
     });
+
+    if (this.edit) {
+      this.transactionForm.controls.description.setValue(
+        this.transactionToEdit.description
+      );
+      this.transactionForm.controls.quantity.setValue(
+        this.transactionToEdit.value
+      );
+      this.transactionForm.controls.account.setValue(
+        this.accounts.filter(
+          (account) => account.id === this.transactionToEdit.account
+        )[0]
+      );
+      this.transactionForm.controls.category.setValue(
+        this.categories.filter(
+          (category) => category.id === this.transactionToEdit.budgetCategory.id
+        )[0]
+      );
+    }
   }
 
   ngOnDestroy() {
@@ -59,14 +87,25 @@ export class TransactionFormComponent {
   onSubmit() {
     this.errors = '';
     if (!this.transactionForm.invalid) {
-      this.dataService.addNewTransaction({
-        description: this.transactionForm.controls.description.value,
-        value: this.transactionForm.controls.quantity.value,
-        budgetCategory: this.transactionForm.controls.category.value,
-        account: this.transactionForm.controls.account.value.id,
-        date: new Date(),
-      });
-      this.resetForm();
+      if (this.edit) {
+        this.dataService.editTransaction(this.transactionToEdit.id, {
+          description: this.transactionForm.controls.description.value,
+          value: this.transactionForm.controls.quantity.value,
+          budgetCategory: this.transactionForm.controls.category.value,
+          account: this.transactionForm.controls.account.value.id,
+          date: new Date(),
+        });
+      } else {
+        this.dataService.addNewTransaction({
+          description: this.transactionForm.controls.description.value,
+          value: this.transactionForm.controls.quantity.value,
+          budgetCategory: this.transactionForm.controls.category.value,
+          account: this.transactionForm.controls.account.value.id,
+          date: new Date(),
+        });
+        this.resetForm();
+      }
+
       this.invalid = false;
       this.correctAddition = true;
     } else {
@@ -119,5 +158,10 @@ export const MinAndEmptyError: string =
   'Debes rellenar todos los campos e incluir una cantidad mayor que cero.';
 export const MinError: string = 'Debes incluir una cantidad mayor que cero.';
 export const EmptyError: string = 'Debes rellenar todos los campos.';
-export const Title: string = 'Nueva transacción';
 export const CorrectAdditionMessage = 'Transacción registrada con éxito';
+
+export const Title: string = 'Nueva transacción';
+export const EditTitle = 'Editar transacción';
+
+export const ButtonText: string = 'Añadir transacción';
+export const EditButtonText = 'Editar transacción';

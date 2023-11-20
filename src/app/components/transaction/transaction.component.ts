@@ -13,10 +13,19 @@ export class TransactionComponent {
   @Input() type: string = 'regular';
 
   displayMenu = false;
+  editModalOpen: boolean = false;
 
   constructor(private dataService: DataService) {}
 
   onDelete() {
     this.dataService.deleteTransaction(this.transaction);
+  }
+
+  onEdit() {
+    this.editModalOpen = true;
+  }
+
+  onClose() {
+    this.editModalOpen = false;
   }
 }
