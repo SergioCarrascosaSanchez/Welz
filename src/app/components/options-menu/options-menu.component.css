@@ -11,3 +11,11 @@
     margin-top: 0px;
   }
 }
+
+.option {
+  padding: 8px;
+}
+
+.option:hover {
+  background-color: #ebebeb;
+}
