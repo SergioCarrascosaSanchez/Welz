@@ -10,6 +10,8 @@ export class OptionsMenuComponent {
   @Output() delete = new EventEmitter<void>();
 
   displayMenu: boolean = false;
+  editText = EditText;
+  deleteText = DeleteText;
 
   onToggleMenu() {
     this.displayMenu = !this.displayMenu;
@@ -25,3 +27,6 @@ export class OptionsMenuComponent {
     this.delete.emit();
   }
 }
+
+export const DeleteText = 'Eliminar';
+export const EditText = 'Editar';
