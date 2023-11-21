@@ -2,8 +2,16 @@
   class="icon"
   [id]="type + '-icon'"
   style="display: flex; text-align: center"
+  [ngClass]="
+    type === 'delete' ||
+    type === 'arrow-down' ||
+    type === 'arrow-up' ||
+    type === 'edit' ||
+    type === 'three-dots'
+      ? 'transparent'
+      : 'crystal'
+  "
   [ngStyle]="{
-    'background-color': type === 'add-primary' ? 'white' : '#f1f2f5',
     padding:
       type === 'delete' ||
       type === 'arrow-down' ||
