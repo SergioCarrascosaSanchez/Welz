@@ -10,7 +10,7 @@
   </div>
 
   <app-modal [open]="addModalOpen" (closeEmmitter)="onClose()">
-    <app-transaction-form (closeEmitter)="onClose()"></app-transaction-form>
+    <app-transaction-form [open]="addModalOpen"></app-transaction-form>
   </app-modal>
 
   <div *ngIf="dataLoaded">

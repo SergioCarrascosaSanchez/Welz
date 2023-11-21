@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
@@ -14,6 +14,7 @@ import { Transaction } from 'src/app/interfaces/transaction.model';
   styleUrls: ['./transaction-form.component.css'],
 })
 export class TransactionFormComponent {
+  @Input() open: boolean;
   @Input() edit: boolean = false;
   @Input() transactionToEdit: Transaction;
 
@@ -59,25 +60,6 @@ export class TransactionFormComponent {
     this.errorSubscription = this.dataService.error.subscribe((msg) => {
       this.errors = msg;
     });
-
-    if (this.edit) {
-      this.transactionForm.controls.description.setValue(
-        this.transactionToEdit.description
-      );
-      this.transactionForm.controls.quantity.setValue(
-        this.transactionToEdit.value
-      );
-      this.transactionForm.controls.account.setValue(
-        this.accounts.filter(
-          (account) => account.id === this.transactionToEdit.account
-        )[0]
-      );
-      this.transactionForm.controls.category.setValue(
-        this.categories.filter(
-          (category) => category.id === this.transactionToEdit.budgetCategory.id
-        )[0]
-      );
-    }
   }
 
   ngOnDestroy() {
@@ -117,7 +99,7 @@ export class TransactionFormComponent {
 
   resetForm() {
     this.errors = '';
-    this.invalid = true;
+    this.invalid = false;
     this.transactionForm = new FormGroup({
       description: new FormControl<string>(null, [EmptyValidator]),
       quantity: new FormControl<number>(null, [
@@ -150,6 +132,34 @@ export class TransactionFormComponent {
     if (errorArray.includes('emptyValue')) {
       this.errors = EmptyError;
       return;
+    }
+  }
+
+  fillFields() {
+    this.transactionForm.controls.description.setValue(
+      this.transactionToEdit.description
+    );
+    this.transactionForm.controls.quantity.setValue(
+      this.transactionToEdit.value
+    );
+    this.transactionForm.controls.account.setValue(
+      this.accounts.filter(
+        (account) => account.id === this.transactionToEdit.account
+      )[0]
+    );
+    this.transactionForm.controls.category.setValue(
+      this.categories.filter(
+        (category) => category.id === this.transactionToEdit.budgetCategory.id
+      )[0]
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['open'].isFirstChange()) {
+      this.resetForm();
+      if (this.edit) {
+        this.fillFields();
+      }
     }
   }
 }

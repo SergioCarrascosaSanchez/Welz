@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 import { EmptyValidator } from 'src/app/validators/empty-validator';
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class AccountFormComponent {
   @Input() edit: boolean = false;
   @Input() id: number;
+  @Input() open: boolean;
 
   constructor(private dataService: DataService) {}
 
@@ -70,7 +71,8 @@ export class AccountFormComponent {
 
   resetForm() {
     this.errors = '';
-    this.invalid = true;
+    this.invalid = false;
+    this.correctAddition = false;
     this.accountForm.reset();
   }
 
@@ -98,18 +100,31 @@ export class AccountFormComponent {
     }
   }
 
+  fillFields() {
+    const account = this.dataService.getAccountById(this.id);
+    this.accountForm.controls.description.setValue(account.name);
+    this.accountForm.controls.balance.setValue(account.balance);
+  }
+
   ngOnInit() {
     this.title = this.edit ? EditTitle : Title;
 
     if (this.edit) {
-      const account = this.dataService.getAccountById(this.id);
-      this.accountForm.controls.description.setValue(account.name);
-      this.accountForm.controls.balance.setValue(account.balance);
+      this.fillFields();
     }
 
     this.errorSubscription = this.dataService.error.subscribe((msg) => {
       this.errors = msg;
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['open'].isFirstChange()) {
+      this.resetForm();
+      if (this.edit) {
+        this.fillFields();
+      }
+    }
   }
 
   ngOnDestroy() {

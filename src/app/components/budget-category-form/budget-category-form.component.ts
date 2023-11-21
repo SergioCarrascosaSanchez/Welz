@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
@@ -16,6 +16,7 @@ export class BudgetCategoryFormComponent {
   @Input() edit: boolean = false;
   @Input() category: BudgetCategory;
   @Input() categoryName: string;
+  @Input() open: boolean;
 
   title: string;
 
@@ -95,7 +96,8 @@ export class BudgetCategoryFormComponent {
 
   resetForm() {
     this.errors = '';
-    this.invalid = true;
+    this.invalid = false;
+    this.correctAddition = false;
     this.categoryForm.reset();
   }
 
@@ -130,12 +132,25 @@ export class BudgetCategoryFormComponent {
     this.title = this.edit ? EditTitle : Title;
 
     if (this.edit) {
-      this.categoryName = this.dataService.getCategoryTypeByName(
-        this.category.name
-      );
-      this.categoryForm.controls.description.setValue(this.category.name);
-      this.categoryForm.controls.max.setValue(this.category.max);
-      this.categoryForm.controls.color.setValue(this.category.color);
+      this.fillFields();
+    }
+  }
+
+  fillFields() {
+    this.categoryName = this.dataService.getCategoryTypeByName(
+      this.category.name
+    );
+    this.categoryForm.controls.description.setValue(this.category.name);
+    this.categoryForm.controls.max.setValue(this.category.max);
+    this.categoryForm.controls.color.setValue(this.category.color);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['open'].isFirstChange()) {
+      this.resetForm();
+      if (this.edit) {
+        this.fillFields();
+      }
     }
   }
 
