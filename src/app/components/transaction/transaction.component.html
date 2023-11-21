@@ -25,22 +25,31 @@
 
   <div style="grid-column: 2; display: grid; place-content: center">
     <div style="display: grid; place-content: center">
-      <app-options-menu
-        (delete)="onDelete()"
-        (edit)="onEdit()"
-      ></app-options-menu>
+      <span
+        style="
+          text-align: right;
+          grid-column: 1;
+          display: grid;
+          place-content: center;
+        "
+      >
+        {{ transaction.value | moneyFormat }}
+      </span>
+      <div
+        style="
+          grid-column: 2;
+          display: grid;
+          place-content: end;
+          margin-left: 3px;
+          margin-right: -8px;
+        "
+      >
+        <app-options-menu
+          (delete)="onDelete()"
+          (edit)="onEdit()"
+        ></app-options-menu>
+      </div>
     </div>
-
-    <span
-      style="
-        text-align: right;
-        grid-column: 2;
-        display: grid;
-        place-content: center;
-      "
-    >
-      {{ transaction.value | moneyFormat }}
-    </span>
   </div>
 </div>
 

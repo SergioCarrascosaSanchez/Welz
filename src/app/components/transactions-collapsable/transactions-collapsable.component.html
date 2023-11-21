@@ -27,23 +27,16 @@
         place-content: center;
       "
     >
-      <div style="display: grid; place-content: center">
-        <app-options-menu
-          (delete)="onDelete()"
-          (edit)="onEdit()"
-        ></app-options-menu>
-      </div>
-
       <span
         *ngIf="isAccount(data)"
-        style="display: grid; place-content: center; grid-column: 2"
+        style="display: grid; place-content: center; grid-column: 1"
         >{{ data.balance | moneyFormat }}
       </span>
 
       <div
         *ngIf="isBudgetCategory(data)"
         style="
-          grid-column: 2;
+          grid-column: 1;
           display: flex;
           justify-content: center;
           align-content: center;
@@ -55,15 +48,21 @@
           <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
         </span>
       </div>
-
       <div
         style="
-          grid-column: 3;
-          margin-left: 5px;
           display: grid;
           place-content: center;
+          grid-column: 2;
+          margin-left: 5px;
+          margin-right: -8px;
         "
       >
+        <app-options-menu
+          (delete)="onDelete()"
+          (edit)="onEdit()"
+        ></app-options-menu>
+      </div>
+      <div style="grid-column: 3; display: grid; place-content: center">
         <app-icon-button
           (click)="onToggleOpen()"
           *ngIf="!open"
