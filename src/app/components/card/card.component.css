@@ -2,6 +2,10 @@
   .card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 3vw;
@@ -11,6 +15,10 @@
   .subcard {
     max-width: 100%;
     background-color: #f1f2f5;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 2vw;
@@ -20,6 +28,10 @@
   .thin-card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 1vw;
@@ -32,6 +44,10 @@
   .card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 2vw;
@@ -41,6 +57,10 @@
   .subcard {
     max-width: 100%;
     background-color: #f1f2f5;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 2%;
@@ -51,6 +71,10 @@
   .thin-card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 1vw;
@@ -63,6 +87,10 @@
   .card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 1.3vw;
@@ -72,6 +100,10 @@
   .subcard {
     max-width: 100%;
     background-color: #f1f2f5;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 1vw;
@@ -82,6 +114,10 @@
   .thin-card {
     min-width: 100%;
     background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: black;
     box-sizing: border-box;
     padding: 0.5vw;
