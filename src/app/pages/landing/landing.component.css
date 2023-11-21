@@ -1,0 +1,32 @@
+.title {
+  font-size: 120px;
+  text-align: center;
+  margin-block-end: 0px;
+  margin-block-start: 0px;
+  color: #151515;
+}
+
+.subtitle {
+  font-size: 25px;
+  text-align: center;
+  margin-block-start: 0px;
+  color: #494949;
+}
+
+.container {
+  text-align: center;
+  padding-top: 20%;
+  padding-bottom: 20%;
+  background-image: radial-gradient(
+      40% 30% at 45% 70%,
+      rgba(254, 169, 158, 0.902) 7%,
+      #0739ff00 100%
+    ),
+    radial-gradient(
+      40% 40% at 40% 40%,
+      rgba(162, 180, 254, 0.822) 7%,
+      #0739ff00 100%
+    ),
+    radial-gradient(50% 30% at 50% 45%, #ffde84f1 7%, #0739ff00 100%),
+    linear-gradient(to top, transparent 50%, transparent 100%);
+}

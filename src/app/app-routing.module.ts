@@ -6,9 +6,10 @@ import { BudgetComponent } from './pages/budget/budget.component';
 import { MainComponent } from './pages/main/main.component';
 import { authGuard } from './guards/auth/auth.guard';
 import { AuthComponent } from './pages/auth/auth.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/user' },
+  { path: '', pathMatch: 'full', component: LandingComponent },
   {
     path: 'user',
     component: MainComponent,
