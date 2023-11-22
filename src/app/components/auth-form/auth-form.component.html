@@ -10,6 +10,13 @@
     placeholder="Email"
   />
   <input
+    *ngIf="isSignUp()"
+    formControlName="username"
+    style="margin-bottom: 5px"
+    type="text"
+    placeholder="Nombre"
+  />
+  <input
     formControlName="password"
     style="margin-bottom: 5px"
     type="password"

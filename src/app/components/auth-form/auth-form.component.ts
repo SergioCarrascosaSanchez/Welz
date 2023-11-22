@@ -26,6 +26,7 @@ export class AuthFormComponent {
 
   authForm: FormGroup = new FormGroup({
     email: new FormControl<string>('', [Validators.email, EmptyValidator]),
+    username: new FormControl<string>(''),
     password: new FormControl<string>('', [
       Validators.minLength(8),
       EmptyValidator,
@@ -55,6 +56,7 @@ export class AuthFormComponent {
   onSignUp() {
     this.authService.signUp({
       email: this.authForm.controls['email'].value,
+      username: this.authForm.controls['username'].value,
       password: this.authForm.controls['password'].value,
       returnSecureToken: true,
     });
@@ -75,8 +77,10 @@ export class AuthFormComponent {
   switchType() {
     if (this.isSignUp()) {
       this.type = AUTH_FORM_TYPES.LOGIN;
+      this.removeSignUpValidators();
     } else {
       this.type = AUTH_FORM_TYPES.SIGNUP;
+      this.setSignUpValidators();
     }
   }
 
@@ -106,14 +110,24 @@ export class AuthFormComponent {
 
   ngOnInit() {
     if (this.isSignUp()) {
-      this.authForm.controls['password2'].setValidators([
-        Validators.minLength(8),
-        EmptyValidator,
-      ]);
+      this.setSignUpValidators();
     }
     this.errorSubscription = this.authService.error.subscribe((msg) => {
       this.error = msg;
     });
+  }
+
+  setSignUpValidators() {
+    this.authForm.controls['password2'].setValidators([
+      Validators.minLength(8),
+      EmptyValidator,
+    ]);
+    this.authForm.controls['username'].setValidators([EmptyValidator]);
+  }
+
+  removeSignUpValidators() {
+    this.authForm.controls['password2'].setValidators([]);
+    this.authForm.controls['username'].setValidators([]);
   }
 
   ngOnDestroy() {

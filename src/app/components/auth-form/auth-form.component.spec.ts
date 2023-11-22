@@ -50,6 +50,9 @@ describe('AuthFormComponent', () => {
     expect(
       fixture.debugElement.query(By.css('input[formControlName="password2"]'))
     ).toBeFalsy();
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="username"]'))
+    ).toBeFalsy();
     expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('u'))).toBeTruthy();
     expect(fixture.debugElement.nativeElement.textContent).toContain(
@@ -72,6 +75,9 @@ describe('AuthFormComponent', () => {
     ).toBeTruthy();
     expect(
       fixture.debugElement.query(By.css('input[formControlName="password2"]'))
+    ).toBeTruthy();
+    expect(
+      fixture.debugElement.query(By.css('input[formControlName="username"]'))
     ).toBeTruthy();
     expect(fixture.debugElement.query(By.css('button'))).toBeTruthy();
     expect(fixture.debugElement.query(By.css('u'))).toBeTruthy();

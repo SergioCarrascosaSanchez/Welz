@@ -51,7 +51,7 @@ export class AuthService {
           .put<UserData>(
             `${this.urlStorage}/${response.localId}.json`,
             {
-              username: response.localId,
+              username: userPassword.username,
               balance: 0,
               budget: {
                 incomeCategories: [],
