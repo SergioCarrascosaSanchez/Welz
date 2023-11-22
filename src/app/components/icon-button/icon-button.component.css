@@ -20,6 +20,15 @@
     color: black;
     cursor: pointer;
   }
+  .button-text {
+    font-size: smaller;
+  }
+}
+
+.button-text {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
 }
 
 .transparent {
