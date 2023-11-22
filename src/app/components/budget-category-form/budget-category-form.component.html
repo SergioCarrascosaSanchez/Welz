@@ -17,7 +17,13 @@
       formControlName="description"
       placeholder="Description"
     />
-    <input type="number" formControlName="max" placeholder="Maximun ammount" />
+    <input
+      type="number"
+      formControlName="max"
+      inputmode="decimal"
+      lang="en"
+      placeholder="Maximun ammount"
+    />
     <app-color-picker formControlName="color"></app-color-picker>
     <div style="text-align: right; border: 0">
       <button type="submit" *ngIf="!edit">Añadir categoría</button>
