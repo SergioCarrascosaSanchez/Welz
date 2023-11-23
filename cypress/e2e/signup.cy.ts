@@ -1,4 +1,4 @@
-describe('Create user', () => {
+describe('Signup', () => {
   it('Create user', () => {
     const id: string = 'id';
     const email: string = 'test@test.com';

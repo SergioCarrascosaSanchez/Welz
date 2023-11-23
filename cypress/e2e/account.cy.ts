@@ -1,4 +1,4 @@
-describe('Create account', () => {
+describe('Account', () => {
   const id: string = 'id';
   const email: string = 'test@test.com';
   const password: string = 'password1212';
@@ -6,8 +6,8 @@ describe('Create account', () => {
   const token: string = 'token';
 
   it('Create account', () => {
-    const description = 'test';
-    const max = '100';
+    const accountName = 'account';
+    const balance = '100';
 
     cy.intercept(
       'GET',
@@ -34,39 +34,35 @@ describe('Create account', () => {
 
     cy.wait('@get-data');
 
-    cy.contains('No hay categorias. Añadelas en el apartado de Presupuesto');
-    cy.visit('/user/budget');
+    cy.visit('/user/accounts');
 
-    cy.get('button[id="add-icon"]').first().click();
+    cy.contains('Hola, ' + username).click();
 
-    cy.get('[placeholder="Descripción"]').type(description);
-    cy.get('[placeholder="Cantidad máxima mensual"]').type(max);
-    cy.get('.color-box').first().click();
+    cy.contains('No hay cuentas bancarias. Añadelas en el apartado de Cuentas');
+    cy.contains('No hay ninguna cuenta bancaria.');
 
-    cy.contains('Añadir categoría').click();
+    cy.get('button[id="add-icon"]').click();
+
+    cy.get('[placeholder="Nombre de la cuenta"]').type(accountName);
+    cy.get('[placeholder="Cantidad inicial"]').type(balance);
+
+    cy.contains('Añadir cuenta bancaria').click();
 
     cy.wait('@send-data').then((interception) => {
       assert.isNotNull(interception.request.body);
-      cy.log(interception.request.body);
-      assert.equal(
-        interception.request.body['budget']['incomeCategories'][0].name,
-        description
-      );
-      assert.equal(
-        interception.request.body['budget']['incomeCategories'][0].max,
-        max
-      );
+      assert.equal(interception.request.body['accounts'][0].name, accountName);
+      assert.equal(interception.request.body['accounts'][0].balance, balance);
     });
 
-    cy.contains('Categoría registrada con éxito');
+    cy.contains('Cuenta bancaria registrada con éxito');
 
     cy.get('.close-button').click();
 
-    cy.contains(description);
-    cy.contains(max);
+    cy.contains(accountName);
+    cy.contains(balance);
 
     cy.contains(
-      'No hay categorias. Añadelas en el apartado de Presupuesto'
+      'No hay cuentas bancarias. Añadelas en el apartado de Cuentas'
     ).should('not.exist');
   });
 
