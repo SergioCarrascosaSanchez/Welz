@@ -70,6 +70,178 @@ describe('Budget category', () => {
     ).should('not.exist');
   });
 
+  it('Edit Budget category', () => {
+    const description = 'test';
+    const description2 = 'edited';
+    const max = 100;
+
+    const transactionDescription = 'transaction';
+
+    cy.intercept(
+      'GET',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/*',
+      {
+        statusCode: 200,
+        body: {
+          username: username,
+          balance: 0,
+          transactions: [
+            {
+              id: 0,
+              description: transactionDescription,
+              value: 10,
+              date: '2023-11-20T16:53:31.198Z',
+              account: 0,
+              budgetCategory: 10,
+            },
+          ],
+          accounts: [{ id: 0, name: 'Account', balance: 1000 }],
+          budget: {
+            expensesCategories: [
+              {
+                id: 10,
+                name: description,
+                max: max,
+                color: 'green',
+              },
+            ],
+          },
+        },
+      }
+    ).as('get-data');
+
+    cy.intercept(
+      'PUT',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      {
+        statusCode: 200,
+        body: {},
+      }
+    ).as('send-data');
+
+    login();
+
+    cy.wait('@get-data');
+
+    cy.visit('/user/budget');
+
+    cy.contains('Movimientos').click();
+    cy.contains(description);
+
+    cy.contains('Presupuesto').click();
+
+    cy.get('#three-dots-icon').last().click();
+
+    cy.contains('Editar').click();
+
+    cy.get('[placeholder="Descripción"]').clear().type(description2);
+
+    cy.get('[type=submit]').click();
+
+    cy.wait('@send-data').then((interception) => {
+      assert.isNotNull(interception.request.body);
+      cy.log(interception.request.body);
+      assert.equal(
+        interception.request.body['budget']['expensesCategories'][0].name,
+        description2
+      );
+      assert.equal(
+        interception.request.body['budget']['expensesCategories'][0].max,
+        max
+      );
+    });
+
+    cy.contains('Categoría registrada con éxito');
+
+    cy.get('.close-button').click();
+
+    cy.contains(description2);
+    cy.contains(max);
+
+    cy.contains('Movimientos').click();
+    cy.contains(description2);
+  });
+
+  it('Delete Budget category', () => {
+    const description = 'testDesc';
+    const max = 100;
+
+    const transactionDescription = 'transaction';
+
+    cy.intercept(
+      'GET',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/*',
+      {
+        statusCode: 200,
+        body: {
+          username: username,
+          balance: 0,
+          transactions: [
+            {
+              id: 0,
+              description: transactionDescription,
+              value: 10,
+              date: '2023-11-20T16:53:31.198Z',
+              account: 0,
+              budgetCategory: 10,
+            },
+          ],
+          accounts: [{ id: 0, name: 'Account', balance: 1000 }],
+          budget: {
+            expensesCategories: [
+              {
+                id: 10,
+                name: description,
+                max: max,
+                color: 'green',
+              },
+            ],
+          },
+        },
+      }
+    ).as('get-data');
+
+    cy.intercept(
+      'PUT',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      {
+        statusCode: 200,
+        body: {},
+      }
+    ).as('send-data');
+
+    login();
+
+    cy.wait('@get-data');
+
+    cy.visit('/user/budget');
+
+    cy.contains('Movimientos').click();
+    cy.contains(description);
+
+    cy.contains('Presupuesto').click();
+
+    cy.get('#three-dots-icon').last().click();
+
+    cy.contains('Eliminar').click();
+
+    cy.wait('@send-data').then((interception) => {
+      assert.isNotNull(interception.request.body);
+      cy.log(interception.request.body);
+      assert.equal(
+        interception.request.body['budget']['expensesCategories'].length,
+        0
+      );
+      assert.equal(interception.request.body['transactions'].length, 0);
+    });
+
+    cy.contains(description).should('not.exist');
+    cy.contains(max).should('not.exist');
+
+    cy.contains('Movimientos').click();
+    cy.contains(description).should('not.exist');
+  });
+
   const login = () => {
     cy.visit('/auth');
 
