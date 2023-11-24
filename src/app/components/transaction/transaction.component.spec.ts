@@ -12,6 +12,7 @@ import { TransactionFormComponent } from '../transaction-form/transaction-form.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { EventEmitter } from '@angular/core';
+import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 
 describe('TransactionComponent', () => {
   let component: TransactionComponent;
@@ -19,11 +20,7 @@ describe('TransactionComponent', () => {
 
   const transaction: Transaction = {
     description: 'TestingTransacition',
-    budgetCategory: {
-      name: 'TestingTransacitionCategory',
-      max: 1000,
-      color: 'red',
-    },
+    budgetCategory: 10,
     account: 0,
     value: 50.25,
     date: new Date('2017-10-06'),
@@ -63,7 +60,7 @@ describe('TransactionComponent', () => {
       transaction.description
     );
     expect(fixture.debugElement.nativeElement.textContent).toContain(
-      transaction.budgetCategory.name
+      category.name
     );
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       new MoneyFormatPipe().transform(transaction.value)
@@ -83,7 +80,7 @@ describe('TransactionComponent', () => {
       transaction.description
     );
     expect(fixture.debugElement.nativeElement.textContent).not.toContain(
-      transaction.budgetCategory.name
+      category.name
     );
     expect(fixture.debugElement.nativeElement.textContent).toContain(
       new MoneyFormatPipe().transform(transaction.value)
@@ -96,6 +93,13 @@ describe('TransactionComponent', () => {
   });
 });
 
+const category: BudgetCategory = {
+  id: 10,
+  name: 'TestingTransacitionCategory',
+  max: 1000,
+  color: 'red',
+};
+
 class EmptyDataServiceMock {
   error = new Observable<string>();
   dataChange = new EventEmitter<void>();
@@ -104,5 +108,13 @@ class EmptyDataServiceMock {
   }
   getAccounts() {
     return [];
+  }
+
+  getCategoryById() {
+    return category;
+  }
+
+  getCategoryType() {
+    return 'expensesCategories';
   }
 }

@@ -6,10 +6,7 @@
   }"
 >
   <div *ngIf="type === 'regular'" style="display: grid; place-content: center">
-    <app-badge
-      [text]="transaction.budgetCategory.name"
-      [color]="transaction.budgetCategory.color"
-    ></app-badge>
+    <app-badge [text]="category.name" [color]="category.color"></app-badge>
     <span class="date">{{ transaction.date | date : "dd/MM/yyyy" }} </span>
     <div class="description">
       {{ transaction.description }}

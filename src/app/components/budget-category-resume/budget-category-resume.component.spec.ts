@@ -115,10 +115,10 @@ class BudgetDateServiceMock {
 
 class DataServiceMock {
   dataChange = new EventEmitter<void>();
-  getTransactionsOfBudgetCategoryByDate(s: string) {
-    if (s === budgetCategory1.name) {
+  getTransactionsOfBudgetCategoryByDate(s: number) {
+    if (s === budgetCategory1.id) {
       return [transaction1];
-    } else if (s === budgetCategory2.name) {
+    } else if (s === budgetCategory2.id) {
       return [transaction2];
     }
     return [];
@@ -140,19 +140,19 @@ const name2 = 'TestingBudgetCategoryItem 2';
 const max2 = 286.23;
 const color2 = 'red';
 
-const budgetCategory1 = { name: name1, max: max1, color: color1 };
-const budgetCategory2 = { name: name2, max: max2, color: color2 };
+const budgetCategory1 = { id: 10, name: name1, max: max1, color: color1 };
+const budgetCategory2 = { id: 11, name: name2, max: max2, color: color2 };
 
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
-  budgetCategory: budgetCategory1,
+  budgetCategory: 10,
   account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
-  budgetCategory: budgetCategory2,
+  budgetCategory: 11,
   account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),

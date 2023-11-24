@@ -88,19 +88,14 @@ describe('Account', () => {
               value: 10,
               date: '2023-11-20T16:53:31.198Z',
               account: 0,
-              budgetCategory: {
-                id: 0,
-                name: 'Category',
-                max: 300,
-                color: 'green',
-              },
+              budgetCategory: 10,
             },
           ],
           accounts: [{ id: 0, name: 'Account', balance: balance }],
           budget: {
             expensesCategories: [
               {
-                id: 0,
+                id: 10,
                 name: 'Category',
                 max: 300,
                 color: 'green',
@@ -180,19 +175,14 @@ describe('Account', () => {
               value: 10,
               date: '2023-11-20T16:53:31.198Z',
               account: 0,
-              budgetCategory: {
-                id: 0,
-                name: 'Category',
-                max: 300,
-                color: 'green',
-              },
+              budgetCategory: 10,
             },
           ],
           accounts: [{ id: 0, name: 'Account', balance: balance }],
           budget: {
             expensesCategories: [
               {
-                id: 0,
+                id: 10,
                 name: 'Category',
                 max: 300,
                 color: 'green',

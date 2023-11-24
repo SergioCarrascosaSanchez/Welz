@@ -386,6 +386,14 @@ class DataServiceMock {
   getAccounts() {
     return [];
   }
+
+  getCategoryType() {
+    return 'expensesCategories';
+  }
+
+  getCategoryById() {
+    return budgetCategory;
+  }
 }
 
 class EmptyDataServiceMock {
@@ -417,14 +425,14 @@ class EmptyDataServiceMock {
 
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
-  budgetCategory: { name: 'Mock1', max: 1000, color: 'red' },
+  budgetCategory: 10,
   account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
-  budgetCategory: { name: 'Mock2', max: 2000, color: 'blue' },
+  budgetCategory: 10,
   account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),
@@ -434,7 +442,7 @@ const name = 'TestingBudgetCategoryItem';
 const value = 128376;
 const color = 'red';
 
-const budgetCategory = { name: name, max: value, color: color };
+const budgetCategory = { id: 10, name: name, max: value, color: color };
 
 const account: Account = {
   name: 'TestAccount',

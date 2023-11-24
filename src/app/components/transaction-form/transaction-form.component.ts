@@ -73,7 +73,7 @@ export class TransactionFormComponent {
         this.dataService.editTransaction(this.transactionToEdit.id, {
           description: this.transactionForm.controls.description.value,
           value: this.transactionForm.controls.quantity.value,
-          budgetCategory: this.transactionForm.controls.category.value,
+          budgetCategory: this.transactionForm.controls.category.value.id,
           account: this.transactionForm.controls.account.value.id,
           date: new Date(),
         });
@@ -81,7 +81,7 @@ export class TransactionFormComponent {
         this.dataService.addNewTransaction({
           description: this.transactionForm.controls.description.value,
           value: this.transactionForm.controls.quantity.value,
-          budgetCategory: this.transactionForm.controls.category.value,
+          budgetCategory: this.transactionForm.controls.category.value.id,
           account: this.transactionForm.controls.account.value.id,
           date: new Date(),
         });
@@ -149,7 +149,7 @@ export class TransactionFormComponent {
     );
     this.transactionForm.controls.category.setValue(
       this.categories.filter(
-        (category) => category.id === this.transactionToEdit.budgetCategory.id
+        (category) => category.id === this.transactionToEdit.budgetCategory
       )[0]
     );
   }

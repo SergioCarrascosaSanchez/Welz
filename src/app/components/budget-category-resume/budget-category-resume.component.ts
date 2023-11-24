@@ -49,7 +49,7 @@ export class BudgetCategoryResumeComponent {
     let currentQuantity = 0;
     this.categories.forEach((category) => {
       this.dataService
-        .getTransactionsOfBudgetCategoryByDate(category.name, this.date)
+        .getTransactionsOfBudgetCategoryByDate(category.id, this.date)
         .forEach((transaction) => {
           currentQuantity = currentQuantity + transaction.value;
         });

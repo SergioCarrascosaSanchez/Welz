@@ -50,7 +50,7 @@ describe('Transactionns Page Component', () => {
     );
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(
-      transaction1.budgetCategory.name
+      category1.name
     );
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(
@@ -67,7 +67,7 @@ describe('Transactionns Page Component', () => {
     );
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(
-      transaction2.budgetCategory.name
+      category2.name
     );
 
     expect(fixture.debugElement.nativeElement.textContent).toContain(
@@ -137,6 +137,20 @@ class DataServiceMock {
   getAccounts() {
     return [account];
   }
+
+  getCategoryById(id: number) {
+    if (id === category1.id) {
+      return category1;
+    }
+    if (id === category2.id) {
+      return category2;
+    }
+    return null;
+  }
+
+  getCategoryType() {
+    return 'expensesCategories';
+  }
 }
 
 @Injectable({
@@ -154,21 +168,23 @@ class EmptyDataServiceMock {
   getAccounts() {
     return [];
   }
+
+  getCategoryType() {}
 }
 
-const category1 = { name: 'Mock1', max: 1000, color: 'red' };
-const category2 = { name: 'Mock2', max: 2000, color: 'blue' };
+const category1 = { id: 10, name: 'Mock1', max: 1000, color: 'red' };
+const category2 = { id: 11, name: 'Mock2', max: 2000, color: 'blue' };
 
 const transaction1: Transaction = {
   description: 'Mock Account Transaction 1',
-  budgetCategory: category1,
+  budgetCategory: 10,
   account: 0,
   value: 50.25,
   date: new Date('2023-10-06'),
 };
 const transaction2: Transaction = {
   description: 'Mock Account Transaction 2',
-  budgetCategory: category2,
+  budgetCategory: 11,
   account: 0,
   value: 120.0,
   date: new Date('2023-10-05'),

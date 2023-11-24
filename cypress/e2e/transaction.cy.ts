@@ -21,7 +21,7 @@ describe('Transaction', () => {
           budget: {
             expensesCategories: [
               {
-                id: 0,
+                id: 10,
                 name: 'Category',
                 max: 100,
                 color: 'red',
@@ -66,8 +66,8 @@ describe('Transaction', () => {
       );
       assert.equal(interception.request.body.transactions[0].value, value);
       assert.equal(
-        interception.request.body.transactions[0].budgetCategory.id,
-        0
+        interception.request.body.transactions[0].budgetCategory,
+        10
       );
       assert.equal(interception.request.body.transactions[0].account, 0);
       assert.equal(interception.request.body.transactions[0].id, 0);
@@ -118,19 +118,14 @@ describe('Transaction', () => {
               value: value,
               date: '2023-11-20T16:53:31.198Z',
               account: 0,
-              budgetCategory: {
-                id: 0,
-                name: 'Category',
-                max: 100,
-                color: 'blue',
-              },
+              budgetCategory: 10,
             },
           ],
           accounts: [{ id: 0, name: 'Account', balance: 1000 }],
           budget: {
             expensesCategories: [
               {
-                id: 0,
+                id: 10,
                 name: 'Category',
                 max: 100,
                 color: 'blue',
@@ -178,8 +173,8 @@ describe('Transaction', () => {
       );
       assert.equal(interception.request.body.transactions[0].value, value);
       assert.equal(
-        interception.request.body.transactions[0].budgetCategory.id,
-        0
+        interception.request.body.transactions[0].budgetCategory,
+        10
       );
       assert.equal(interception.request.body.transactions[0].account, 0);
       assert.equal(interception.request.body.transactions[0].id, 0);
@@ -229,19 +224,14 @@ describe('Transaction', () => {
               value: value,
               date: '2023-11-20T16:53:31.198Z',
               account: 0,
-              budgetCategory: {
-                id: 0,
-                name: 'Category',
-                max: 300,
-                color: 'green',
-              },
+              budgetCategory: 10,
             },
           ],
           accounts: [{ id: 0, name: 'Account', balance: 1000 }],
           budget: {
             expensesCategories: [
               {
-                id: 0,
+                id: 10,
                 name: 'Category',
                 max: 300,
                 color: 'green',

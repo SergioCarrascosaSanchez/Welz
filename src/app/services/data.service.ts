@@ -187,17 +187,17 @@ export class DataService {
     return transactions;
   }
 
-  getTransactionsOfBudgetCategory(budgetCategory: string) {
+  getTransactionsOfBudgetCategory(budgetCategoryId: number) {
     const transactions = this.data.transactions.filter(
-      (transaction) => transaction.budgetCategory.name === budgetCategory
+      (transaction) => transaction.budgetCategory === budgetCategoryId
     );
     return transactions;
   }
 
-  getTransactionsOfBudgetCategoryByDate(budgetCategory: string, date: Date) {
+  getTransactionsOfBudgetCategoryByDate(budgetCategoryId: number, date: Date) {
     const transactions = this.data.transactions.filter((transaction) => {
       return (
-        transaction.budgetCategory.name === budgetCategory &&
+        transaction.budgetCategory === budgetCategoryId &&
         date.getFullYear() === transaction.date.getFullYear() &&
         date.getMonth() === transaction.date.getMonth()
       );
@@ -223,13 +223,9 @@ export class DataService {
     const account: Account = this.data.accounts.find(
       (account) => account.id === transaction.account
     );
-    if (
-      this.data.budget.expensesCategories.includes(transaction.budgetCategory)
-    ) {
+    if (this.getCategoryType(transaction.id) === 'expensesCategories') {
       account.balance = account.balance - transaction.value;
-    } else if (
-      this.data.budget.incomeCategories.includes(transaction.budgetCategory)
-    ) {
+    } else if (this.getCategoryType(transaction.id) === 'incomeCategories') {
       account.balance = account.balance + transaction.value;
     }
     this.updateData();
@@ -256,27 +252,34 @@ export class DataService {
     const account: Account = this.data.accounts.find(
       (account) => account.id === transactionToDelete.account
     );
-    if (
-      this.data.budget.expensesCategories.includes(
-        transactionToDelete.budgetCategory
-      )
-    ) {
+    if (this.getCategoryType(transactionToDelete.id) === 'expensesCategories') {
       account.balance = account.balance + transactionToDelete.value;
     } else if (
-      this.data.budget.incomeCategories.includes(
-        transactionToDelete.budgetCategory
-      )
+      this.getCategoryType(transactionToDelete.id) === 'incomeCategories'
     ) {
       account.balance = account.balance - transactionToDelete.value;
     }
   }
 
   addNewCategory(budgetCategory: BudgetCategory, type: string) {
+    let newId = '';
+
+    if (type === 'expensesCategories') {
+      newId = '1';
+    }
+    if (type === 'incomeCategories') {
+      newId = '2';
+    }
+    if (type === 'savingCategories') {
+      newId = '3';
+    }
     if (this.data.budget[type].length === 0) {
-      budgetCategory.id = 0;
+      budgetCategory.id = Number(newId + '0');
     } else {
-      budgetCategory.id =
-        this.data.budget[type][this.data.budget[type].length - 1].id + 1;
+      const lastId = String(
+        this.data.budget[type][this.data.budget[type].length - 1].id
+      ).substring(1);
+      budgetCategory.id = Number(newId + String(Number(lastId) + 1));
     }
     this.data.budget[type].push(budgetCategory);
     this.updateData();
@@ -294,11 +297,11 @@ export class DataService {
   }
 
   deleteCategory(budgetCategory: BudgetCategory) {
-    this.getTransactionsOfBudgetCategory(budgetCategory.name).forEach(
+    this.getTransactionsOfBudgetCategory(budgetCategory.id).forEach(
       (transaction) => this.deleteTransactionWithOutUpdating(transaction)
     );
 
-    const type = this.getCategoryType(budgetCategory);
+    const type = this.getCategoryType(budgetCategory.id);
     this.data.budget[type] = this.data.budget[type].filter(
       (category) => category.id !== budgetCategory.id
     );
@@ -336,13 +339,16 @@ export class DataService {
     return !categoryNames.includes(name);
   }
 
-  getCategoryType(budgetCategory: BudgetCategory) {
-    if (this.data.budget.expensesCategories.includes(budgetCategory))
+  getCategoryType(id: number) {
+    if (String(id)[0] === '1') {
       return 'expensesCategories';
-    if (this.data.budget.incomeCategories.includes(budgetCategory))
+    }
+    if (String(id)[0] === '2') {
       return 'incomeCategories';
-    if (this.data.budget.savingCategories.includes(budgetCategory))
+    }
+    if (String(id)[0] === '3') {
       return 'savingCategories';
+    }
     return null;
   }
 

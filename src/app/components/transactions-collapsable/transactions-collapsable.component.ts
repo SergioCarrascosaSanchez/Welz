@@ -86,7 +86,7 @@ export class TransactionsCollapsableComponent {
       this.sinceDate = this.budgetDateService.getDate();
       this.listOfTransactions =
         this.dataService.getTransactionsOfBudgetCategoryByDate(
-          this.data.name,
+          this.data.id,
           this.sinceDate
         );
       this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
@@ -105,14 +105,14 @@ export class TransactionsCollapsableComponent {
     if (this.isBudgetCategory(this.data)) {
       this.listOfTransactions =
         this.dataService.getTransactionsOfBudgetCategoryByDate(
-          this.data.name,
+          this.data.id,
           this.sinceDate
         );
       this.transactionQuantityTotal = this.calculateTransactionQuantityTotal();
       this.dataService.dataChange.subscribe(() => {
         this.listOfTransactions =
           this.dataService.getTransactionsOfBudgetCategoryByDate(
-            this.data.name,
+            this.data.id,
             this.sinceDate
           );
         this.transactionQuantityTotal =
