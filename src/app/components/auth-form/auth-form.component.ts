@@ -24,15 +24,7 @@ export class AuthFormComponent {
   notSignedUpTitle = NotSignedUpTitle;
   signedUpTitle = SignedUpTitle;
 
-  authForm: FormGroup = new FormGroup({
-    email: new FormControl<string>('', [Validators.email, EmptyValidator]),
-    username: new FormControl<string>(''),
-    password: new FormControl<string>('', [
-      Validators.minLength(8),
-      EmptyValidator,
-    ]),
-    password2: new FormControl<string>(''),
-  });
+  authForm: FormGroup;
 
   onSubmit() {
     if (!this.authForm.invalid) {
@@ -77,11 +69,32 @@ export class AuthFormComponent {
   switchType() {
     if (this.isSignUp()) {
       this.type = AUTH_FORM_TYPES.LOGIN;
-      this.removeSignUpValidators();
+      this.createForm();
     } else {
       this.type = AUTH_FORM_TYPES.SIGNUP;
+      this.createForm();
       this.setSignUpValidators();
     }
+  }
+
+  createForm() {
+    this.authForm = new FormGroup({
+      email: new FormControl<string>('', [Validators.email, EmptyValidator]),
+      username: new FormControl<string>(''),
+      password: new FormControl<string>('', [
+        Validators.minLength(8),
+        EmptyValidator,
+      ]),
+      password2: new FormControl<string>(''),
+    });
+  }
+
+  setSignUpValidators() {
+    this.authForm.controls['password2'].setValidators([
+      Validators.minLength(8),
+      EmptyValidator,
+    ]);
+    this.authForm.controls['username'].setValidators([EmptyValidator]);
   }
 
   manageErrors() {
@@ -109,25 +122,13 @@ export class AuthFormComponent {
   }
 
   ngOnInit() {
+    this.createForm();
     if (this.isSignUp()) {
       this.setSignUpValidators();
     }
     this.errorSubscription = this.authService.error.subscribe((msg) => {
       this.error = msg;
     });
-  }
-
-  setSignUpValidators() {
-    this.authForm.controls['password2'].setValidators([
-      Validators.minLength(8),
-      EmptyValidator,
-    ]);
-    this.authForm.controls['username'].setValidators([EmptyValidator]);
-  }
-
-  removeSignUpValidators() {
-    this.authForm.controls['password2'].setValidators([]);
-    this.authForm.controls['username'].setValidators([]);
   }
 
   ngOnDestroy() {
