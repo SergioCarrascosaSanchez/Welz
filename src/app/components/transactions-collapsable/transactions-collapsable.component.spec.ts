@@ -141,15 +141,6 @@ describe('TransactionsCollapsableComponent', () => {
 
   it('should render category badge and value - budget mode', () => {
     configureTestBed('empty-budget-mode');
-    const name = 'TestingBudgetCategoryItem';
-    const value = 112340;
-    const color = 'red';
-
-    const budgetCategory = { name: name, max: value, color: color };
-
-    component.data = budgetCategory;
-    fixture.detectChanges();
-
     expect(debugElement.nativeElement.textContent).toContain(
       budgetCategory.name
     );
@@ -167,10 +158,6 @@ describe('TransactionsCollapsableComponent', () => {
 
   it('should open and close list of transactions on click - budget mode', () => {
     configureTestBed('data-budget-mode');
-
-    component.data = budgetCategory;
-
-    fixture.detectChanges();
 
     expect(debugElement.nativeElement.textContent).not.toContain(
       transaction1.description
