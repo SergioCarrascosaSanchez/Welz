@@ -1,7 +1,7 @@
 import { Component, SimpleChanges } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { Input } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 
 @Component({

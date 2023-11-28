@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BudgetCategoryResumeComponent } from './budget-category-resume.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
-import { DataService } from 'src/app/services/data.service';
-import { BudgetDateService } from 'src/app/services/budget-date.service';
+import { DataService } from 'src/app/services/data/data.service';
+import { BudgetDateService } from 'src/app/services/budget-date/budget-date.service';
 import { DebugElement, EventEmitter } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 

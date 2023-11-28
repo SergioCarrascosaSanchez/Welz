@@ -14,7 +14,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Account } from 'src/app/interfaces/account.model';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { ALERT_TYPES } from '../alert/alert.component';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { EventEmitter } from '@angular/core';

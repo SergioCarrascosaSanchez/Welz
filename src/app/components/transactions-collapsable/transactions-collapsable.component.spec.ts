@@ -10,7 +10,7 @@ import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { TransactionComponent } from '../transaction/transaction.component';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { Observable } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';

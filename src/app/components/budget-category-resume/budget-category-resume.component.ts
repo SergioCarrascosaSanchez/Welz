@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
-import { BudgetDateService } from 'src/app/services/budget-date.service';
-import { DataService } from 'src/app/services/data.service';
+import { BudgetDateService } from 'src/app/services/budget-date/budget-date.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-budget-category-resume',

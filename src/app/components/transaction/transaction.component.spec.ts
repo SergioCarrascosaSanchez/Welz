@@ -4,7 +4,7 @@ import { TransactionComponent } from './transaction.component';
 import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { OptionsMenuComponent } from '../options-menu/options-menu.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ModalComponent } from '../modal/modal.component';

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ALERT_TYPES } from 'src/app/components/alert/alert.component';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-main',

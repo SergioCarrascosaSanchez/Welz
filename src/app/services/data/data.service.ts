@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { UserData } from '../interfaces/userData.model';
-import { Transaction } from '../interfaces/transaction.model';
-import { BudgetCategory } from '../interfaces/budgetCategory.model';
-import { Account } from '../interfaces/account.model';
+import { UserData } from '../../interfaces/userData.model';
+import { Transaction } from '../../interfaces/transaction.model';
+import { BudgetCategory } from '../../interfaces/budgetCategory.model';
+import { Account } from '../../interfaces/account.model';
 import {
   HttpClient,
   HttpErrorResponse,

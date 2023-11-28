@@ -11,7 +11,7 @@ import {
   EditTitle,
 } from './budget-category-form.component';
 import { By } from '@angular/platform-browser';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';

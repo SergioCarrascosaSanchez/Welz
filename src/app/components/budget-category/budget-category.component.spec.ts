@@ -8,7 +8,7 @@ import { CardComponent } from '../card/card.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { TransactionComponent } from '../transaction/transaction.component';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { ModalComponent } from '../modal/modal.component';
 import { BudgetCategoryFormComponent } from '../budget-category-form/budget-category-form.component';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';

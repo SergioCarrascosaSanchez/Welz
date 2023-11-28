@@ -12,7 +12,7 @@ import {
 } from './account-form.component';
 import { AlertComponent, ALERT_TYPES } from '../alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { Account } from 'src/app/interfaces/account.model';
 import { Observable } from 'rxjs';
 

@@ -8,7 +8,7 @@ import { CardComponent } from 'src/app/components/card/card.component';
 import { BadgeComponent } from 'src/app/components/badge/badge.component';
 import { MoneyFormatPipe } from 'src/app/pipes/money-format.pipe';
 import { TransactionComponent } from 'src/app/components/transaction/transaction.component';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { Injectable } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
 import { OptionsMenuComponent } from 'src/app/components/options-menu/options-menu.component';

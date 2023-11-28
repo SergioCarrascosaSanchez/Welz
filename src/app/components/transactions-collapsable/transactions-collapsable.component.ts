@@ -2,8 +2,8 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Account } from 'src/app/interfaces/account.model';
 import { BudgetCategory } from 'src/app/interfaces/budgetCategory.model';
 import { Transaction } from 'src/app/interfaces/transaction.model';
-import { BudgetDateService } from 'src/app/services/budget-date.service';
-import { DataService } from 'src/app/services/data.service';
+import { BudgetDateService } from 'src/app/services/budget-date/budget-date.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-transactions-collapsable',

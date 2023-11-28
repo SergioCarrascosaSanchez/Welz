@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Transaction } from 'src/app/interfaces/transaction.model';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-transaction-page',

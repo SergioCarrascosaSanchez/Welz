@@ -12,7 +12,7 @@ import { AccountFormComponent } from '../account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { EventEmitter } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { Observable } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { OptionsMenuComponent } from '../options-menu/options-menu.component';
