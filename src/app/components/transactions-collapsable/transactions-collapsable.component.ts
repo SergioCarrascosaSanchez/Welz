@@ -29,14 +29,6 @@ export class TransactionsCollapsableComponent {
   displayEditButton = false;
   displayEditMenu = false;
 
-  onHover() {
-    this.displayEditButton = true;
-  }
-
-  onLeave() {
-    this.displayEditButton = false;
-  }
-
   onClose() {
     this.displayEditMenu = false;
   }
