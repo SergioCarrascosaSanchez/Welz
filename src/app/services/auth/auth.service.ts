@@ -18,13 +18,12 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  private urlStorage =
+  urlStorage =
     'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
-  private urlSignUp =
-    'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
-  private urlLogIn =
+  urlSignUp = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+  urlLogIn =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-  private apiKey = environment.API_KEY;
+  apiKey = environment.API_KEY;
 
   private errorSubject = new BehaviorSubject<string | null>(null);
   error = this.errorSubject.asObservable();
@@ -32,74 +31,68 @@ export class AuthService {
   signUp(userPassword: UserPassword) {
     this.http
       .post<AuthResponse>(`${this.urlSignUp}${this.apiKey}`, userPassword)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
+      .subscribe({
+        next: (response) => {
+          localStorage.setItem('token', response.idToken);
+          localStorage.setItem('id', response.localId);
+          this.errorSubject.next(null);
+          this.http
+            .put<UserData>(
+              `${this.urlStorage}/${response.localId}.json`,
+              {
+                username: userPassword.username,
+                balance: 0,
+                budget: {
+                  incomeCategories: [],
+                  savingCategories: [],
+                  expensesCategories: [],
+                },
+                accounts: [],
+                transactions: [],
+              },
+              {
+                params: new HttpParams().set(
+                  'auth',
+                  localStorage.getItem('token')
+                ),
+              }
+            )
+            .subscribe({
+              next: (response) => {
+                this.errorSubject.next(null);
+                this.router.navigate(['/user']);
+              },
+              error: (error) => {
+                this.errorSubject.next(UNKNOWN_ERROR);
+              },
+            });
+        },
+        error: (error) => {
           if (error.error.error.message === 'EMAIL_EXISTS') {
             this.errorSubject.next(EMAIL_EXISTS);
           } else {
             this.errorSubject.next(UNKNOWN_ERROR);
           }
-          return throwError(error.error.error.message);
-        })
-      )
-      .subscribe((response) => {
-        console.log(response);
-        localStorage.setItem('token', response.idToken);
-        localStorage.setItem('id', response.localId);
-        this.errorSubject.next(null);
-        this.http
-          .put<UserData>(
-            `${this.urlStorage}/${response.localId}.json`,
-            {
-              username: userPassword.username,
-              balance: 0,
-              budget: {
-                incomeCategories: [],
-                savingCategories: [],
-                expensesCategories: [],
-              },
-              accounts: [],
-              transactions: [],
-            },
-            {
-              params: new HttpParams().set(
-                'auth',
-                localStorage.getItem('token')
-              ),
-            }
-          )
-          .pipe(
-            catchError((error: HttpErrorResponse) => {
-              this.errorSubject.next(UNKNOWN_ERROR);
-              return throwError(error.error.error.message);
-            })
-          )
-          .subscribe((response) => {
-            console.log(response);
-            this.errorSubject.next(null);
-            this.router.navigate(['/user']);
-          });
+        },
       });
   }
 
   logIn(userPassword: UserPassword) {
     this.http
       .post<AuthResponse>(`${this.urlLogIn}${this.apiKey}`, userPassword)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          console.log(error.error.error.message);
+      .subscribe({
+        next: (response) => {
+          localStorage.setItem('token', response.idToken);
+          localStorage.setItem('id', response.localId);
+          this.router.navigate(['/user']);
+        },
+        error: (error) => {
           if (error.error.error.message === 'INVALID_LOGIN_CREDENTIALS') {
             this.errorSubject.next(INVALID_LOGIN_CREDENTIALS);
           } else {
             this.errorSubject.next(UNKNOWN_ERROR);
           }
-          return throwError(error.error.error.message);
-        })
-      )
-      .subscribe((response) => {
-        localStorage.setItem('token', response.idToken);
-        localStorage.setItem('id', response.localId);
-        this.router.navigate(['/user']);
+        },
       });
   }
 
