@@ -3,13 +3,8 @@ import { UserData } from '../../interfaces/userData.model';
 import { Transaction } from '../../interfaces/transaction.model';
 import { BudgetCategory } from '../../interfaces/budgetCategory.model';
 import { Account } from '../../interfaces/account.model';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
-import { transition } from '@angular/animations';
-import { BehaviorSubject, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -17,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class DataService {
   dataChange = new EventEmitter<void>();
-  private url =
+  url =
     'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/';
   loadedData = new BehaviorSubject<boolean>(false);
   private data: UserData = undefined;
@@ -28,7 +23,6 @@ export class DataService {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    console.log('fecht data');
     this.fetchData();
   }
 
@@ -37,25 +31,24 @@ export class DataService {
       .get<UserData>(`${this.url}/${localStorage.getItem('id')}.json`, {
         params: new HttpParams().set('auth', localStorage.getItem('token')),
       })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
+      .subscribe({
+        next: (response) => {
+          this.errorSubject.next(null);
+          this.prepareData(response);
+          this.data = this.prepareData(response);
+          this.loadedData.next(true);
+          this.dataChange.emit();
+        },
+        error: (error) => {
           if (error.status.toString() === '401') {
             this.router.navigate(['/auth']);
           }
           this.errorSubject.next(ERROR);
-          return throwError(error.error.error.message);
-        })
-      )
-      .subscribe((response) => {
-        this.errorSubject.next(null);
-        this.prepareData(response);
-        this.data = this.prepareData(response);
-        this.loadedData.next(true);
-        this.dataChange.emit();
+        },
       });
   }
 
-  prepareData(newData: UserData) {
+  prepareData(newData: any): UserData {
     if (newData.budget === undefined) {
       newData.budget = {
         incomeCategories: [],
@@ -91,26 +84,29 @@ export class DataService {
   updateData() {
     this.http
       .put<UserData>(
-        `${this.url}/${localStorage.getItem('id')}/.json`,
+        `${this.url}/${localStorage.getItem('id')}.json`,
         this.data,
         {
           params: new HttpParams().set('auth', localStorage.getItem('token')),
         }
       )
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
+      .subscribe({
+        next: (response) => {
+          this.errorSubject.next(null);
+          this.dataChange.emit();
+        },
+        error: (error) => {
           this.errorSubject.next(ERROR);
-          return throwError(error.error.error.message);
-        })
-      )
-      .subscribe((response) => {
-        this.errorSubject.next(null);
-        this.dataChange.emit();
+        },
       });
   }
 
   getData() {
     return this.data;
+  }
+
+  setData(data: UserData) {
+    this.data = data;
   }
 
   getUsername() {
@@ -236,7 +232,7 @@ export class DataService {
     transaction.description = transactionToEdit.description;
     transaction.value = transactionToEdit.value;
     transaction.account = transactionToEdit.account;
-    transaction.budgetCategory = transaction.budgetCategory;
+    transaction.budgetCategory = transactionToEdit.budgetCategory;
     this.updateData();
   }
 
@@ -325,18 +321,7 @@ export class DataService {
 
   checkCategoryNameEdit(oldName: string, newName: string) {
     if (oldName === newName) return true;
-    const categoryNames = [];
-    this.data.budget.expensesCategories.forEach((el) => {
-      categoryNames.push(el.name);
-    });
-    this.data.budget.incomeCategories.forEach((el) => {
-      categoryNames.push(el.name);
-    });
-    this.data.budget.savingCategories.forEach((el) => {
-      categoryNames.push(el.name);
-    });
-
-    return !categoryNames.includes(name);
+    return this.checkCategoryName(newName);
   }
 
   getCategoryType(id: number) {
