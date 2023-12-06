@@ -35,6 +35,7 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { OptionsMenuComponent } from './components/options-menu/options-menu.component';
 import { NavbarMainComponent } from './components/navbar-main/navbar-main.component';
+import { ChartComponent } from './components/chart/chart.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -67,6 +68,7 @@ registerLocaleData(localeEs, 'es');
     AuthComponent,
     OptionsMenuComponent,
     NavbarMainComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
