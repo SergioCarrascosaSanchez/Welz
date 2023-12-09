@@ -11,17 +11,20 @@ export class HomeComponent {
   username: string;
   balance: number;
   accounts: Account[];
-
+  chartData;
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.username = this.dataService.getUsername();
     this.balance = this.dataService.getBalance();
     this.accounts = this.dataService.getAccounts();
+    this.chartData = this.dataService.getChartInfo();
+
     this.dataService.dataChange.subscribe(() => {
       this.username = this.dataService.getUsername();
       this.balance = this.dataService.getBalance();
       this.accounts = this.dataService.getAccounts();
+      this.chartData = this.dataService.getChartInfo();
     });
   }
 }

@@ -4,7 +4,7 @@
     {{ this.balance | moneyFormat }}
   </h2>
 
-  <app-chart></app-chart>
+  <app-chart [data]="chartData"></app-chart>
 </app-card>
 
 <app-accounts [accounts]="accounts"></app-accounts>

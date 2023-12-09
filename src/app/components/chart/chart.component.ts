@@ -1,4 +1,10 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { createChart } from 'lightweight-charts';
 
 @Component({
@@ -7,6 +13,8 @@ import { createChart } from 'lightweight-charts';
   styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent {
+  @Input() data: { time: string; value: string }[];
+
   @ViewChild('chartRef', { static: true })
   chartRef: ElementRef;
 
@@ -71,46 +79,20 @@ export class ChartComponent {
       bottomColor: 'rgba(33, 150, 243, 0)',
       lineColor: 'rgba(33, 150, 243, 1)',
       lineWidth: 2,
+      lineType: 0,
     });
-    lineSeries.setData([
-      { time: '2019-04-18', value: 42.43 },
-      { time: '2019-04-22', value: 42.0 },
-      { time: '2019-04-23', value: 41.99 },
-      { time: '2019-04-24', value: 41.85 },
-      { time: '2019-04-25', value: 42.93 },
-      { time: '2019-04-26', value: 43.08 },
-      { time: '2019-04-29', value: 43.45 },
-      { time: '2019-04-30', value: 43.53 },
-      { time: '2019-05-01', value: 43.42 },
-      { time: '2019-05-02', value: 42.65 },
-      { time: '2019-05-03', value: 43.29 },
-      { time: '2019-05-06', value: 43.3 },
-      { time: '2019-05-07', value: 42.76 },
-      { time: '2019-05-08', value: 42.55 },
-      { time: '2019-05-09', value: 42.92 },
-      { time: '2019-05-10', value: 43.15 },
-      { time: '2019-05-13', value: 42.28 },
-      { time: '2019-05-14', value: 42.91 },
-      { time: '2019-05-15', value: 42.49 },
-      { time: '2019-05-16', value: 43.19 },
-      { time: '2019-05-17', value: 43.54 },
-      { time: '2019-05-20', value: 42.78 },
-      { time: '2019-05-21', value: 43.29 },
-      { time: '2019-05-22', value: 43.3 },
-      { time: '2019-05-23', value: 42.73 },
-      { time: '2019-05-24', value: 42.67 },
-      { time: '2019-05-28', value: 42.75 },
-    ]);
+    lineSeries.setData(this.data);
 
     this.chart.priceScale('right').applyOptions({
       visible: false,
     });
 
     this.chart.timeScale('right').applyOptions({
-      visible: false,
+      visible: true,
     });
-
     this.chart.timeScale().fitContent();
+
+    this.chart.timeScale().applyOptions({ fixLeftEdge: true });
   }
 
   resize() {
