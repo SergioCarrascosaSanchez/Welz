@@ -371,6 +371,41 @@ export class DataService {
     });
     return !accountNames.includes(name);
   }
+
+  getChartInfo(): { time: string; value: number }[] {
+    const transactionsByDay: { time: string; value: number }[] = [];
+
+    this.data.transactions.forEach((transaction) => {
+      const date = `${transaction.date.getFullYear()}-${(
+        '0' +
+        (transaction.date.getMonth() + 1)
+      ).slice(-2)}-${('0' + transaction.date.getDate()).slice(-2)}`;
+
+      let existingEntrance = transactionsByDay.find((objeto) => {
+        return objeto.time === date;
+      });
+
+      const category = this.getCategoryType(transaction.budgetCategory);
+      if (existingEntrance === undefined) {
+        if (category === 'expensesCategories') {
+          existingEntrance = { time: date, value: -transaction.value };
+        } else if (category === 'incomeCategories') {
+          existingEntrance = { time: date, value: transaction.value };
+        } else {
+          existingEntrance = { time: date, value: 0 };
+        }
+        transactionsByDay.push(existingEntrance);
+      } else {
+        if (category === 'expensesCategories') {
+          existingEntrance.value = existingEntrance.value - transaction.value;
+        } else if (category === 'incomeCategories') {
+          existingEntrance.value = existingEntrance.value + transaction.value;
+        }
+      }
+    });
+
+    return transactionsByDay.reverse();
+  }
 }
 
 export const ERROR = 'Ha ocurrido al enviar la información.';

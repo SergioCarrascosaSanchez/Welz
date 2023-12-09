@@ -260,6 +260,24 @@ describe('DataService', () => {
         dataService.prepareData(completeData).username
       );
     });
+
+    it('should group transactions by day', () => {
+      const expectedData = [
+        {
+          time: '2023-11-24',
+          value: -900,
+        },
+        {
+          time: '2023-11-27',
+          value: 1700,
+        },
+        {
+          time: '2023-12-27',
+          value: -10,
+        },
+      ];
+      expect(dataService.getChartInfo()).toEqual(expectedData);
+    });
   });
 
   describe('budget', () => {
@@ -743,7 +761,7 @@ const completeData = {
   transactions: [
     {
       account: 2,
-      budgetCategory: 20,
+      budgetCategory: 11,
       date: '2023-12-27T08:32:42.934Z',
       description: 'Bolera',
       id: 3,
