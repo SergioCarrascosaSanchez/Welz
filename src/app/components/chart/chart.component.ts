@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { createChart } from 'lightweight-charts';
@@ -19,6 +20,7 @@ export class ChartComponent {
   chartRef: ElementRef;
 
   chart;
+  lineSeries;
 
   name = 'Chart';
 
@@ -74,14 +76,14 @@ export class ChartComponent {
       },
     });
 
-    const lineSeries = this.chart.addAreaSeries({
+    this.lineSeries = this.chart.addAreaSeries({
       topColor: 'rgba(33, 150, 243, 0.4)',
       bottomColor: 'rgba(33, 150, 243, 0)',
       lineColor: 'rgba(33, 150, 243, 1)',
       lineWidth: 2,
       lineType: 0,
     });
-    lineSeries.setData(this.data);
+    this.lineSeries.setData(this.data);
 
     this.chart.priceScale('right').applyOptions({
       visible: false,
@@ -107,5 +109,11 @@ export class ChartComponent {
       return (window.innerWidth * 47) / 100;
     }
     return (window.innerWidth * 37) / 100;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['data'].isFirstChange()) {
+      this.lineSeries.setData(this.data);
+    }
   }
 }
