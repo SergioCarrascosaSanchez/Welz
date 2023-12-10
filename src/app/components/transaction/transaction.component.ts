@@ -25,15 +25,13 @@ export class TransactionComponent {
       this.transaction.budgetCategory,
       this.dataService.getCategoryType(this.transaction.budgetCategory)
     );
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['transaction']) {
+    this.dataService.dataChange.subscribe(() => {
       this.category = this.dataService.getCategoryById(
         this.transaction.budgetCategory,
         this.dataService.getCategoryType(this.transaction.budgetCategory)
       );
-    }
+    });
   }
 
   onDelete() {
