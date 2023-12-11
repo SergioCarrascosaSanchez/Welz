@@ -7,10 +7,10 @@ jobs:
       - name: Set up Node v18.17.1
         uses: actions/setup-node@v3
         with:
-          node-version: '18.17.1'
-      - name: Run angular tests
+          node-version: "18.17.1"
+      - name: Run Jasmine + Karma unit tests
         run: |
-              npm i
-              ng test --browsers ChromeHeadless --watch=false
-      - name: Run cypress component tests
-        run: npx cypress run --headless --component
+          npm i
+          ng test --browsers ChromeHeadless --watch false
+      - name: Run Cypress e2e tests
+        run: ng e2e --headless --watch false
