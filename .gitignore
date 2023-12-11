@@ -43,4 +43,4 @@ Thumbs.db
 
 #env config
 environment.development.ts
-environment.ts
+environment.prod.ts
