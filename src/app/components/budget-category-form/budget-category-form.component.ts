@@ -42,8 +42,8 @@ export class BudgetCategoryFormComponent {
       if (this.edit) {
         if (
           this.dataService.checkCategoryNameEdit(
-            this.categoryForm.controls.description.value,
-            this.category.name
+            this.category.name,
+            this.categoryForm.controls.description.value
           )
         ) {
           this.dataService.editCategory(

@@ -79,7 +79,7 @@ describe('DataService', () => {
       dataService.fetchData();
 
       const req: TestRequest = httpTestingController.expectOne(
-        `${dataService.url}/${fakeId}.json?auth=${fakeToken}`
+        `${dataService.url}${fakeId}.json?auth=${fakeToken}`
       );
 
       expect(req.request.method).toBe('GET');
@@ -127,7 +127,7 @@ describe('DataService', () => {
       dataService.fetchData();
 
       const req: TestRequest = httpTestingController.expectOne(
-        `${dataService.url}/${fakeId}.json?auth=${fakeToken}`
+        `${dataService.url}${fakeId}.json?auth=${fakeToken}`
       );
 
       expect(req.request.method).toBe('GET');
@@ -168,7 +168,7 @@ describe('DataService', () => {
       dataService.updateData();
 
       const req: TestRequest = httpTestingController.expectOne(
-        `${dataService.url}/${fakeId}.json?auth=${fakeToken}`
+        `${dataService.url}${fakeId}.json?auth=${fakeToken}`
       );
 
       expect(req.request.method).toBe('PUT');
@@ -206,7 +206,7 @@ describe('DataService', () => {
       dataService.updateData();
 
       const req: TestRequest = httpTestingController.expectOne(
-        `${dataService.url}/${fakeId}.json?auth=${fakeToken}`
+        `${dataService.url}${fakeId}.json?auth=${fakeToken}`
       );
 
       expect(req.request.method).toBe('PUT');

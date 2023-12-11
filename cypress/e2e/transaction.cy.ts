@@ -34,7 +34,7 @@ describe('Transaction', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},
@@ -102,6 +102,8 @@ describe('Transaction', () => {
     const description = 'transaction';
     const description2 = 'edited';
     const value = '100';
+    const now = new Date();
+    const date = `${now.getFullYear()}-${now.getMonth() + 1}-20T16:53:31.198Z`;
 
     cy.intercept(
       'GET',
@@ -116,7 +118,7 @@ describe('Transaction', () => {
               id: 0,
               description: description,
               value: value,
-              date: '2023-11-20T16:53:31.198Z',
+              date: date,
               account: 0,
               budgetCategory: 10,
             },
@@ -138,7 +140,7 @@ describe('Transaction', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},
@@ -208,6 +210,8 @@ describe('Transaction', () => {
   it('Delete Transaction', () => {
     const description = 'transaction';
     const value = '100';
+    const now = new Date();
+    const date = `${now.getFullYear()}-${now.getMonth() + 1}-20T16:53:31.198Z`;
 
     cy.intercept(
       'GET',
@@ -222,7 +226,7 @@ describe('Transaction', () => {
               id: 0,
               description: description,
               value: value,
-              date: '2023-11-20T16:53:31.198Z',
+              date: date,
               account: 0,
               budgetCategory: 10,
             },
@@ -244,7 +248,7 @@ describe('Transaction', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},

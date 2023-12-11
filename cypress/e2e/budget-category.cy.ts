@@ -23,7 +23,7 @@ describe('Budget category', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},
@@ -112,7 +112,7 @@ describe('Budget category', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},
@@ -203,7 +203,7 @@ describe('Budget category', () => {
 
     cy.intercept(
       'PUT',
-      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app//id/.json?auth=token',
+      'https://budget-app-96883-default-rtdb.europe-west1.firebasedatabase.app/id.json?auth=token',
       {
         statusCode: 200,
         body: {},

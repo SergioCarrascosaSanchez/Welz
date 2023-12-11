@@ -28,7 +28,7 @@ export class DataService {
 
   fetchData() {
     this.http
-      .get<UserData>(`${this.url}/${localStorage.getItem('id')}.json`, {
+      .get<UserData>(`${this.url}${localStorage.getItem('id')}.json`, {
         params: new HttpParams().set('auth', localStorage.getItem('token')),
       })
       .subscribe({
@@ -84,7 +84,7 @@ export class DataService {
   updateData() {
     this.http
       .put<UserData>(
-        `${this.url}/${localStorage.getItem('id')}.json`,
+        `${this.url}${localStorage.getItem('id')}.json`,
         this.data,
         {
           params: new HttpParams().set('auth', localStorage.getItem('token')),
