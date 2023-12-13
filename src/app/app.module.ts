@@ -36,6 +36,11 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { OptionsMenuComponent } from './components/options-menu/options-menu.component';
 import { NavbarMainComponent } from './components/navbar-main/navbar-main.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { SimpleBudgetResumeComponent } from './pages/landing/simple-components/simple-budget-resume/simple-budget-resume.component';
+import { SimpleChartComponent } from './pages/landing/simple-components/simple-chart/simple-chart.component';
+import { SimpleBudgetResumeGroupComponent } from './pages/landing/simple-components/simple-budget-resume-group/simple-budget-resume-group.component';
+import { SimpleBadgeComponent } from './pages/landing/simple-components/simple-badge/simple-badge.component';
+import { SimpleBadgeGroupComponent } from './pages/landing/simple-components/simple-badge-group/simple-badge-group.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -69,6 +74,11 @@ registerLocaleData(localeEs, 'es');
     OptionsMenuComponent,
     NavbarMainComponent,
     ChartComponent,
+    SimpleBudgetResumeComponent,
+    SimpleChartComponent,
+    SimpleBudgetResumeGroupComponent,
+    SimpleBadgeComponent,
+    SimpleBadgeGroupComponent,
   ],
   imports: [
     BrowserModule,

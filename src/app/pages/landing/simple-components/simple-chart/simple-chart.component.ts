@@ -1,20 +1,13 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { createChart } from 'lightweight-charts';
 
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css'],
+  selector: 'app-simple-chart',
+  templateUrl: './simple-chart.component.html',
+  styleUrls: ['./simple-chart.component.css'],
 })
-export class ChartComponent {
-  @Input() data: { time: string; value: string }[];
+export class SimpleChartComponent {
+  data: { time: string; value: string }[];
 
   @ViewChild('chartRef', { static: true })
   chartRef: ElementRef;
@@ -24,23 +17,11 @@ export class ChartComponent {
 
   name = 'Chart';
 
-  public innerWidth: any;
-
-  constructor() {}
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = this.resize();
-    this.chart.applyOptions({ width: this.innerWidth });
-    this.chart.timeScale().fitContent();
-  }
-
   ngOnInit() {
-    this.innerWidth = this.resize();
     const chartElement = this.chartRef.nativeElement;
     this.chart = createChart(chartElement, {
-      width: this.resize(),
-      height: 100,
+      width: 340,
+      height: 200,
       rightPriceScale: {
         borderVisible: false,
       },
@@ -83,37 +64,32 @@ export class ChartComponent {
       lineWidth: 2,
       lineType: 2,
     });
-    this.lineSeries.setData(this.data);
+    this.lineSeries.setData([
+      { time: '2019-05-24', value: 10 },
+      { time: '2019-05-25', value: 12 },
+      { time: '2019-05-26', value: 12.4 },
+      { time: '2019-05-27', value: 11.2 },
+      { time: '2019-05-28', value: 12 },
+      { time: '2019-05-29', value: 12.1 },
+      { time: '2019-05-30', value: 13.5 },
+      { time: '2019-05-31', value: 15 },
+      { time: '2019-06-01', value: 14 },
+      { time: '2019-06-02', value: 13 },
+      { time: '2019-06-03', value: 15 },
+      { time: '2019-06-04', value: 18 },
+      { time: '2019-06-05', value: 17 },
+      { time: '2019-06-06', value: 16 },
+    ]);
 
     this.chart.priceScale('right').applyOptions({
       visible: false,
     });
 
     this.chart.timeScale('right').applyOptions({
-      visible: true,
+      visible: false,
     });
     this.chart.timeScale().fitContent();
 
     this.chart.timeScale().applyOptions({ fixLeftEdge: true });
-  }
-
-  resize() {
-    const windowSize = window.innerWidth;
-    if (windowSize <= 767) {
-      return (window.innerWidth * 85) / 100;
-    }
-    if (windowSize > 767 && windowSize < 1279) {
-      return (window.innerWidth * 65) / 100;
-    }
-    if (windowSize > 1279 && windowSize < 1439) {
-      return (window.innerWidth * 47) / 100;
-    }
-    return (window.innerWidth * 37) / 100;
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes['data'].isFirstChange()) {
-      this.lineSeries.setData(this.data);
-    }
   }
 }
