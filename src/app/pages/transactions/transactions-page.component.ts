@@ -19,13 +19,17 @@ export class TransactionPageComponent {
 
   ngOnInit() {
     this.transactions = this.dataService.getTransactions();
-    this.dataService.dataChange.subscribe(() => {
-      this.transactions = this.dataService.getTransactions();
-    });
     this.currentTransactions = this.transactions.slice(
       this.firstDisplayed,
       this.lastDisplayed
     );
+    this.dataService.dataChange.subscribe(() => {
+      this.transactions = this.dataService.getTransactions();
+      this.currentTransactions = this.transactions.slice(
+        this.firstDisplayed,
+        this.lastDisplayed
+      );
+    });
   }
 
   next() {
