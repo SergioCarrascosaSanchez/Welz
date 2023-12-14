@@ -9,7 +9,11 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class TransactionPageComponent {
   transactions: Transaction[];
+  currentTransactions: Transaction[];
   emptyTransactionsMessage = emptyTransactions;
+  firstDisplayed: number = 0;
+  lastDisplayed: number = 20;
+  increment: number = 20;
 
   constructor(private dataService: DataService) {}
 
@@ -18,6 +22,27 @@ export class TransactionPageComponent {
     this.dataService.dataChange.subscribe(() => {
       this.transactions = this.dataService.getTransactions();
     });
+    this.currentTransactions = this.transactions.slice(
+      this.firstDisplayed,
+      this.lastDisplayed
+    );
+  }
+
+  next() {
+    this.firstDisplayed = this.firstDisplayed + this.increment;
+    this.lastDisplayed = this.lastDisplayed + this.increment;
+    this.currentTransactions = this.transactions.slice(
+      this.firstDisplayed,
+      this.lastDisplayed
+    );
+  }
+  back() {
+    this.firstDisplayed = this.firstDisplayed - this.increment;
+    this.lastDisplayed = this.lastDisplayed - this.increment;
+    this.currentTransactions = this.transactions.slice(
+      this.firstDisplayed,
+      this.lastDisplayed
+    );
   }
 }
 

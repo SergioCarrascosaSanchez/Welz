@@ -82,6 +82,94 @@ describe('Transactionns Page Component', () => {
       }/${transaction2.date.getFullYear()}`
     );
   });
+  it('should render only a number of transactions and change when click', () => {
+    configureTestBed('data');
+    component.lastDisplayed = 1;
+    component.increment = 0;
+    component.next();
+    component.back();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      emptyTransactions
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      category1.name
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      transaction1.description
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      new MoneyFormatPipe().transform(transaction1.value)
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      `${transaction1.date.getDate()}/${
+        transaction1.date.getMonth() + 1
+      }/${transaction1.date.getFullYear()}`
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      category2.name
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      transaction2.description
+    );
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      new MoneyFormatPipe().transform(transaction2.value)
+    );
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      `${transaction2.date.getDate()}/${
+        transaction2.date.getMonth() + 1
+      }/${transaction2.date.getFullYear()}`
+    );
+
+    component.firstDisplayed = 1;
+    component.lastDisplayed = 2;
+    component.next();
+    component.back();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      emptyTransactions
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      category1.name
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      transaction1.description
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      new MoneyFormatPipe().transform(transaction1.value)
+    );
+    expect(fixture.debugElement.nativeElement.textContent).not.toContain(
+      `${transaction1.date.getDate()}/${
+        transaction1.date.getMonth() + 1
+      }/${transaction1.date.getFullYear()}`
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      category2.name
+    );
+
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      transaction2.description
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      new MoneyFormatPipe().transform(transaction2.value)
+    );
+    expect(fixture.debugElement.nativeElement.textContent).toContain(
+      `${transaction2.date.getDate()}/${
+        transaction2.date.getMonth() + 1
+      }/${transaction2.date.getFullYear()}`
+    );
+  });
 
   const configureTestBed = (mockType: string) => {
     if (mockType === 'empty') {
@@ -92,6 +180,7 @@ describe('Transactionns Page Component', () => {
           BadgeComponent,
           MoneyFormatPipe,
           TransactionComponent,
+          IconButtonComponent,
         ],
         providers: [{ provide: DataService, useClass: EmptyDataServiceMock }],
       });
