@@ -219,20 +219,63 @@ export class DataService {
     const account: Account = this.data.accounts.find(
       (account) => account.id === transaction.account
     );
-    if (this.getCategoryType(transaction.id) === 'expensesCategories') {
+
+    console.log(account.balance);
+
+    if (
+      this.getCategoryType(transaction.budgetCategory) === 'expensesCategories'
+    ) {
       account.balance = account.balance - transaction.value;
-    } else if (this.getCategoryType(transaction.id) === 'incomeCategories') {
+    } else if (
+      this.getCategoryType(transaction.budgetCategory) === 'incomeCategories'
+    ) {
       account.balance = account.balance + transaction.value;
     }
+
+    console.log(account.balance);
+
     this.updateData();
   }
 
   editTransaction(id: number, transactionToEdit: Transaction) {
-    const transaction = this.getTransactionById(id);
-    transaction.description = transactionToEdit.description;
-    transaction.value = transactionToEdit.value;
-    transaction.account = transactionToEdit.account;
-    transaction.budgetCategory = transactionToEdit.budgetCategory;
+    const oldTransaction = this.getTransactionById(id);
+
+    const account: Account = this.data.accounts.find(
+      (account) => account.id === oldTransaction.account
+    );
+
+    if (
+      this.getCategoryType(oldTransaction.budgetCategory) ===
+      'expensesCategories'
+    ) {
+      account.balance = account.balance + oldTransaction.value;
+    } else if (
+      this.getCategoryType(oldTransaction.budgetCategory) === 'incomeCategories'
+    ) {
+      account.balance = account.balance - oldTransaction.value;
+    }
+
+    const accountToEdit: Account = this.data.accounts.find(
+      (account) => account.id === transactionToEdit.account
+    );
+
+    if (
+      this.getCategoryType(transactionToEdit.budgetCategory) ===
+      'expensesCategories'
+    ) {
+      accountToEdit.balance = accountToEdit.balance - transactionToEdit.value;
+    } else if (
+      this.getCategoryType(transactionToEdit.budgetCategory) ===
+      'incomeCategories'
+    ) {
+      accountToEdit.balance = accountToEdit.balance + transactionToEdit.value;
+    }
+
+    oldTransaction.description = transactionToEdit.description;
+    oldTransaction.value = transactionToEdit.value;
+    oldTransaction.account = transactionToEdit.account;
+    oldTransaction.budgetCategory = transactionToEdit.budgetCategory;
+
     this.updateData();
   }
 
@@ -248,10 +291,14 @@ export class DataService {
     const account: Account = this.data.accounts.find(
       (account) => account.id === transactionToDelete.account
     );
-    if (this.getCategoryType(transactionToDelete.id) === 'expensesCategories') {
+    if (
+      this.getCategoryType(transactionToDelete.budgetCategory) ===
+      'expensesCategories'
+    ) {
       account.balance = account.balance + transactionToDelete.value;
     } else if (
-      this.getCategoryType(transactionToDelete.id) === 'incomeCategories'
+      this.getCategoryType(transactionToDelete.budgetCategory) ===
+      'incomeCategories'
     ) {
       account.balance = account.balance - transactionToDelete.value;
     }

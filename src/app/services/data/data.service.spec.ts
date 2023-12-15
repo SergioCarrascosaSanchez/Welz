@@ -588,6 +588,8 @@ describe('DataService', () => {
 
       const initialNumberOfTransactions = dataService.getTransactions().length;
 
+      const initialBalance = dataService.getBalance();
+
       dataService.addNewTransaction({
         description: description1,
         value: value1,
@@ -597,6 +599,8 @@ describe('DataService', () => {
       });
 
       const id = dataService.getTransactions()[0].id;
+
+      expect(dataService.getBalance()).toEqual(initialBalance + value1);
 
       expect(dataService.getTransactions().length).toEqual(
         initialNumberOfTransactions + 1
@@ -619,6 +623,8 @@ describe('DataService', () => {
         date: new Date(),
       });
 
+      expect(dataService.getBalance()).toEqual(initialBalance - value2);
+
       expect(dataService.getTransactions().length).toEqual(
         initialNumberOfTransactions + 1
       );
@@ -640,6 +646,9 @@ describe('DataService', () => {
         account: account2,
         date: new Date(),
       });
+
+      expect(dataService.getBalance()).toEqual(initialBalance);
+
       expect(dataService.getTransactions().length).toEqual(
         initialNumberOfTransactions
       );
