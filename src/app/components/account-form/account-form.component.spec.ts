@@ -317,6 +317,10 @@ class DataServiceMock {
   checkAccountName(name: string) {
     return name !== account.name;
   }
+
+  checkAccountNameEdit(name1: string, name2: string) {
+    return name2 !== account.name;
+  }
 }
 
 const account: Account = {

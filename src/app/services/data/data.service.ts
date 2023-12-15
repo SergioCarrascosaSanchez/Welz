@@ -419,6 +419,11 @@ export class DataService {
     return !accountNames.includes(name);
   }
 
+  checkAccountNameEdit(oldName: string, newName: string) {
+    if (oldName === newName) return true;
+    return this.checkAccountName(newName);
+  }
+
   getChartInfo(): { time: string; value: number }[] {
     const transactionsByDay: { time: string; value: number }[] = [];
 

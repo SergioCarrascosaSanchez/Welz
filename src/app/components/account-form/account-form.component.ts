@@ -36,31 +36,45 @@ export class AccountFormComponent {
   onSubmit() {
     this.errors = '';
     if (!this.accountForm.invalid) {
-      if (
-        this.dataService.checkAccountName(
-          this.accountForm.controls.description.value
-        )
-      ) {
+      if (this.edit) {
         if (this.edit) {
-          this.dataService.editAccount({
-            id: this.id,
-            name: this.accountForm.controls.description.value,
-            balance: this.accountForm.controls.balance.value,
-          });
-        } else {
+          if (
+            this.dataService.checkAccountNameEdit(
+              this.dataService.getAccountById(this.id).name,
+              this.accountForm.controls.description.value
+            )
+          ) {
+            this.dataService.editAccount({
+              id: this.id,
+              name: this.accountForm.controls.description.value,
+              balance: this.accountForm.controls.balance.value,
+            });
+            this.invalid = false;
+            this.correctAddition = true;
+          } else {
+            this.errors = DuplicatedAccountName;
+            this.correctAddition = false;
+            this.invalid = true;
+          }
+        }
+      } else {
+        if (
+          this.dataService.checkAccountName(
+            this.accountForm.controls.description.value
+          )
+        ) {
           this.dataService.addNewAccount({
             name: this.accountForm.controls.description.value,
             balance: this.accountForm.controls.balance.value,
           });
+          this.resetForm();
+          this.invalid = false;
+          this.correctAddition = true;
+        } else {
+          this.errors = DuplicatedAccountName;
+          this.correctAddition = false;
+          this.invalid = true;
         }
-
-        this.resetForm();
-        this.invalid = false;
-        this.correctAddition = true;
-      } else {
-        this.errors = DuplicatedAccountName;
-        this.correctAddition = false;
-        this.invalid = true;
       }
     } else {
       this.manageErrors();

@@ -711,6 +711,45 @@ describe('DataService', () => {
       ).toBeFalse();
       expect(dataService.checkAccountName('Fake AccountName')).toBeTrue();
     });
+
+    it('should check if the account name already exists but return true if is the same', () => {
+      expect(
+        dataService.checkAccountNameEdit(
+          completeData.accounts[0].name,
+          'FakeName'
+        )
+      ).toBeTrue();
+      expect(
+        dataService.checkAccountNameEdit(
+          completeData.accounts[1].name,
+          'FakeName'
+        )
+      ).toBeTrue();
+
+      expect(
+        dataService.checkAccountNameEdit(
+          completeData.accounts[0].name,
+          completeData.accounts[1].name
+        )
+      ).toBeFalse();
+
+      expect(
+        dataService.checkAccountNameEdit('FakeName', 'OtherFakeName')
+      ).toBeTrue();
+
+      expect(
+        dataService.checkAccountNameEdit(
+          completeData.accounts[0].name,
+          completeData.accounts[0].name
+        )
+      ).toBeTrue();
+      expect(
+        dataService.checkAccountNameEdit(
+          completeData.accounts[1].name,
+          completeData.accounts[1].name
+        )
+      ).toBeTrue();
+    });
   });
 });
 
