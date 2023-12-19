@@ -24,7 +24,7 @@ export class HomeComponent {
       this.username = this.dataService.getUsername();
       this.balance = this.dataService.getBalance();
       this.accounts = this.dataService.getAccounts();
-      this.chartData = this.dataService.getChartInfo();
+      this.chartData = this.dataService.getChartInfo().slice();
     });
   }
 }

@@ -4,7 +4,10 @@ import { Transaction } from './transaction.model';
 
 export interface UserData {
   username: string;
-  balance: number;
+  dailyBalance: {
+    time: string;
+    value: number;
+  }[];
   budget: Budget;
   accounts: Account[];
   transactions: Transaction[];

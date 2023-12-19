@@ -101,7 +101,7 @@ describe('Transaction', () => {
   it('Edit Transaction', () => {
     const description = 'transaction';
     const description2 = 'edited';
-    const value = '100';
+    const value = 100;
     const now = new Date();
     const date = `${now.getFullYear()}-${now.getMonth() + 1}-20T16:53:31.198Z`;
 
@@ -112,7 +112,12 @@ describe('Transaction', () => {
         statusCode: 200,
         body: {
           username: username,
-          balance: 0,
+          dailyBalance: [
+            {
+              time: `${now.getFullYear()}-${now.getMonth() + 1}-20`,
+              value: 1000,
+            },
+          ],
           transactions: [
             {
               id: 0,
@@ -167,8 +172,6 @@ describe('Transaction', () => {
 
     cy.wait('@send-data').then((interception) => {
       assert.isNotNull(interception.request.body);
-
-      console.log(interception.request.body);
       assert.equal(
         interception.request.body.transactions[0].description,
         description2
@@ -209,7 +212,7 @@ describe('Transaction', () => {
 
   it('Delete Transaction', () => {
     const description = 'transaction';
-    const value = '100';
+    const value = 100;
     const now = new Date();
     const date = `${now.getFullYear()}-${now.getMonth() + 1}-20T16:53:31.198Z`;
 
@@ -220,7 +223,12 @@ describe('Transaction', () => {
         statusCode: 200,
         body: {
           username: username,
-          balance: 0,
+          dailyBalance: [
+            {
+              time: `${now.getFullYear()}-${now.getMonth() + 1}-20`,
+              value: 1000,
+            },
+          ],
           transactions: [
             {
               id: 0,

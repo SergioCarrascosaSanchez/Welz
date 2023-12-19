@@ -221,13 +221,12 @@ describe('DataService', () => {
     it('should initialize data correctly', () => {
       const emptyData = {
         username: 'TestUsername',
-        balance: 0,
       };
 
       const preparedData: UserData = dataService.prepareData(emptyData);
 
       expect(preparedData.username).toBe(emptyData.username);
-      expect(preparedData.balance).toBe(emptyData.balance);
+      expect(preparedData.dailyBalance).toEqual([]);
       expect(preparedData.budget).not.toBeUndefined();
       expect(preparedData.budget.expensesCategories).toEqual([]);
       expect(preparedData.budget.incomeCategories).toEqual([]);
@@ -250,33 +249,18 @@ describe('DataService', () => {
     });
 
     it('should return data', () => {
+      dataService.setData(dataService.prepareData(completeData));
       expect(dataService.getData()).toEqual(
         dataService.prepareData(completeData)
       );
     });
 
     it('should return username', () => {
+      dataService.setData(dataService.prepareData(completeData));
+
       expect(dataService.getUsername()).toEqual(
         dataService.prepareData(completeData).username
       );
-    });
-
-    it('should group transactions by day', () => {
-      const expectedData = [
-        {
-          time: '2023-11-24',
-          value: -900,
-        },
-        {
-          time: '2023-11-27',
-          value: 1700,
-        },
-        {
-          time: '2023-12-27',
-          value: -10,
-        },
-      ];
-      expect(dataService.getChartInfo()).toEqual(expectedData);
     });
   });
 
@@ -590,15 +574,21 @@ describe('DataService', () => {
 
       const initialBalance = dataService.getBalance();
 
+      const date = new Date();
+
       dataService.addNewTransaction({
         description: description1,
         value: value1,
         budgetCategory: budgetCategory1,
         account: account1,
-        date: new Date(),
+        date: date,
       });
 
       const id = dataService.getTransactions()[0].id;
+
+      expect(
+        dataService.getChartInfo()[dataService.getChartInfo().length - 1].value
+      ).toEqual(initialBalance + value1);
 
       expect(dataService.getBalance()).toEqual(initialBalance + value1);
 
@@ -622,6 +612,10 @@ describe('DataService', () => {
         account: account2,
         date: new Date(),
       });
+
+      expect(
+        dataService.getChartInfo()[dataService.getChartInfo().length - 1].value
+      ).toEqual(initialBalance - value2);
 
       expect(dataService.getBalance()).toEqual(initialBalance - value2);
 
@@ -647,6 +641,10 @@ describe('DataService', () => {
         date: new Date(),
       });
 
+      expect(
+        dataService.getChartInfo()[dataService.getChartInfo().length - 1].value
+      ).toEqual(initialBalance);
+
       expect(dataService.getBalance()).toEqual(initialBalance);
 
       expect(dataService.getTransactions().length).toEqual(
@@ -654,6 +652,108 @@ describe('DataService', () => {
       );
 
       expect(dataService.getTransactionById(id)).toBeUndefined();
+    });
+
+    it('should update correctly dailyBalance and Balance when edit the category ', () => {
+      dataService.setData(
+        dataService.prepareData(JSON.parse(JSON.stringify(transactionEditData)))
+      );
+
+      const value = transactionEditData.transactions[1].value;
+      const initialBalance = transactionEditData.accounts[0].balance;
+
+      const category1 = 30;
+      const category2 = 20;
+      const category3 = 10;
+
+      dataService.editTransaction(transactionEditData.transactions[1].id, {
+        description: transactionEditData.transactions[1].description,
+        value: value,
+        budgetCategory: category1,
+        account: transactionEditData.transactions[1].account,
+        date: new Date(transactionEditData.transactions[1].date),
+      });
+
+      expect(dataService.getBalance()).toEqual(initialBalance + value);
+
+      expect(dataService.getChartInfo()[2].value).toEqual(
+        transactionEditData.dailyBalance[2].value + value
+      );
+      expect(dataService.getChartInfo()[1].value).toEqual(
+        transactionEditData.dailyBalance[1].value + value
+      );
+      expect(dataService.getChartInfo()[0].value).toEqual(
+        transactionEditData.dailyBalance[0].value
+      );
+
+      dataService.editTransaction(transactionEditData.transactions[1].id, {
+        description: transactionEditData.transactions[1].description,
+        value: value,
+        budgetCategory: category2,
+        account: transactionEditData.transactions[1].account,
+        date: new Date(transactionEditData.transactions[1].date),
+      });
+
+      expect(dataService.getBalance()).toEqual(initialBalance + value * 2);
+
+      expect(dataService.getChartInfo()[2].value).toEqual(
+        transactionEditData.dailyBalance[2].value + value * 2
+      );
+      expect(dataService.getChartInfo()[1].value).toEqual(
+        transactionEditData.dailyBalance[1].value + value * 2
+      );
+      expect(dataService.getChartInfo()[0].value).toEqual(
+        transactionEditData.dailyBalance[0].value
+      );
+
+      dataService.editTransaction(transactionEditData.transactions[1].id, {
+        description: transactionEditData.transactions[1].description,
+        value: value,
+        budgetCategory: category3,
+        account: transactionEditData.transactions[1].account,
+        date: new Date(transactionEditData.transactions[1].date),
+      });
+
+      expect(dataService.getBalance()).toEqual(initialBalance);
+
+      expect(dataService.getChartInfo()[2].value).toEqual(
+        transactionEditData.dailyBalance[2].value
+      );
+      expect(dataService.getChartInfo()[1].value).toEqual(
+        transactionEditData.dailyBalance[1].value
+      );
+      expect(dataService.getChartInfo()[0].value).toEqual(
+        transactionEditData.dailyBalance[0].value
+      );
+    });
+    it('should update correctly dailyBalance and Balance when deleting and old transaction ', () => {
+      dataService.setData(
+        dataService.prepareData(JSON.parse(JSON.stringify(transactionEditData)))
+      );
+
+      const value = transactionEditData.transactions[1].value;
+      const initialBalance = transactionEditData.accounts[0].balance;
+
+      dataService.deleteTransaction({
+        id: transactionEditData.transactions[1].id,
+        description: transactionEditData.transactions[1].description,
+        value: value,
+        budgetCategory: transactionEditData.transactions[1].budgetCategory,
+        account: transactionEditData.transactions[1].account,
+        date: new Date(transactionEditData.transactions[1].date),
+      });
+
+      expect(dataService.getBalance()).toEqual(initialBalance + value);
+
+      expect(dataService.getChartInfo()[2].value).toEqual(
+        transactionEditData.dailyBalance[2].value + value
+      );
+      expect(dataService.getChartInfo()[1].value).toEqual(
+        transactionEditData.dailyBalance[1].value + value
+      );
+      expect(dataService.getChartInfo()[0].value).toEqual(
+        transactionEditData.dailyBalance[0].value
+      );
     });
   });
 
@@ -773,7 +873,11 @@ const completeData = {
       name: 'Gastos corrientes',
     },
   ],
-  balance: 0,
+  dailyBalance: [
+    { time: '2023-11-24', value: 19270 },
+    { time: '2023-11-27', value: 19270 },
+    { time: '2023-12-27', value: 19270 },
+  ],
   budget: {
     expensesCategories: [
       {
@@ -838,6 +942,74 @@ const completeData = {
       description: 'Hipoteca',
       id: 0,
       value: 900,
+    },
+  ],
+  username: 'Sergio',
+};
+
+const transactionEditData = {
+  accounts: [
+    {
+      balance: 900,
+      id: 0,
+      name: 'Cuenta',
+    },
+  ],
+  dailyBalance: [
+    { time: '2022-12-31', value: 900 },
+    { time: '2023-01-01', value: 800 },
+    { time: '2023-01-02', value: 1000 },
+  ],
+  budget: {
+    expensesCategories: [
+      {
+        color: 'rgb(52, 73, 94)',
+        id: 10,
+        max: 1000,
+        name: 'Gasto',
+      },
+    ],
+    incomeCategories: [
+      {
+        color: 'rgb(46, 204, 113)',
+        id: 20,
+        max: 3200,
+        name: 'Ingreso',
+      },
+    ],
+    savingCategories: [
+      {
+        color: 'rgb(52, 152, 219)',
+        id: 30,
+        max: 250,
+        name: 'Ahorro',
+      },
+    ],
+  },
+  transactions: [
+    {
+      account: 0,
+      budgetCategory: 20,
+      date: '2023-01-02T08:26:40.515Z',
+      description: 'Ingreso',
+      id: 2,
+      value: 100,
+    },
+    {
+      account: 0,
+      budgetCategory: 10,
+      date: '2023-01-01T08:26:40.515Z',
+      description: 'Gasto',
+      id: 1,
+      value: 200,
+    },
+    {
+      account: 0,
+      budgetCategory: 20,
+      date: '2022-12-31T14:34:35.442Z',
+      description: 'Ingreso',
+      id: 0,
+      value: 500,
     },
   ],
   username: 'Sergio',

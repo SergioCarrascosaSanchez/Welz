@@ -78,6 +78,9 @@ export class DataService {
         };
       });
     }
+    if (newData.dailyBalance === undefined) {
+      newData.dailyBalance = [];
+    }
     return newData;
   }
 
@@ -220,8 +223,6 @@ export class DataService {
       (account) => account.id === transaction.account
     );
 
-    console.log(account.balance);
-
     if (
       this.getCategoryType(transaction.budgetCategory) === 'expensesCategories'
     ) {
@@ -231,9 +232,7 @@ export class DataService {
     ) {
       account.balance = account.balance + transaction.value;
     }
-
-    console.log(account.balance);
-
+    this.dailyBalanceAdd(transaction);
     this.updateData();
   }
 
@@ -271,6 +270,8 @@ export class DataService {
       accountToEdit.balance = accountToEdit.balance + transactionToEdit.value;
     }
 
+    this.dailyBalanceEdit(oldTransaction, transactionToEdit);
+
     oldTransaction.description = transactionToEdit.description;
     oldTransaction.value = transactionToEdit.value;
     oldTransaction.account = transactionToEdit.account;
@@ -281,6 +282,7 @@ export class DataService {
 
   deleteTransaction(transactionToDelete: Transaction) {
     this.deleteTransactionWithOutUpdating(transactionToDelete);
+    this.dailyBalanceDelete(transactionToDelete);
     this.updateData();
   }
 
@@ -425,38 +427,81 @@ export class DataService {
   }
 
   getChartInfo(): { time: string; value: number }[] {
-    const transactionsByDay: { time: string; value: number }[] = [];
+    return this.data.dailyBalance;
+  }
 
-    this.data.transactions.forEach((transaction) => {
-      const date = `${transaction.date.getFullYear()}-${(
-        '0' +
-        (transaction.date.getMonth() + 1)
-      ).slice(-2)}-${('0' + transaction.date.getDate()).slice(-2)}`;
+  dailyBalanceAdd(transaction: Transaction) {
+    const date = `${transaction.date.getFullYear()}-${(
+      '0' +
+      (transaction.date.getMonth() + 1)
+    ).slice(-2)}-${('0' + transaction.date.getDate()).slice(-2)}`;
 
-      let existingEntrance = transactionsByDay.find((objeto) => {
-        return objeto.time === date;
-      });
-
-      const category = this.getCategoryType(transaction.budgetCategory);
-      if (existingEntrance === undefined) {
-        if (category === 'expensesCategories') {
-          existingEntrance = { time: date, value: -transaction.value };
-        } else if (category === 'incomeCategories') {
-          existingEntrance = { time: date, value: transaction.value };
-        } else {
-          existingEntrance = { time: date, value: 0 };
-        }
-        transactionsByDay.push(existingEntrance);
-      } else {
-        if (category === 'expensesCategories') {
-          existingEntrance.value = existingEntrance.value - transaction.value;
-        } else if (category === 'incomeCategories') {
-          existingEntrance.value = existingEntrance.value + transaction.value;
-        }
-      }
+    let existingEntrance = this.data.dailyBalance.find((objeto) => {
+      return objeto.time === date;
     });
 
-    return transactionsByDay.reverse();
+    if (existingEntrance === undefined) {
+      this.data.dailyBalance.push({ time: date, value: this.getBalance() });
+    } else {
+      existingEntrance.value = this.getBalance();
+    }
+  }
+
+  dailyBalanceEdit(oldTransaction: Transaction, transaction: Transaction) {
+    const date = `${oldTransaction.date.getFullYear()}-${(
+      '0' +
+      (oldTransaction.date.getMonth() + 1)
+    ).slice(-2)}-${('0' + oldTransaction.date.getDate()).slice(-2)}`;
+
+    let existingEntrance = this.data.dailyBalance.find((objeto) => {
+      return objeto.time === date;
+    });
+
+    const index = this.data.dailyBalance.indexOf(existingEntrance);
+
+    const oldCategory = this.getCategoryType(oldTransaction.budgetCategory);
+
+    const newCategory = this.getCategoryType(transaction.budgetCategory);
+
+    for (let i = index; i < this.data.dailyBalance.length; i++) {
+      const entrance = this.data.dailyBalance[i];
+
+      if (oldCategory === 'expensesCategories') {
+        entrance.value = entrance.value + oldTransaction.value;
+      } else if (oldCategory === 'incomeCategories') {
+        entrance.value = entrance.value - oldTransaction.value;
+      }
+
+      if (newCategory === 'expensesCategories') {
+        entrance.value = entrance.value - transaction.value;
+      } else if (newCategory === 'incomeCategories') {
+        entrance.value = entrance.value + transaction.value;
+      }
+    }
+  }
+
+  dailyBalanceDelete(transaction: Transaction) {
+    const date = `${transaction.date.getFullYear()}-${(
+      '0' +
+      (transaction.date.getMonth() + 1)
+    ).slice(-2)}-${('0' + transaction.date.getDate()).slice(-2)}`;
+
+    let existingEntrance = this.data.dailyBalance.find((objeto) => {
+      return objeto.time === date;
+    });
+
+    const index = this.data.dailyBalance.indexOf(existingEntrance);
+
+    const category = this.getCategoryType(transaction.budgetCategory);
+
+    for (let i = index; i < this.data.dailyBalance.length; i++) {
+      const entrance = this.data.dailyBalance[i];
+      if (category === 'expensesCategories') {
+        entrance.value = entrance.value + transaction.value;
+      } else if (category === 'incomeCategories') {
+        entrance.value = entrance.value - transaction.value;
+      }
+    }
   }
 }
 
