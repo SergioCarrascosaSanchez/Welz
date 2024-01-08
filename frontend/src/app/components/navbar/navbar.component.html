@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <li *ngFor="let navbarItem of navbarItems">
+    <a
+      [routerLink]="navbarItem.route"
+      routerLinkActive
+      [routerLinkActiveOptions]="{ exact: true }"
+      #rla="routerLinkActive"
+      [ngClass]="rla.isActive ? 'activated-route' : 'not-activated-route'"
+      >{{ navbarItem.text }}</a
+    >
+  </li>
+</nav>

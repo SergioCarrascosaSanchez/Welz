@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 style="font-size: x-large">{{ title }}</h1>
+
+  <app-alert
+    *ngIf="invalid"
+    [message]="errors"
+    [type]="errorAlertType"
+  ></app-alert>
+  <app-alert
+    *ngIf="correctAddition"
+    [message]="correctAdditionMessage"
+    [type]="successAlertType"
+  ></app-alert>
+
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="Nombre de la cuenta"
+    />
+    <input
+      type="number"
+      inputmode="decimal"
+      lang="en"
+      formControlName="balance"
+      placeholder="Cantidad inicial"
+    />
+    <div style="text-align: right; border: 0">
+      <button type="submit" *ngIf="!edit">Añadir cuenta bancaria</button>
+      <button type="submit" *ngIf="edit">Editar cuenta bancaria</button>
+    </div>
+  </form>
+</div>

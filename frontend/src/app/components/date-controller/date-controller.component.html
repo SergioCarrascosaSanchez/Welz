@@ -1,0 +1,17 @@
+<div style="display: grid; place-content: center">
+  <div style="display: flex; gap: 15px">
+    <app-icon-button
+      id="left-arrow-button"
+      (click)="onChangeMonth(-1)"
+      type="arrow-left"
+    ></app-icon-button>
+    <div style="display: grid; place-content: center">
+      {{ date | date : "MMMM yyyy" | titlecase }}
+    </div>
+    <app-icon-button
+      id="right-arrow-button"
+      (click)="onChangeMonth(1)"
+      type="arrow-right"
+    ></app-icon-button>
+  </div>
+</div>

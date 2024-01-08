@@ -1,0 +1,60 @@
+<div
+  style="display: grid; place-content: space-between"
+  [ngStyle]="{
+    'margin-top': type === 'budget' ? '1.2vh' : '0',
+    'margin-bottom': type === 'budget' ? '1.2vh' : '0'
+  }"
+>
+  <div *ngIf="type === 'regular'" style="display: grid; place-content: center">
+    <app-badge [text]="category.name" [color]="category.color"></app-badge>
+    <span class="date">{{ transaction.date | date : "dd/MM/yyyy" }} </span>
+    <div class="description">
+      {{ transaction.description }}
+    </div>
+  </div>
+
+  <div *ngIf="type === 'budget'" class="description-date-container">
+    {{ transaction.description }}
+    <span style="color: rgba(150, 150, 150, 1); margin-left: 0.5vw"
+      >{{ transaction.date | date : "dd/MM/yyyy" }}
+    </span>
+  </div>
+
+  <div style="grid-column: 2; display: grid; place-content: center">
+    <div style="display: grid; place-content: center">
+      <span
+        style="
+          text-align: right;
+          grid-column: 1;
+          display: grid;
+          place-content: center;
+        "
+      >
+        {{ transaction.value | moneyFormat }}
+      </span>
+      <div
+        style="
+          grid-column: 2;
+          display: grid;
+          place-content: end;
+          margin-left: 3px;
+          margin-right: -8px;
+        "
+      >
+        <app-options-menu
+          (delete)="onDelete()"
+          (edit)="onEdit()"
+        ></app-options-menu>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal [open]="editModalOpen" (closeEmmitter)="onClose()">
+  <app-transaction-form
+    (closeEmitter)="onClose()"
+    [edit]="true"
+    [transactionToEdit]="transaction"
+    [open]="editModalOpen"
+  ></app-transaction-form>
+</app-modal>

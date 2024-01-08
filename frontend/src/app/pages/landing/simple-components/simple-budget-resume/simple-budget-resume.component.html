@@ -1,0 +1,9 @@
+<div class="budget-resume">
+  <div style="font-size: small; margin-bottom: 1px">{{ title }}</div>
+  <div style="text-align: right">
+    <span class="current">
+      {{ current | moneyFormat }}
+    </span>
+    <span style="color: #979797" class="max"> / {{ max | moneyFormat }} </span>
+  </div>
+</div>

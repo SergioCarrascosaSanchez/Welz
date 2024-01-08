@@ -1,0 +1,19 @@
+name: tests
+on: [workflow_dispatch, push]
+jobs:
+  execute_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node v18.17.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.17.1"
+      - name: Install dependecies
+        run: npm i
+      - name: Link cli
+        run: npm link @angular/cli
+      - name: Run Jasmine + Karma unit tests
+        run: ng test --browsers ChromeHeadless --watch false --configuration=testing
+      - name: Run Cypress e2e tests
+        run: ng e2e --headless --watch false --configuration=testing

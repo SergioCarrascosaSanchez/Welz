@@ -1,0 +1,26 @@
+.budget-resume {
+  width: 223px;
+  grid-column: 1;
+  background-image: none;
+  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.355);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: black;
+  box-sizing: border-box;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 10px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.max {
+  font-size: 15px;
+}
+.current {
+  font-size: x-large;
+}

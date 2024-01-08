@@ -1,0 +1,343 @@
+@media screen and (min-width: 899px) {
+  .title {
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    margin-block-end: 20px;
+    margin-block-start: -120px;
+    color: black;
+    display: inline-block;
+  }
+
+  .main-image {
+    width: 957px;
+    height: 444px;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 0px;
+    padding-bottom: 15%;
+    background-image: radial-gradient(
+        20% 20% at 45% 80%,
+        rgba(253, 128, 111, 0.258) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        30% 30% at 35% 60%,
+        rgba(130, 154, 250, 0.429) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(20% 20% at 60% 70%, #ffde8471 7%, #0739ff00 100%),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .info-container {
+    display: grid;
+    place-content: center;
+    column-gap: 15px;
+    row-gap: 15px;
+    grid-template-columns: 425px 425px;
+  }
+
+  .container1 {
+    display: flex;
+    flex-direction: row-reverse;
+    grid-column: span 2;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        30% 50% at 20% 80%,
+        rgba(254, 169, 158, 0.77) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 5% 20%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+
+    grid-template-columns: 50% 50%;
+  }
+
+  .container2 {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        80% 40% at 100% 50%,
+        #ffde8491 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 60% at 95% 10%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+
+    grid-template-columns: 50% 50%;
+  }
+
+  .container3 {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 10px;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        40% 80% at 100% 95%,
+        rgba(254, 169, 158, 0.609) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 80% 95%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+
+    grid-template-columns: 50% 50%;
+  }
+
+  .footer {
+    height: 200px;
+  }
+
+  .container-text {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    place-content: center;
+    font-size: 35px;
+    font-weight: 500;
+    margin-block-end: 10px;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .title {
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+    margin-block-end: 20px;
+    margin-block-start: -60px;
+    color: black;
+    display: inline-block;
+  }
+
+  .main-image {
+    width: 638px;
+    height: 296px;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 0px;
+    padding-bottom: 15%;
+    background-image: radial-gradient(
+        20% 20% at 45% 80%,
+        rgba(253, 128, 111, 0.258) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        30% 30% at 35% 60%,
+        rgba(130, 154, 250, 0.429) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(20% 20% at 60% 70%, #ffde8471 7%, #0739ff00 100%),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .info-container {
+    display: grid;
+    place-content: center;
+    row-gap: 15px;
+    grid-template-columns: 500px;
+  }
+
+  .container1 {
+    display: grid;
+    grid-row: 1;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        30% 50% at 20% 80%,
+        rgba(254, 169, 158, 0.77) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 5% 20%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .container2 {
+    grid-row: 2;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        80% 40% at 100% 50%,
+        #ffde8491 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 60% at 95% 10%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .container3 {
+    grid-row: 3;
+    padding: 10px;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        40% 80% at 100% 95%,
+        rgba(254, 169, 158, 0.609) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 80% 95%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .footer {
+    height: 200px;
+  }
+
+  .container-text {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    place-content: center;
+    font-size: 30px;
+    font-weight: 500;
+    margin-block-end: 5px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .title {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    margin-block-end: 20px;
+    margin-block-start: 0px;
+    color: black;
+    display: inline-block;
+  }
+
+  .main-image {
+    width: 319px;
+    height: 148px;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 0px;
+    padding-bottom: 30%;
+    background-image: radial-gradient(
+        20% 20% at 45% 80%,
+        rgba(253, 128, 111, 0.258) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        30% 30% at 35% 60%,
+        rgba(130, 154, 250, 0.429) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(20% 20% at 60% 70%, #ffde8471 7%, #0739ff00 100%),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .info-container {
+    display: grid;
+    place-content: center;
+    row-gap: 15px;
+    grid-template-columns: 320px;
+  }
+
+  .container1 {
+    display: grid;
+    grid-row: 1;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        30% 50% at 20% 80%,
+        rgba(254, 169, 158, 0.77) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 5% 20%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .container2 {
+    grid-row: 2;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        80% 40% at 100% 50%,
+        #ffde8491 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 60% at 95% 10%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .container3 {
+    grid-row: 3;
+    padding: 10px;
+    border-radius: 30px;
+    background-color: rgb(232, 232, 232);
+    background-image: radial-gradient(
+        40% 80% at 100% 95%,
+        rgba(254, 169, 158, 0.609) 7%,
+        #0739ff00 100%
+      ),
+      radial-gradient(
+        40% 80% at 80% 95%,
+        rgba(162, 180, 254, 0.547) 7%,
+        #0739ff00 100%
+      ),
+      linear-gradient(to top, transparent 50%, transparent 100%);
+  }
+
+  .footer {
+    height: 200px;
+  }
+
+  .container-text {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    place-content: center;
+    font-size: 20px;
+    font-weight: 400;
+    margin-block-end: 5px;
+  }
+}

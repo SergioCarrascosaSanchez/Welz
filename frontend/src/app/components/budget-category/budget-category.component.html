@@ -1,0 +1,28 @@
+<app-card>
+  <div
+    style="display: flex; justify-content: space-between; margin-bottom: 10px"
+  >
+    <div style="display: grid; place-content: end">
+      <h2 class="title">{{ title }}</h2>
+    </div>
+    <app-icon-button (click)="onAdd()" type="add"></app-icon-button>
+  </div>
+
+  <app-modal [open]="addModalOpen" (closeEmmitter)="onClose()">
+    <app-budget-category-form
+      (closeEmitter)="onClose()"
+      [categoryName]="categoryName"
+      [open]="addModalOpen"
+    ></app-budget-category-form>
+  </app-modal>
+  <app-transactions-collapsable
+    *ngFor="let category of categories"
+    [data]="category"
+  ></app-transactions-collapsable>
+  <div
+    *ngIf="categories.length === 0"
+    style="color: rgba(150, 150, 150, 1); margin-top: 2.5%"
+  >
+    {{ emptyMessage }}
+  </div>
+</app-card>

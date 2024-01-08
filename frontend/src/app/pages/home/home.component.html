@@ -1,0 +1,10 @@
+<app-card>
+  Posicion total:
+  <h2 style="margin-block-end: 0px; margin-block-start: 0.3vw">
+    {{ this.balance | moneyFormat }}
+  </h2>
+
+  <app-chart [data]="chartData"></app-chart>
+</app-card>
+
+<app-accounts [accounts]="accounts"></app-accounts>

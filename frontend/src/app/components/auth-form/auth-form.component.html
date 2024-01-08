@@ -1,0 +1,52 @@
+<div style="margin-top: 20px"></div>
+<h1 *ngIf="isSignUp()" style="font-size: x-large">{{ notSignedUpTitle }}</h1>
+<h1 *ngIf="!isSignUp()" style="font-size: x-large">{{ signedUpTitle }}</h1>
+<app-alert *ngIf="error" [message]="error" [type]="errorAlertType"></app-alert>
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <input
+    formControlName="email"
+    style="margin-bottom: 5px"
+    type="text"
+    placeholder="Email"
+  />
+  <input
+    *ngIf="isSignUp()"
+    formControlName="username"
+    style="margin-bottom: 5px"
+    type="text"
+    placeholder="Nombre"
+  />
+  <input
+    formControlName="password"
+    style="margin-bottom: 5px"
+    type="password"
+    placeholder="Contraseña"
+  />
+  <input
+    *ngIf="isSignUp()"
+    formControlName="password2"
+    style="margin-bottom: 5px"
+    type="password"
+    placeholder="Repite la contraseña"
+  />
+  <u
+    type="submit"
+    *ngIf="isSignUp()"
+    (click)="switchType()"
+    style="cursor: pointer"
+  >
+    {{ signedUpText }}
+  </u>
+  <u
+    type="submit"
+    *ngIf="!isSignUp()"
+    (click)="switchType()"
+    style="cursor: pointer"
+  >
+    {{ notSignedUpText }}
+  </u>
+  <div style="text-align: right; border: 0">
+    <button type="submit" *ngIf="isSignUp()">{{ notSignedUpTitle }}</button>
+    <button type="submit" *ngIf="!isSignUp()">{{ signedUpTitle }}</button>
+  </div>
+</form>

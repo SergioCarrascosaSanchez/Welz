@@ -1,0 +1,10 @@
+<div>{{ title }}</div>
+<div style="margin-top: 5px" class="container">
+  <span class="current">
+    {{ currentQuantity | moneyFormat }}
+  </span>
+
+  <span style="color: #979797" class="max">
+    / {{ maxQuantity | moneyFormat }}
+  </span>
+</div>

@@ -1,0 +1,25 @@
+<app-card>
+  <div
+    style="display: flex; justify-content: space-between; margin-bottom: 10px"
+  >
+    <div style="display: grid; place-content: center">
+      <p style="margin-block-start: 0px; margin-block-end: 0px">{{ title }}</p>
+    </div>
+    <app-icon-button (click)="onAdd()" type="add"></app-icon-button>
+  </div>
+  <div
+    *ngIf="accounts.length <= 0"
+    style="color: rgba(150, 150, 150, 1); margin-top: 2.5%"
+  >
+    {{ emptyMessage }}
+  </div>
+  <app-transactions-collapsable
+    *ngFor="let account of accounts"
+    [data]="account"
+  >
+  </app-transactions-collapsable>
+
+  <app-modal [open]="addModalOpen" (closeEmmitter)="onClose()">
+    <app-account-form [open]="addModalOpen"></app-account-form>
+  </app-modal>
+</app-card>

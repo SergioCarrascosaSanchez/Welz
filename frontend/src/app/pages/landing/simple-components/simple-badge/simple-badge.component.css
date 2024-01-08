@@ -1,0 +1,21 @@
+@media screen and (max-width: 900px) {
+  .badge {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .badge {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

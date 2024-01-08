@@ -1,0 +1,42 @@
+@media screen and (min-width: 767px) {
+  .icon {
+    display: grid;
+    place-content: center;
+    padding: 7px;
+    border-radius: 5px;
+    border: 0px;
+    color: black;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .icon {
+    display: grid;
+    place-content: end;
+    padding: 3px;
+    border-radius: 5px;
+    border: 0px;
+    color: black;
+    cursor: pointer;
+  }
+  .button-text {
+    font-size: smaller;
+  }
+}
+
+.button-text {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.crystal {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

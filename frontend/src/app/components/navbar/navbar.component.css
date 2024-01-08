@@ -1,0 +1,40 @@
+.activated-route {
+  color: black;
+  border-bottom: solid 2px rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.not-activated-route {
+  color: #c0c0c0;
+  border-bottom: solid 2px #d1d1d1;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar {
+    display: inline-flex;
+    gap: 3vw;
+    align-items: flex-end;
+    list-style-type: none;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: solid 2px #d1d1d1;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-bottom: 1%;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .navbar {
+    display: inline-flex;
+    gap: 1vw;
+    align-items: flex-end;
+    list-style-type: none;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: solid 2px #d1d1d1;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}

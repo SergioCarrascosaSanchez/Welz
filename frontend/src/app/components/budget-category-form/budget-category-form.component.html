@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 style="font-size: x-large">{{ title }}</h1>
+  <app-alert
+    *ngIf="invalid"
+    [message]="errors"
+    [type]="errorAlertType"
+  ></app-alert>
+  <app-alert
+    *ngIf="correctAddition"
+    [message]="correctAdditionMessage"
+    [type]="successAlertType"
+  ></app-alert>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="Descripción"
+    />
+    <input
+      type="number"
+      formControlName="max"
+      inputmode="decimal"
+      lang="en"
+      placeholder="Cantidad máxima mensual"
+    />
+    <app-color-picker formControlName="color"></app-color-picker>
+    <div style="text-align: right; border: 0">
+      <button type="submit" *ngIf="!edit">Añadir categoría</button>
+      <button type="submit" *ngIf="edit">Editar categoría</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,42 @@
+<app-card type="thin-card"
+  ><app-date-controller></app-date-controller
+></app-card>
+
+<div style="display: grid; grid-template-columns: 32% 2% 32% 2% 32%">
+  <app-card style="grid-column: 1" type="card">
+    <app-budget-category-resume
+      title="Ingresos"
+      [categories]="budget.incomeCategories"
+    ></app-budget-category-resume>
+  </app-card>
+  <app-card style="grid-column: 3" type="card">
+    <app-budget-category-resume
+      title="Ahorro"
+      [categories]="budget.savingCategories"
+    ></app-budget-category-resume>
+  </app-card>
+  <app-card style="grid-column: 5" type="card">
+    <app-budget-category-resume
+      title="Gasto"
+      [categories]="budget.expensesCategories"
+    ></app-budget-category-resume>
+  </app-card>
+</div>
+
+<app-budget-category
+  title="Ingresos"
+  [categories]="budget.incomeCategories"
+  categoryName="incomeCategories"
+></app-budget-category>
+
+<app-budget-category
+  title="Ahorro"
+  [categories]="budget.savingCategories"
+  categoryName="savingCategories"
+></app-budget-category>
+
+<app-budget-category
+  title="Gasto"
+  [categories]="budget.expensesCategories"
+  categoryName="expensesCategories"
+></app-budget-category>

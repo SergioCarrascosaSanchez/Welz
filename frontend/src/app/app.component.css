@@ -1,0 +1,39 @@
+@media screen and (max-width: 767px) {
+  .app-container {
+    margin-top: 7%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 7%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .app-container {
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 10%;
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+  .app-container {
+    margin-top: 3%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 10%;
+    border: 0px;
+    height: 95%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .app-container {
+    margin-top: 3%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 10%;
+    height: 95%;
+  }
+}

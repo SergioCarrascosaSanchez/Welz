@@ -1,0 +1,116 @@
+<app-card type="subcard">
+  <div
+    style="
+      display: grid;
+      place-content: space-between;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    "
+  >
+    <div *ngIf="isAccount(data)" style="display: grid; place-content: center">
+      {{ data.name }}
+    </div>
+
+    <app-badge
+      *ngIf="isBudgetCategory(data)"
+      [text]="data.name"
+      [color]="data.color"
+    ></app-badge>
+
+    <div
+      style="
+        text-align: right;
+        grid-column: 3;
+        display: grid;
+        place-content: center;
+      "
+    >
+      <span
+        *ngIf="isAccount(data)"
+        style="display: grid; place-content: center; grid-column: 1"
+        >{{ data.balance | moneyFormat }}
+      </span>
+
+      <div
+        *ngIf="isBudgetCategory(data)"
+        style="
+          grid-column: 1;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          flex-direction: column;
+        "
+      >
+        <span>
+          {{ transactionQuantityTotal | moneyFormat }}
+          <span style="color: #979797"> / {{ data.max | moneyFormat }} </span>
+        </span>
+      </div>
+      <div
+        style="
+          display: grid;
+          place-content: center;
+          grid-column: 2;
+          margin-left: 5px;
+          margin-right: -8px;
+        "
+      >
+        <app-options-menu
+          (delete)="onDelete()"
+          (edit)="onEdit()"
+        ></app-options-menu>
+      </div>
+      <div style="grid-column: 3; display: grid; place-content: center">
+        <app-icon-button
+          (click)="onToggleOpen()"
+          *ngIf="!open"
+          type="arrow-down"
+        ></app-icon-button>
+        <app-icon-button
+          (click)="onToggleOpen()"
+          *ngIf="open"
+          type="arrow-up"
+        ></app-icon-button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="open && listOfTransactions.length >= 1"
+    style="border-top: solid 2px rgb(218, 218, 218); margin-top: 1.2vh"
+  >
+    <div
+      style="margin-top: 14px"
+      *ngFor="let transaction of listOfTransactions"
+    >
+      <app-transaction
+        [transaction]="transaction"
+        [type]="getTrasanctionType()"
+      >
+      </app-transaction>
+    </div>
+  </div>
+  <div
+    *ngIf="open && listOfTransactions.length <= 0"
+    style="color: rgba(150, 150, 150, 1); margin-top: 2.5%"
+  >
+    {{ emptyTransactionsMessage }}
+  </div>
+</app-card>
+
+<app-modal [open]="displayEditMenu" (closeEmmitter)="onClose()">
+  <app-account-form
+    *ngIf="isAccount(data)"
+    (closeEmitter)="onClose()"
+    [edit]="true"
+    [id]="data.id"
+    [open]="displayEditMenu"
+  ></app-account-form>
+  <app-budget-category-form
+    *ngIf="isBudgetCategory(data)"
+    (closeEmitter)="onClose()"
+    [edit]="true"
+    [category]="data"
+    [open]="displayEditMenu"
+  ></app-budget-category-form>
+</app-modal>

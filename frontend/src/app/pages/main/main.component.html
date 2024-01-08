@@ -1,0 +1,37 @@
+<div *ngIf="dataLoaded">
+  <h1 style="margin-block-start: 0.67em; margin-block-end: 0px">
+    Hola, {{ username }}
+  </h1>
+  <div style="display: flex; justify-content: space-between">
+    <div style="display: grid; place-content: end">
+      <app-navbar></app-navbar>
+    </div>
+    <app-icon-button (click)="onAdd()" type="add-primary"></app-icon-button>
+  </div>
+
+  <app-modal [open]="addModalOpen" (closeEmmitter)="onClose()">
+    <app-transaction-form [open]="addModalOpen"></app-transaction-form>
+  </app-modal>
+
+  <div *ngIf="dataLoaded">
+    <div style="margin-top: 10px" *ngIf="categories.length === 0">
+      <app-alert
+        [type]="alertType"
+        message="No hay categorias. Añadelas en el apartado de Presupuesto"
+      ></app-alert>
+    </div>
+    <div style="margin-top: 10px" *ngIf="accounts.length === 0">
+      <app-alert
+        [type]="alertType"
+        message="No hay cuentas bancarias. Añadelas en el apartado de Cuentas"
+      ></app-alert>
+    </div>
+
+    <router-outlet></router-outlet>
+    <div style="height: 30px"></div>
+  </div>
+</div>
+
+<div *ngIf="!dataLoaded">
+  <app-loading-spinner></app-loading-spinner>
+</div>

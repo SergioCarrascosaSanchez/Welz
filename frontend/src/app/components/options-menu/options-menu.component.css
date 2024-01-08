@@ -1,0 +1,35 @@
+@media screen and (min-width: 768px) {
+  .container {
+    position: static;
+    margin-top: 1px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    position: static;
+    margin-top: 0px;
+  }
+}
+
+.option {
+  padding: 8px;
+}
+
+.option:hover {
+  background-color: #ebebeb;
+}
+
+.options-container {
+  background-color: #ffffff;
+  z-index: 2;
+  position: absolute;
+  width: 100px;
+  padding: 2px;
+  border-radius: 5px;
+  border: solid 1px #ebebeb;
+  margin-left: -110px;
+  margin-top: -26px;
+  cursor: pointer;
+  text-align: left;
+}

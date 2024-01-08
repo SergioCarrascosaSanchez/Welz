@@ -1,0 +1,35 @@
+<div class="container">
+  <div style="display: grid; place-content: center">
+    <img
+      class="main-image"
+      src="../../assets/landing-image.png"
+      alt="landing-image"
+    />
+  </div>
+  <h1 class="title">Controla tus finanzas personales de una forma fácil</h1>
+  <button (click)="onLogin()">Pruébala ahora</button>
+</div>
+<div class="info-container">
+  <div class="container1">
+    <p class="container-text" style="margin-left: 30px">
+      Haz un presupuesto mensual para mantener el control de tu dinero
+    </p>
+    <app-simple-budget-resume-group></app-simple-budget-resume-group>
+  </div>
+
+  <div class="container2">
+    <p class="container-text">Organiza los movimientos en categorias</p>
+    <div style="display: grid; place-content: center">
+      <app-simple-badge-group></app-simple-badge-group>
+    </div>
+  </div>
+
+  <div class="container3">
+    <p class="container-text">Visualiza tu avance de un vistazo</p>
+    <div style="display: grid; place-content: center; margin: -20px">
+      <app-simple-chart></app-simple-chart>
+    </div>
+  </div>
+</div>
+
+<div class="footer"></div>

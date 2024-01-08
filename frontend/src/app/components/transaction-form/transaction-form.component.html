@@ -1,0 +1,70 @@
+<div class="container">
+  <h1 style="font-size: x-large">{{ title }}</h1>
+  <app-alert
+    *ngIf="invalid"
+    [message]="errors"
+    [type]="errorAlertType"
+  ></app-alert>
+  <app-alert
+    *ngIf="correctAddition"
+    [message]="correctAdditionMessage"
+    [type]="successAlertType"
+  ></app-alert>
+
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="Descripcion"
+    />
+    <input
+      type="number"
+      formControlName="quantity"
+      inputmode="decimal"
+      lang="en"
+      placeholder="Cantidad"
+    />
+
+    <select
+      formControlName="category"
+      [ngStyle]="{
+        color:
+          this.transactionForm.controls.category.value === null
+            ? 'rgb(113, 113, 122)'
+            : ''
+      }"
+    >
+      <option [value]="null" disabled="true">Categoria del presupuesto</option>
+      <option
+        *ngFor="let category of categories"
+        [ngValue]="category"
+        style="color: black"
+      >
+        {{ category.name }}
+      </option>
+    </select>
+
+    <select
+      formControlName="account"
+      [ngStyle]="{
+        color:
+          this.transactionForm.controls.account.value === null
+            ? 'rgb(113, 113, 122)'
+            : ''
+      }"
+    >
+      <option [value]="null" disabled="true">Cuenta bancaria</option>
+      <option
+        *ngFor="let account of accounts"
+        [ngValue]="account"
+        style="color: black"
+      >
+        {{ account.name }}
+      </option>
+    </select>
+    <div style="text-align: right; border: 0">
+      <button type="submit" *ngIf="!edit">{{ buttonText }}</button>
+      <button type="submit" *ngIf="edit">{{ editButtonText }}</button>
+    </div>
+  </form>
+</div>

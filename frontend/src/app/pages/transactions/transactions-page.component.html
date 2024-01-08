@@ -1,0 +1,29 @@
+<app-card>
+  <div
+    style="
+      display: flex;
+      gap: 15px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    "
+  >
+    <app-icon-button
+      id="left-arrow-button"
+      type="arrow-left"
+      (click)="back()"
+      [disabled]="firstDisplayed === 0"
+    ></app-icon-button>
+    <app-icon-button
+      id="right-arrow-button"
+      type="arrow-right"
+      (click)="next()"
+      [disabled]="lastDisplayed > transactions.length"
+    ></app-icon-button>
+  </div>
+  <div *ngIf="!(transactions.length > 0)" style="color: rgba(150, 150, 150, 1)">
+    {{ emptyTransactionsMessage }}
+  </div>
+  <app-card type="subcard" *ngFor="let transaction of currentTransactions">
+    <app-transaction [transaction]="transaction"></app-transaction>
+  </app-card>
+</app-card>

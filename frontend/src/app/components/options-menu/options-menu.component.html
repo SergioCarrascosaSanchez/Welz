@@ -1,0 +1,8 @@
+<div class="container">
+  <app-icon-button type="three-dots" (click)="onToggleMenu()"></app-icon-button>
+
+  <div *ngIf="displayMenu" class="options-container">
+    <div (click)="onEdit()" class="option">{{ editText }}</div>
+    <div (click)="onDelete()" class="option">{{ deleteText }}</div>
+  </div>
+</div>
